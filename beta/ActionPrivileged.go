@@ -8,17 +8,17 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
-
-// PrivilegedSignupStatusCollectionSignUpRequestParameter undocumented
-type PrivilegedSignupStatusCollectionSignUpRequestParameter struct {
-}
 
 // PrivilegedSignupStatusCollectionCompleteSetupRequestParameter undocumented
 type PrivilegedSignupStatusCollectionCompleteSetupRequestParameter struct {
 	// TenantSetupInfo undocumented
 	TenantSetupInfo *TenantSetupInfo `json:"tenantSetupInfo,omitempty"`
+}
+
+// PrivilegedSignupStatusCollectionSignUpRequestParameter undocumented
+type PrivilegedSignupStatusCollectionSignUpRequestParameter struct {
 }
 
 // PrivilegedRoleSelfActivateRequestParameter undocumented
@@ -37,6 +37,10 @@ type PrivilegedRoleSelfActivateRequestParameter struct {
 type PrivilegedRoleSelfDeactivateRequestParameter struct {
 }
 
+// PrivilegedRoleAssignmentMakeEligibleRequestParameter undocumented
+type PrivilegedRoleAssignmentMakeEligibleRequestParameter struct {
+}
+
 // PrivilegedRoleAssignmentMakePermanentRequestParameter undocumented
 type PrivilegedRoleAssignmentMakePermanentRequestParameter struct {
 	// Reason undocumented
@@ -45,10 +49,6 @@ type PrivilegedRoleAssignmentMakePermanentRequestParameter struct {
 	TicketNumber *string `json:"ticketNumber,omitempty"`
 	// TicketSystem undocumented
 	TicketSystem *string `json:"ticketSystem,omitempty"`
-}
-
-// PrivilegedRoleAssignmentMakeEligibleRequestParameter undocumented
-type PrivilegedRoleAssignmentMakeEligibleRequestParameter struct {
 }
 
 // PrivilegedRoleAssignmentRequestObjectCancelRequestParameter undocumented

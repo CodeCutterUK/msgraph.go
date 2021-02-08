@@ -6,37 +6,47 @@ package msgraph
 type ConditionalAccessClientApp string
 
 const (
+	// ConditionalAccessClientAppVAll undocumented
+	ConditionalAccessClientAppVAll ConditionalAccessClientApp = "all"
 	// ConditionalAccessClientAppVBrowser undocumented
 	ConditionalAccessClientAppVBrowser ConditionalAccessClientApp = "browser"
-	// ConditionalAccessClientAppVModern undocumented
-	ConditionalAccessClientAppVModern ConditionalAccessClientApp = "modern"
+	// ConditionalAccessClientAppVMobileAppsAndDesktopClients undocumented
+	ConditionalAccessClientAppVMobileAppsAndDesktopClients ConditionalAccessClientApp = "mobileAppsAndDesktopClients"
+	// ConditionalAccessClientAppVExchangeActiveSync undocumented
+	ConditionalAccessClientAppVExchangeActiveSync ConditionalAccessClientApp = "exchangeActiveSync"
 	// ConditionalAccessClientAppVEasSupported undocumented
 	ConditionalAccessClientAppVEasSupported ConditionalAccessClientApp = "easSupported"
-	// ConditionalAccessClientAppVEasUnsupported undocumented
-	ConditionalAccessClientAppVEasUnsupported ConditionalAccessClientApp = "easUnsupported"
 	// ConditionalAccessClientAppVOther undocumented
 	ConditionalAccessClientAppVOther ConditionalAccessClientApp = "other"
+	// ConditionalAccessClientAppVUnknownFutureValue undocumented
+	ConditionalAccessClientAppVUnknownFutureValue ConditionalAccessClientApp = "unknownFutureValue"
 )
 
 var (
+	// ConditionalAccessClientAppPAll is a pointer to ConditionalAccessClientAppVAll
+	ConditionalAccessClientAppPAll = &_ConditionalAccessClientAppPAll
 	// ConditionalAccessClientAppPBrowser is a pointer to ConditionalAccessClientAppVBrowser
 	ConditionalAccessClientAppPBrowser = &_ConditionalAccessClientAppPBrowser
-	// ConditionalAccessClientAppPModern is a pointer to ConditionalAccessClientAppVModern
-	ConditionalAccessClientAppPModern = &_ConditionalAccessClientAppPModern
+	// ConditionalAccessClientAppPMobileAppsAndDesktopClients is a pointer to ConditionalAccessClientAppVMobileAppsAndDesktopClients
+	ConditionalAccessClientAppPMobileAppsAndDesktopClients = &_ConditionalAccessClientAppPMobileAppsAndDesktopClients
+	// ConditionalAccessClientAppPExchangeActiveSync is a pointer to ConditionalAccessClientAppVExchangeActiveSync
+	ConditionalAccessClientAppPExchangeActiveSync = &_ConditionalAccessClientAppPExchangeActiveSync
 	// ConditionalAccessClientAppPEasSupported is a pointer to ConditionalAccessClientAppVEasSupported
 	ConditionalAccessClientAppPEasSupported = &_ConditionalAccessClientAppPEasSupported
-	// ConditionalAccessClientAppPEasUnsupported is a pointer to ConditionalAccessClientAppVEasUnsupported
-	ConditionalAccessClientAppPEasUnsupported = &_ConditionalAccessClientAppPEasUnsupported
 	// ConditionalAccessClientAppPOther is a pointer to ConditionalAccessClientAppVOther
 	ConditionalAccessClientAppPOther = &_ConditionalAccessClientAppPOther
+	// ConditionalAccessClientAppPUnknownFutureValue is a pointer to ConditionalAccessClientAppVUnknownFutureValue
+	ConditionalAccessClientAppPUnknownFutureValue = &_ConditionalAccessClientAppPUnknownFutureValue
 )
 
 var (
-	_ConditionalAccessClientAppPBrowser        = ConditionalAccessClientAppVBrowser
-	_ConditionalAccessClientAppPModern         = ConditionalAccessClientAppVModern
-	_ConditionalAccessClientAppPEasSupported   = ConditionalAccessClientAppVEasSupported
-	_ConditionalAccessClientAppPEasUnsupported = ConditionalAccessClientAppVEasUnsupported
-	_ConditionalAccessClientAppPOther          = ConditionalAccessClientAppVOther
+	_ConditionalAccessClientAppPAll                         = ConditionalAccessClientAppVAll
+	_ConditionalAccessClientAppPBrowser                     = ConditionalAccessClientAppVBrowser
+	_ConditionalAccessClientAppPMobileAppsAndDesktopClients = ConditionalAccessClientAppVMobileAppsAndDesktopClients
+	_ConditionalAccessClientAppPExchangeActiveSync          = ConditionalAccessClientAppVExchangeActiveSync
+	_ConditionalAccessClientAppPEasSupported                = ConditionalAccessClientAppVEasSupported
+	_ConditionalAccessClientAppPOther                       = ConditionalAccessClientAppVOther
+	_ConditionalAccessClientAppPUnknownFutureValue          = ConditionalAccessClientAppVUnknownFutureValue
 )
 
 // ConditionalAccessConditions undocumented
@@ -122,6 +132,8 @@ const (
 	ConditionalAccessDevicePlatformVMacOS ConditionalAccessDevicePlatform = "macOS"
 	// ConditionalAccessDevicePlatformVAll undocumented
 	ConditionalAccessDevicePlatformVAll ConditionalAccessDevicePlatform = "all"
+	// ConditionalAccessDevicePlatformVUnknownFutureValue undocumented
+	ConditionalAccessDevicePlatformVUnknownFutureValue ConditionalAccessDevicePlatform = "unknownFutureValue"
 )
 
 var (
@@ -137,15 +149,18 @@ var (
 	ConditionalAccessDevicePlatformPMacOS = &_ConditionalAccessDevicePlatformPMacOS
 	// ConditionalAccessDevicePlatformPAll is a pointer to ConditionalAccessDevicePlatformVAll
 	ConditionalAccessDevicePlatformPAll = &_ConditionalAccessDevicePlatformPAll
+	// ConditionalAccessDevicePlatformPUnknownFutureValue is a pointer to ConditionalAccessDevicePlatformVUnknownFutureValue
+	ConditionalAccessDevicePlatformPUnknownFutureValue = &_ConditionalAccessDevicePlatformPUnknownFutureValue
 )
 
 var (
-	_ConditionalAccessDevicePlatformPAndroid      = ConditionalAccessDevicePlatformVAndroid
-	_ConditionalAccessDevicePlatformPIOS          = ConditionalAccessDevicePlatformVIOS
-	_ConditionalAccessDevicePlatformPWindows      = ConditionalAccessDevicePlatformVWindows
-	_ConditionalAccessDevicePlatformPWindowsPhone = ConditionalAccessDevicePlatformVWindowsPhone
-	_ConditionalAccessDevicePlatformPMacOS        = ConditionalAccessDevicePlatformVMacOS
-	_ConditionalAccessDevicePlatformPAll          = ConditionalAccessDevicePlatformVAll
+	_ConditionalAccessDevicePlatformPAndroid            = ConditionalAccessDevicePlatformVAndroid
+	_ConditionalAccessDevicePlatformPIOS                = ConditionalAccessDevicePlatformVIOS
+	_ConditionalAccessDevicePlatformPWindows            = ConditionalAccessDevicePlatformVWindows
+	_ConditionalAccessDevicePlatformPWindowsPhone       = ConditionalAccessDevicePlatformVWindowsPhone
+	_ConditionalAccessDevicePlatformPMacOS              = ConditionalAccessDevicePlatformVMacOS
+	_ConditionalAccessDevicePlatformPAll                = ConditionalAccessDevicePlatformVAll
+	_ConditionalAccessDevicePlatformPUnknownFutureValue = ConditionalAccessDevicePlatformVUnknownFutureValue
 )
 
 // ConditionalAccessGrantControl undocumented
@@ -164,6 +179,10 @@ const (
 	ConditionalAccessGrantControlVApprovedApplication ConditionalAccessGrantControl = "approvedApplication"
 	// ConditionalAccessGrantControlVCompliantApplication undocumented
 	ConditionalAccessGrantControlVCompliantApplication ConditionalAccessGrantControl = "compliantApplication"
+	// ConditionalAccessGrantControlVPasswordChange undocumented
+	ConditionalAccessGrantControlVPasswordChange ConditionalAccessGrantControl = "passwordChange"
+	// ConditionalAccessGrantControlVUnknownFutureValue undocumented
+	ConditionalAccessGrantControlVUnknownFutureValue ConditionalAccessGrantControl = "unknownFutureValue"
 )
 
 var (
@@ -179,6 +198,10 @@ var (
 	ConditionalAccessGrantControlPApprovedApplication = &_ConditionalAccessGrantControlPApprovedApplication
 	// ConditionalAccessGrantControlPCompliantApplication is a pointer to ConditionalAccessGrantControlVCompliantApplication
 	ConditionalAccessGrantControlPCompliantApplication = &_ConditionalAccessGrantControlPCompliantApplication
+	// ConditionalAccessGrantControlPPasswordChange is a pointer to ConditionalAccessGrantControlVPasswordChange
+	ConditionalAccessGrantControlPPasswordChange = &_ConditionalAccessGrantControlPPasswordChange
+	// ConditionalAccessGrantControlPUnknownFutureValue is a pointer to ConditionalAccessGrantControlVUnknownFutureValue
+	ConditionalAccessGrantControlPUnknownFutureValue = &_ConditionalAccessGrantControlPUnknownFutureValue
 )
 
 var (
@@ -188,6 +211,8 @@ var (
 	_ConditionalAccessGrantControlPDomainJoinedDevice   = ConditionalAccessGrantControlVDomainJoinedDevice
 	_ConditionalAccessGrantControlPApprovedApplication  = ConditionalAccessGrantControlVApprovedApplication
 	_ConditionalAccessGrantControlPCompliantApplication = ConditionalAccessGrantControlVCompliantApplication
+	_ConditionalAccessGrantControlPPasswordChange       = ConditionalAccessGrantControlVPasswordChange
+	_ConditionalAccessGrantControlPUnknownFutureValue   = ConditionalAccessGrantControlVUnknownFutureValue
 )
 
 // ConditionalAccessPolicyState undocumented

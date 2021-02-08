@@ -14,8 +14,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/codecutteruk/msgraph.go/jsonx"
 	"github.com/rickb777/date/period"
-	"github.com/yaegashi/msgraph.go/jsonx"
 )
 
 // Binary is type alias for Edm.Binary
@@ -137,8 +137,9 @@ func (r *ErrorResponse) StatusCode() int {
 
 // Paging is sturct returned to paging requests
 type Paging struct {
-	NextLink string          `json:"@odata.nextLink"`
-	Value    json.RawMessage `json:"value"`
+	NextLink  string          `json:"@odata.nextLink"`
+	DeltaLink string          `json:"@odata.deltaLink"`
+	Value     json.RawMessage `json:"value"`
 }
 
 // BaseRequestBuilder is base reuqest builder

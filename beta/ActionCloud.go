@@ -8,13 +8,33 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // CloudCommunicationsGetPresencesByUserIDRequestParameter undocumented
 type CloudCommunicationsGetPresencesByUserIDRequestParameter struct {
 	// IDs undocumented
 	IDs []string `json:"ids,omitempty"`
+}
+
+// CloudPCReprovisionRequestParameter undocumented
+type CloudPCReprovisionRequestParameter struct {
+}
+
+// CloudPcOnPremisesConnectionRunHealthChecksRequestParameter undocumented
+type CloudPcOnPremisesConnectionRunHealthChecksRequestParameter struct {
+}
+
+// CloudPcOnPremisesConnectionUpdateAdDomainPasswordRequestParameter undocumented
+type CloudPcOnPremisesConnectionUpdateAdDomainPasswordRequestParameter struct {
+	// AdDomainPassword undocumented
+	AdDomainPassword *string `json:"adDomainPassword,omitempty"`
+}
+
+// CloudPcProvisioningPolicyAssignRequestParameter undocumented
+type CloudPcProvisioningPolicyAssignRequestParameter struct {
+	// Assignments undocumented
+	Assignments []CloudPcProvisioningPolicyAssignment `json:"assignments,omitempty"`
 }
 
 // Calls returns request builder for Call collection
@@ -219,6 +239,212 @@ func (r *CloudCommunicationsOnlineMeetingsCollectionRequest) Get(ctx context.Con
 
 // Add performs POST request for OnlineMeeting collection
 func (r *CloudCommunicationsOnlineMeetingsCollectionRequest) Add(ctx context.Context, reqObj *OnlineMeeting) (resObj *OnlineMeeting, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// Presences returns request builder for Presence collection
+func (b *CloudCommunicationsRequestBuilder) Presences() *CloudCommunicationsPresencesCollectionRequestBuilder {
+	bb := &CloudCommunicationsPresencesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/presences"
+	return bb
+}
+
+// CloudCommunicationsPresencesCollectionRequestBuilder is request builder for Presence collection
+type CloudCommunicationsPresencesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for Presence collection
+func (b *CloudCommunicationsPresencesCollectionRequestBuilder) Request() *CloudCommunicationsPresencesCollectionRequest {
+	return &CloudCommunicationsPresencesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for Presence item
+func (b *CloudCommunicationsPresencesCollectionRequestBuilder) ID(id string) *PresenceRequestBuilder {
+	bb := &PresenceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// CloudCommunicationsPresencesCollectionRequest is request for Presence collection
+type CloudCommunicationsPresencesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for Presence collection
+func (r *CloudCommunicationsPresencesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]Presence, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []Presence
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []Presence
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for Presence collection, max N pages
+func (r *CloudCommunicationsPresencesCollectionRequest) GetN(ctx context.Context, n int) ([]Presence, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for Presence collection
+func (r *CloudCommunicationsPresencesCollectionRequest) Get(ctx context.Context) ([]Presence, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for Presence collection
+func (r *CloudCommunicationsPresencesCollectionRequest) Add(ctx context.Context, reqObj *Presence) (resObj *Presence, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// Assignments returns request builder for CloudPcProvisioningPolicyAssignment collection
+func (b *CloudPcProvisioningPolicyRequestBuilder) Assignments() *CloudPcProvisioningPolicyAssignmentsCollectionRequestBuilder {
+	bb := &CloudPcProvisioningPolicyAssignmentsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/assignments"
+	return bb
+}
+
+// CloudPcProvisioningPolicyAssignmentsCollectionRequestBuilder is request builder for CloudPcProvisioningPolicyAssignment collection
+type CloudPcProvisioningPolicyAssignmentsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for CloudPcProvisioningPolicyAssignment collection
+func (b *CloudPcProvisioningPolicyAssignmentsCollectionRequestBuilder) Request() *CloudPcProvisioningPolicyAssignmentsCollectionRequest {
+	return &CloudPcProvisioningPolicyAssignmentsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for CloudPcProvisioningPolicyAssignment item
+func (b *CloudPcProvisioningPolicyAssignmentsCollectionRequestBuilder) ID(id string) *CloudPcProvisioningPolicyAssignmentRequestBuilder {
+	bb := &CloudPcProvisioningPolicyAssignmentRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// CloudPcProvisioningPolicyAssignmentsCollectionRequest is request for CloudPcProvisioningPolicyAssignment collection
+type CloudPcProvisioningPolicyAssignmentsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for CloudPcProvisioningPolicyAssignment collection
+func (r *CloudPcProvisioningPolicyAssignmentsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]CloudPcProvisioningPolicyAssignment, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []CloudPcProvisioningPolicyAssignment
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []CloudPcProvisioningPolicyAssignment
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for CloudPcProvisioningPolicyAssignment collection, max N pages
+func (r *CloudPcProvisioningPolicyAssignmentsCollectionRequest) GetN(ctx context.Context, n int) ([]CloudPcProvisioningPolicyAssignment, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for CloudPcProvisioningPolicyAssignment collection
+func (r *CloudPcProvisioningPolicyAssignmentsCollectionRequest) Get(ctx context.Context) ([]CloudPcProvisioningPolicyAssignment, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for CloudPcProvisioningPolicyAssignment collection
+func (r *CloudPcProvisioningPolicyAssignmentsCollectionRequest) Add(ctx context.Context, reqObj *CloudPcProvisioningPolicyAssignment) (resObj *CloudPcProvisioningPolicyAssignment, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }

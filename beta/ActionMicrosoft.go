@@ -7,9 +7,38 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestParameter undocumented
+type MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestParameter struct {
+	// StartDateTime undocumented
+	StartDateTime *time.Time `json:"startDateTime,omitempty"`
+	// EndDateTime undocumented
+	EndDateTime *time.Time `json:"endDateTime,omitempty"`
+}
+
+// MicrosoftTunnelServerGetHealthMetricsRequestParameter undocumented
+type MicrosoftTunnelServerGetHealthMetricsRequestParameter struct {
+	// MetricNames undocumented
+	MetricNames []string `json:"metricNames,omitempty"`
+}
+
+// MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestParameter undocumented
+type MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestParameter struct {
+	// MetricName undocumented
+	MetricName *string `json:"metricName,omitempty"`
+	// StartTime undocumented
+	StartTime *time.Time `json:"startTime,omitempty"`
+	// EndTime undocumented
+	EndTime *time.Time `json:"endTime,omitempty"`
+}
+
+// MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestParameter undocumented
+type MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestParameter struct {
+}
 
 // ContainedApps returns request builder for MobileContainedApp collection
 func (b *MicrosoftStoreForBusinessAppRequestBuilder) ContainedApps() *MicrosoftStoreForBusinessAppContainedAppsCollectionRequestBuilder {
@@ -110,6 +139,116 @@ func (r *MicrosoftStoreForBusinessAppContainedAppsCollectionRequest) Get(ctx con
 
 // Add performs POST request for MobileContainedApp collection
 func (r *MicrosoftStoreForBusinessAppContainedAppsCollectionRequest) Add(ctx context.Context, reqObj *MobileContainedApp) (resObj *MobileContainedApp, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// MicrosoftTunnelConfiguration is navigation property
+func (b *MicrosoftTunnelSiteRequestBuilder) MicrosoftTunnelConfiguration() *MicrosoftTunnelConfigurationRequestBuilder {
+	bb := &MicrosoftTunnelConfigurationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/microsoftTunnelConfiguration"
+	return bb
+}
+
+// MicrosoftTunnelServers returns request builder for MicrosoftTunnelServer collection
+func (b *MicrosoftTunnelSiteRequestBuilder) MicrosoftTunnelServers() *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequestBuilder {
+	bb := &MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/microsoftTunnelServers"
+	return bb
+}
+
+// MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequestBuilder is request builder for MicrosoftTunnelServer collection
+type MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for MicrosoftTunnelServer collection
+func (b *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequestBuilder) Request() *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest {
+	return &MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for MicrosoftTunnelServer item
+func (b *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequestBuilder) ID(id string) *MicrosoftTunnelServerRequestBuilder {
+	bb := &MicrosoftTunnelServerRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest is request for MicrosoftTunnelServer collection
+type MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for MicrosoftTunnelServer collection
+func (r *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]MicrosoftTunnelServer, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []MicrosoftTunnelServer
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []MicrosoftTunnelServer
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for MicrosoftTunnelServer collection, max N pages
+func (r *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest) GetN(ctx context.Context, n int) ([]MicrosoftTunnelServer, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for MicrosoftTunnelServer collection
+func (r *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest) Get(ctx context.Context) ([]MicrosoftTunnelServer, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for MicrosoftTunnelServer collection
+func (r *MicrosoftTunnelSiteMicrosoftTunnelServersCollectionRequest) Add(ctx context.Context, reqObj *MicrosoftTunnelServer) (resObj *MicrosoftTunnelServer, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }

@@ -8,8 +8,111 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// ResourceNamespaces returns request builder for UnifiedRbacResourceNamespace collection
+func (b *RbacApplicationRequestBuilder) ResourceNamespaces() *RbacApplicationResourceNamespacesCollectionRequestBuilder {
+	bb := &RbacApplicationResourceNamespacesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/resourceNamespaces"
+	return bb
+}
+
+// RbacApplicationResourceNamespacesCollectionRequestBuilder is request builder for UnifiedRbacResourceNamespace collection
+type RbacApplicationResourceNamespacesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UnifiedRbacResourceNamespace collection
+func (b *RbacApplicationResourceNamespacesCollectionRequestBuilder) Request() *RbacApplicationResourceNamespacesCollectionRequest {
+	return &RbacApplicationResourceNamespacesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UnifiedRbacResourceNamespace item
+func (b *RbacApplicationResourceNamespacesCollectionRequestBuilder) ID(id string) *UnifiedRbacResourceNamespaceRequestBuilder {
+	bb := &UnifiedRbacResourceNamespaceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// RbacApplicationResourceNamespacesCollectionRequest is request for UnifiedRbacResourceNamespace collection
+type RbacApplicationResourceNamespacesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UnifiedRbacResourceNamespace collection
+func (r *RbacApplicationResourceNamespacesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UnifiedRbacResourceNamespace, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UnifiedRbacResourceNamespace
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UnifiedRbacResourceNamespace
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UnifiedRbacResourceNamespace collection, max N pages
+func (r *RbacApplicationResourceNamespacesCollectionRequest) GetN(ctx context.Context, n int) ([]UnifiedRbacResourceNamespace, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UnifiedRbacResourceNamespace collection
+func (r *RbacApplicationResourceNamespacesCollectionRequest) Get(ctx context.Context) ([]UnifiedRbacResourceNamespace, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UnifiedRbacResourceNamespace collection
+func (r *RbacApplicationResourceNamespacesCollectionRequest) Add(ctx context.Context, reqObj *UnifiedRbacResourceNamespace) (resObj *UnifiedRbacResourceNamespace, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
 
 // RoleAssignments returns request builder for UnifiedRoleAssignment collection
 func (b *RbacApplicationRequestBuilder) RoleAssignments() *RbacApplicationRoleAssignmentsCollectionRequestBuilder {
@@ -213,6 +316,315 @@ func (r *RbacApplicationRoleDefinitionsCollectionRequest) Get(ctx context.Contex
 
 // Add performs POST request for UnifiedRoleDefinition collection
 func (r *RbacApplicationRoleDefinitionsCollectionRequest) Add(ctx context.Context, reqObj *UnifiedRoleDefinition) (resObj *UnifiedRoleDefinition, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// ResourceNamespaces returns request builder for UnifiedRbacResourceNamespace collection
+func (b *RbacApplicationMultipleRequestBuilder) ResourceNamespaces() *RbacApplicationMultipleResourceNamespacesCollectionRequestBuilder {
+	bb := &RbacApplicationMultipleResourceNamespacesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/resourceNamespaces"
+	return bb
+}
+
+// RbacApplicationMultipleResourceNamespacesCollectionRequestBuilder is request builder for UnifiedRbacResourceNamespace collection
+type RbacApplicationMultipleResourceNamespacesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UnifiedRbacResourceNamespace collection
+func (b *RbacApplicationMultipleResourceNamespacesCollectionRequestBuilder) Request() *RbacApplicationMultipleResourceNamespacesCollectionRequest {
+	return &RbacApplicationMultipleResourceNamespacesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UnifiedRbacResourceNamespace item
+func (b *RbacApplicationMultipleResourceNamespacesCollectionRequestBuilder) ID(id string) *UnifiedRbacResourceNamespaceRequestBuilder {
+	bb := &UnifiedRbacResourceNamespaceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// RbacApplicationMultipleResourceNamespacesCollectionRequest is request for UnifiedRbacResourceNamespace collection
+type RbacApplicationMultipleResourceNamespacesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UnifiedRbacResourceNamespace collection
+func (r *RbacApplicationMultipleResourceNamespacesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UnifiedRbacResourceNamespace, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UnifiedRbacResourceNamespace
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UnifiedRbacResourceNamespace
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UnifiedRbacResourceNamespace collection, max N pages
+func (r *RbacApplicationMultipleResourceNamespacesCollectionRequest) GetN(ctx context.Context, n int) ([]UnifiedRbacResourceNamespace, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UnifiedRbacResourceNamespace collection
+func (r *RbacApplicationMultipleResourceNamespacesCollectionRequest) Get(ctx context.Context) ([]UnifiedRbacResourceNamespace, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UnifiedRbacResourceNamespace collection
+func (r *RbacApplicationMultipleResourceNamespacesCollectionRequest) Add(ctx context.Context, reqObj *UnifiedRbacResourceNamespace) (resObj *UnifiedRbacResourceNamespace, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// RoleAssignments returns request builder for UnifiedRoleAssignmentMultiple collection
+func (b *RbacApplicationMultipleRequestBuilder) RoleAssignments() *RbacApplicationMultipleRoleAssignmentsCollectionRequestBuilder {
+	bb := &RbacApplicationMultipleRoleAssignmentsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/roleAssignments"
+	return bb
+}
+
+// RbacApplicationMultipleRoleAssignmentsCollectionRequestBuilder is request builder for UnifiedRoleAssignmentMultiple collection
+type RbacApplicationMultipleRoleAssignmentsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UnifiedRoleAssignmentMultiple collection
+func (b *RbacApplicationMultipleRoleAssignmentsCollectionRequestBuilder) Request() *RbacApplicationMultipleRoleAssignmentsCollectionRequest {
+	return &RbacApplicationMultipleRoleAssignmentsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UnifiedRoleAssignmentMultiple item
+func (b *RbacApplicationMultipleRoleAssignmentsCollectionRequestBuilder) ID(id string) *UnifiedRoleAssignmentMultipleRequestBuilder {
+	bb := &UnifiedRoleAssignmentMultipleRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// RbacApplicationMultipleRoleAssignmentsCollectionRequest is request for UnifiedRoleAssignmentMultiple collection
+type RbacApplicationMultipleRoleAssignmentsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UnifiedRoleAssignmentMultiple collection
+func (r *RbacApplicationMultipleRoleAssignmentsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UnifiedRoleAssignmentMultiple, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UnifiedRoleAssignmentMultiple
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UnifiedRoleAssignmentMultiple
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UnifiedRoleAssignmentMultiple collection, max N pages
+func (r *RbacApplicationMultipleRoleAssignmentsCollectionRequest) GetN(ctx context.Context, n int) ([]UnifiedRoleAssignmentMultiple, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UnifiedRoleAssignmentMultiple collection
+func (r *RbacApplicationMultipleRoleAssignmentsCollectionRequest) Get(ctx context.Context) ([]UnifiedRoleAssignmentMultiple, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UnifiedRoleAssignmentMultiple collection
+func (r *RbacApplicationMultipleRoleAssignmentsCollectionRequest) Add(ctx context.Context, reqObj *UnifiedRoleAssignmentMultiple) (resObj *UnifiedRoleAssignmentMultiple, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// RoleDefinitions returns request builder for UnifiedRoleDefinition collection
+func (b *RbacApplicationMultipleRequestBuilder) RoleDefinitions() *RbacApplicationMultipleRoleDefinitionsCollectionRequestBuilder {
+	bb := &RbacApplicationMultipleRoleDefinitionsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/roleDefinitions"
+	return bb
+}
+
+// RbacApplicationMultipleRoleDefinitionsCollectionRequestBuilder is request builder for UnifiedRoleDefinition collection
+type RbacApplicationMultipleRoleDefinitionsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UnifiedRoleDefinition collection
+func (b *RbacApplicationMultipleRoleDefinitionsCollectionRequestBuilder) Request() *RbacApplicationMultipleRoleDefinitionsCollectionRequest {
+	return &RbacApplicationMultipleRoleDefinitionsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UnifiedRoleDefinition item
+func (b *RbacApplicationMultipleRoleDefinitionsCollectionRequestBuilder) ID(id string) *UnifiedRoleDefinitionRequestBuilder {
+	bb := &UnifiedRoleDefinitionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// RbacApplicationMultipleRoleDefinitionsCollectionRequest is request for UnifiedRoleDefinition collection
+type RbacApplicationMultipleRoleDefinitionsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UnifiedRoleDefinition collection
+func (r *RbacApplicationMultipleRoleDefinitionsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UnifiedRoleDefinition, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UnifiedRoleDefinition
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UnifiedRoleDefinition
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UnifiedRoleDefinition collection, max N pages
+func (r *RbacApplicationMultipleRoleDefinitionsCollectionRequest) GetN(ctx context.Context, n int) ([]UnifiedRoleDefinition, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UnifiedRoleDefinition collection
+func (r *RbacApplicationMultipleRoleDefinitionsCollectionRequest) Get(ctx context.Context) ([]UnifiedRoleDefinition, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UnifiedRoleDefinition collection
+func (r *RbacApplicationMultipleRoleDefinitionsCollectionRequest) Add(ctx context.Context, reqObj *UnifiedRoleDefinition) (resObj *UnifiedRoleDefinition, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }

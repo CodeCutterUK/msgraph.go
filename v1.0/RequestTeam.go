@@ -38,32 +38,6 @@ func (r *TeamRequest) Delete(ctx context.Context) error {
 }
 
 //
-type TeamCloneRequestBuilder struct{ BaseRequestBuilder }
-
-// Clone action undocumented
-func (b *TeamRequestBuilder) Clone(reqObj *TeamCloneRequestParameter) *TeamCloneRequestBuilder {
-	bb := &TeamCloneRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/clone"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type TeamCloneRequest struct{ BaseRequest }
-
-//
-func (b *TeamCloneRequestBuilder) Request() *TeamCloneRequest {
-	return &TeamCloneRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *TeamCloneRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type TeamArchiveRequestBuilder struct{ BaseRequestBuilder }
 
 // Archive action undocumented
@@ -86,6 +60,32 @@ func (b *TeamArchiveRequestBuilder) Request() *TeamArchiveRequest {
 
 //
 func (r *TeamArchiveRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type TeamCloneRequestBuilder struct{ BaseRequestBuilder }
+
+// Clone action undocumented
+func (b *TeamRequestBuilder) Clone(reqObj *TeamCloneRequestParameter) *TeamCloneRequestBuilder {
+	bb := &TeamCloneRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/clone"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TeamCloneRequest struct{ BaseRequest }
+
+//
+func (b *TeamCloneRequestBuilder) Request() *TeamCloneRequest {
+	return &TeamCloneRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TeamCloneRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 

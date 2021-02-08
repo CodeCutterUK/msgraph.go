@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // ServicePrincipalCreatePasswordSingleSignOnCredentialsRequestParameter undocumented
@@ -19,14 +19,14 @@ type ServicePrincipalCreatePasswordSingleSignOnCredentialsRequestParameter struc
 	Credentials []Credential `json:"credentials,omitempty"`
 }
 
-// ServicePrincipalGetPasswordSingleSignOnCredentialsRequestParameter undocumented
-type ServicePrincipalGetPasswordSingleSignOnCredentialsRequestParameter struct {
+// ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestParameter undocumented
+type ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestParameter struct {
 	// ID undocumented
 	ID *string `json:"id,omitempty"`
 }
 
-// ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestParameter undocumented
-type ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestParameter struct {
+// ServicePrincipalGetPasswordSingleSignOnCredentialsRequestParameter undocumented
+type ServicePrincipalGetPasswordSingleSignOnCredentialsRequestParameter struct {
 	// ID undocumented
 	ID *string `json:"id,omitempty"`
 }
@@ -245,6 +245,109 @@ func (r *ServicePrincipalAppRoleAssignmentsCollectionRequest) Add(ctx context.Co
 	return
 }
 
+// ClaimsMappingPolicies returns request builder for ClaimsMappingPolicy collection
+func (b *ServicePrincipalRequestBuilder) ClaimsMappingPolicies() *ServicePrincipalClaimsMappingPoliciesCollectionRequestBuilder {
+	bb := &ServicePrincipalClaimsMappingPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/claimsMappingPolicies"
+	return bb
+}
+
+// ServicePrincipalClaimsMappingPoliciesCollectionRequestBuilder is request builder for ClaimsMappingPolicy collection
+type ServicePrincipalClaimsMappingPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for ClaimsMappingPolicy collection
+func (b *ServicePrincipalClaimsMappingPoliciesCollectionRequestBuilder) Request() *ServicePrincipalClaimsMappingPoliciesCollectionRequest {
+	return &ServicePrincipalClaimsMappingPoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for ClaimsMappingPolicy item
+func (b *ServicePrincipalClaimsMappingPoliciesCollectionRequestBuilder) ID(id string) *ClaimsMappingPolicyRequestBuilder {
+	bb := &ClaimsMappingPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// ServicePrincipalClaimsMappingPoliciesCollectionRequest is request for ClaimsMappingPolicy collection
+type ServicePrincipalClaimsMappingPoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for ClaimsMappingPolicy collection
+func (r *ServicePrincipalClaimsMappingPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]ClaimsMappingPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []ClaimsMappingPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []ClaimsMappingPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for ClaimsMappingPolicy collection, max N pages
+func (r *ServicePrincipalClaimsMappingPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]ClaimsMappingPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for ClaimsMappingPolicy collection
+func (r *ServicePrincipalClaimsMappingPoliciesCollectionRequest) Get(ctx context.Context) ([]ClaimsMappingPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for ClaimsMappingPolicy collection
+func (r *ServicePrincipalClaimsMappingPoliciesCollectionRequest) Add(ctx context.Context, reqObj *ClaimsMappingPolicy) (resObj *ClaimsMappingPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
 // CreatedObjects returns request builder for DirectoryObject collection
 func (b *ServicePrincipalRequestBuilder) CreatedObjects() *ServicePrincipalCreatedObjectsCollectionRequestBuilder {
 	bb := &ServicePrincipalCreatedObjectsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -344,6 +447,315 @@ func (r *ServicePrincipalCreatedObjectsCollectionRequest) Get(ctx context.Contex
 
 // Add performs POST request for DirectoryObject collection
 func (r *ServicePrincipalCreatedObjectsCollectionRequest) Add(ctx context.Context, reqObj *DirectoryObject) (resObj *DirectoryObject, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// DelegatedPermissionClassifications returns request builder for DelegatedPermissionClassification collection
+func (b *ServicePrincipalRequestBuilder) DelegatedPermissionClassifications() *ServicePrincipalDelegatedPermissionClassificationsCollectionRequestBuilder {
+	bb := &ServicePrincipalDelegatedPermissionClassificationsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/delegatedPermissionClassifications"
+	return bb
+}
+
+// ServicePrincipalDelegatedPermissionClassificationsCollectionRequestBuilder is request builder for DelegatedPermissionClassification collection
+type ServicePrincipalDelegatedPermissionClassificationsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for DelegatedPermissionClassification collection
+func (b *ServicePrincipalDelegatedPermissionClassificationsCollectionRequestBuilder) Request() *ServicePrincipalDelegatedPermissionClassificationsCollectionRequest {
+	return &ServicePrincipalDelegatedPermissionClassificationsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for DelegatedPermissionClassification item
+func (b *ServicePrincipalDelegatedPermissionClassificationsCollectionRequestBuilder) ID(id string) *DelegatedPermissionClassificationRequestBuilder {
+	bb := &DelegatedPermissionClassificationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// ServicePrincipalDelegatedPermissionClassificationsCollectionRequest is request for DelegatedPermissionClassification collection
+type ServicePrincipalDelegatedPermissionClassificationsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for DelegatedPermissionClassification collection
+func (r *ServicePrincipalDelegatedPermissionClassificationsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]DelegatedPermissionClassification, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []DelegatedPermissionClassification
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []DelegatedPermissionClassification
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for DelegatedPermissionClassification collection, max N pages
+func (r *ServicePrincipalDelegatedPermissionClassificationsCollectionRequest) GetN(ctx context.Context, n int) ([]DelegatedPermissionClassification, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for DelegatedPermissionClassification collection
+func (r *ServicePrincipalDelegatedPermissionClassificationsCollectionRequest) Get(ctx context.Context) ([]DelegatedPermissionClassification, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for DelegatedPermissionClassification collection
+func (r *ServicePrincipalDelegatedPermissionClassificationsCollectionRequest) Add(ctx context.Context, reqObj *DelegatedPermissionClassification) (resObj *DelegatedPermissionClassification, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// Endpoints returns request builder for Endpoint collection
+func (b *ServicePrincipalRequestBuilder) Endpoints() *ServicePrincipalEndpointsCollectionRequestBuilder {
+	bb := &ServicePrincipalEndpointsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/endpoints"
+	return bb
+}
+
+// ServicePrincipalEndpointsCollectionRequestBuilder is request builder for Endpoint collection
+type ServicePrincipalEndpointsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for Endpoint collection
+func (b *ServicePrincipalEndpointsCollectionRequestBuilder) Request() *ServicePrincipalEndpointsCollectionRequest {
+	return &ServicePrincipalEndpointsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for Endpoint item
+func (b *ServicePrincipalEndpointsCollectionRequestBuilder) ID(id string) *EndpointRequestBuilder {
+	bb := &EndpointRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// ServicePrincipalEndpointsCollectionRequest is request for Endpoint collection
+type ServicePrincipalEndpointsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for Endpoint collection
+func (r *ServicePrincipalEndpointsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]Endpoint, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []Endpoint
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []Endpoint
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for Endpoint collection, max N pages
+func (r *ServicePrincipalEndpointsCollectionRequest) GetN(ctx context.Context, n int) ([]Endpoint, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for Endpoint collection
+func (r *ServicePrincipalEndpointsCollectionRequest) Get(ctx context.Context) ([]Endpoint, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for Endpoint collection
+func (r *ServicePrincipalEndpointsCollectionRequest) Add(ctx context.Context, reqObj *Endpoint) (resObj *Endpoint, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// HomeRealmDiscoveryPolicies returns request builder for HomeRealmDiscoveryPolicy collection
+func (b *ServicePrincipalRequestBuilder) HomeRealmDiscoveryPolicies() *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequestBuilder {
+	bb := &ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/homeRealmDiscoveryPolicies"
+	return bb
+}
+
+// ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequestBuilder is request builder for HomeRealmDiscoveryPolicy collection
+type ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for HomeRealmDiscoveryPolicy collection
+func (b *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequestBuilder) Request() *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest {
+	return &ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for HomeRealmDiscoveryPolicy item
+func (b *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequestBuilder) ID(id string) *HomeRealmDiscoveryPolicyRequestBuilder {
+	bb := &HomeRealmDiscoveryPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest is request for HomeRealmDiscoveryPolicy collection
+type ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for HomeRealmDiscoveryPolicy collection
+func (r *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]HomeRealmDiscoveryPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []HomeRealmDiscoveryPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []HomeRealmDiscoveryPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for HomeRealmDiscoveryPolicy collection, max N pages
+func (r *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]HomeRealmDiscoveryPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for HomeRealmDiscoveryPolicy collection
+func (r *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest) Get(ctx context.Context) ([]HomeRealmDiscoveryPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for HomeRealmDiscoveryPolicy collection
+func (r *ServicePrincipalHomeRealmDiscoveryPoliciesCollectionRequest) Add(ctx context.Context, reqObj *HomeRealmDiscoveryPolicy) (resObj *HomeRealmDiscoveryPolicy, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }
@@ -863,35 +1275,42 @@ func (r *ServicePrincipalOwnersCollectionRequest) Add(ctx context.Context, reqOb
 	return
 }
 
-// Policies returns request builder for DirectoryObject collection
-func (b *ServicePrincipalRequestBuilder) Policies() *ServicePrincipalPoliciesCollectionRequestBuilder {
-	bb := &ServicePrincipalPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.baseURL += "/policies"
+// Synchronization is navigation property
+func (b *ServicePrincipalRequestBuilder) Synchronization() *SynchronizationRequestBuilder {
+	bb := &SynchronizationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/synchronization"
 	return bb
 }
 
-// ServicePrincipalPoliciesCollectionRequestBuilder is request builder for DirectoryObject collection
-type ServicePrincipalPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+// TokenIssuancePolicies returns request builder for TokenIssuancePolicy collection
+func (b *ServicePrincipalRequestBuilder) TokenIssuancePolicies() *ServicePrincipalTokenIssuancePoliciesCollectionRequestBuilder {
+	bb := &ServicePrincipalTokenIssuancePoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/tokenIssuancePolicies"
+	return bb
+}
 
-// Request returns request for DirectoryObject collection
-func (b *ServicePrincipalPoliciesCollectionRequestBuilder) Request() *ServicePrincipalPoliciesCollectionRequest {
-	return &ServicePrincipalPoliciesCollectionRequest{
+// ServicePrincipalTokenIssuancePoliciesCollectionRequestBuilder is request builder for TokenIssuancePolicy collection
+type ServicePrincipalTokenIssuancePoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for TokenIssuancePolicy collection
+func (b *ServicePrincipalTokenIssuancePoliciesCollectionRequestBuilder) Request() *ServicePrincipalTokenIssuancePoliciesCollectionRequest {
+	return &ServicePrincipalTokenIssuancePoliciesCollectionRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
 	}
 }
 
-// ID returns request builder for DirectoryObject item
-func (b *ServicePrincipalPoliciesCollectionRequestBuilder) ID(id string) *DirectoryObjectRequestBuilder {
-	bb := &DirectoryObjectRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+// ID returns request builder for TokenIssuancePolicy item
+func (b *ServicePrincipalTokenIssuancePoliciesCollectionRequestBuilder) ID(id string) *TokenIssuancePolicyRequestBuilder {
+	bb := &TokenIssuancePolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/" + id
 	return bb
 }
 
-// ServicePrincipalPoliciesCollectionRequest is request for DirectoryObject collection
-type ServicePrincipalPoliciesCollectionRequest struct{ BaseRequest }
+// ServicePrincipalTokenIssuancePoliciesCollectionRequest is request for TokenIssuancePolicy collection
+type ServicePrincipalTokenIssuancePoliciesCollectionRequest struct{ BaseRequest }
 
-// Paging perfoms paging operation for DirectoryObject collection
-func (r *ServicePrincipalPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]DirectoryObject, error) {
+// Paging perfoms paging operation for TokenIssuancePolicy collection
+func (r *ServicePrincipalTokenIssuancePoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]TokenIssuancePolicy, error) {
 	req, err := r.NewJSONRequest(method, path, obj)
 	if err != nil {
 		return nil, err
@@ -903,7 +1322,7 @@ func (r *ServicePrincipalPoliciesCollectionRequest) Paging(ctx context.Context, 
 	if err != nil {
 		return nil, err
 	}
-	var values []DirectoryObject
+	var values []TokenIssuancePolicy
 	for {
 		if res.StatusCode != http.StatusOK {
 			b, _ := ioutil.ReadAll(res.Body)
@@ -917,7 +1336,7 @@ func (r *ServicePrincipalPoliciesCollectionRequest) Paging(ctx context.Context, 
 		}
 		var (
 			paging Paging
-			value  []DirectoryObject
+			value  []TokenIssuancePolicy
 		)
 		err := jsonx.NewDecoder(res.Body).Decode(&paging)
 		res.Body.Close()
@@ -946,8 +1365,8 @@ func (r *ServicePrincipalPoliciesCollectionRequest) Paging(ctx context.Context, 
 	}
 }
 
-// GetN performs GET request for DirectoryObject collection, max N pages
-func (r *ServicePrincipalPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]DirectoryObject, error) {
+// GetN performs GET request for TokenIssuancePolicy collection, max N pages
+func (r *ServicePrincipalTokenIssuancePoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]TokenIssuancePolicy, error) {
 	var query string
 	if r.query != nil {
 		query = "?" + r.query.Encode()
@@ -955,22 +1374,118 @@ func (r *ServicePrincipalPoliciesCollectionRequest) GetN(ctx context.Context, n 
 	return r.Paging(ctx, "GET", query, nil, n)
 }
 
-// Get performs GET request for DirectoryObject collection
-func (r *ServicePrincipalPoliciesCollectionRequest) Get(ctx context.Context) ([]DirectoryObject, error) {
+// Get performs GET request for TokenIssuancePolicy collection
+func (r *ServicePrincipalTokenIssuancePoliciesCollectionRequest) Get(ctx context.Context) ([]TokenIssuancePolicy, error) {
 	return r.GetN(ctx, 0)
 }
 
-// Add performs POST request for DirectoryObject collection
-func (r *ServicePrincipalPoliciesCollectionRequest) Add(ctx context.Context, reqObj *DirectoryObject) (resObj *DirectoryObject, err error) {
+// Add performs POST request for TokenIssuancePolicy collection
+func (r *ServicePrincipalTokenIssuancePoliciesCollectionRequest) Add(ctx context.Context, reqObj *TokenIssuancePolicy) (resObj *TokenIssuancePolicy, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }
 
-// Synchronization is navigation property
-func (b *ServicePrincipalRequestBuilder) Synchronization() *SynchronizationRequestBuilder {
-	bb := &SynchronizationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.baseURL += "/synchronization"
+// TokenLifetimePolicies returns request builder for TokenLifetimePolicy collection
+func (b *ServicePrincipalRequestBuilder) TokenLifetimePolicies() *ServicePrincipalTokenLifetimePoliciesCollectionRequestBuilder {
+	bb := &ServicePrincipalTokenLifetimePoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/tokenLifetimePolicies"
 	return bb
+}
+
+// ServicePrincipalTokenLifetimePoliciesCollectionRequestBuilder is request builder for TokenLifetimePolicy collection
+type ServicePrincipalTokenLifetimePoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for TokenLifetimePolicy collection
+func (b *ServicePrincipalTokenLifetimePoliciesCollectionRequestBuilder) Request() *ServicePrincipalTokenLifetimePoliciesCollectionRequest {
+	return &ServicePrincipalTokenLifetimePoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for TokenLifetimePolicy item
+func (b *ServicePrincipalTokenLifetimePoliciesCollectionRequestBuilder) ID(id string) *TokenLifetimePolicyRequestBuilder {
+	bb := &TokenLifetimePolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// ServicePrincipalTokenLifetimePoliciesCollectionRequest is request for TokenLifetimePolicy collection
+type ServicePrincipalTokenLifetimePoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for TokenLifetimePolicy collection
+func (r *ServicePrincipalTokenLifetimePoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]TokenLifetimePolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []TokenLifetimePolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []TokenLifetimePolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for TokenLifetimePolicy collection, max N pages
+func (r *ServicePrincipalTokenLifetimePoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]TokenLifetimePolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for TokenLifetimePolicy collection
+func (r *ServicePrincipalTokenLifetimePoliciesCollectionRequest) Get(ctx context.Context) ([]TokenLifetimePolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for TokenLifetimePolicy collection
+func (r *ServicePrincipalTokenLifetimePoliciesCollectionRequest) Add(ctx context.Context, reqObj *TokenLifetimePolicy) (resObj *TokenLifetimePolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
 }
 
 // TransitiveMemberOf returns request builder for DirectoryObject collection

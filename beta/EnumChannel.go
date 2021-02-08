@@ -2,6 +2,23 @@
 
 package msgraph
 
+// ChannelCreationMode undocumented
+type ChannelCreationMode string
+
+const (
+	// ChannelCreationModeVMigration undocumented
+	ChannelCreationModeVMigration ChannelCreationMode = "migration"
+)
+
+var (
+	// ChannelCreationModePMigration is a pointer to ChannelCreationModeVMigration
+	ChannelCreationModePMigration = &_ChannelCreationModePMigration
+)
+
+var (
+	_ChannelCreationModePMigration = ChannelCreationModeVMigration
+)
+
 // ChannelMembershipType undocumented
 type ChannelMembershipType string
 
@@ -12,6 +29,8 @@ const (
 	ChannelMembershipTypeVPrivate ChannelMembershipType = "private"
 	// ChannelMembershipTypeVUnknownFutureValue undocumented
 	ChannelMembershipTypeVUnknownFutureValue ChannelMembershipType = "unknownFutureValue"
+	// ChannelMembershipTypeVShared undocumented
+	ChannelMembershipTypeVShared ChannelMembershipType = "shared"
 )
 
 var (
@@ -21,10 +40,13 @@ var (
 	ChannelMembershipTypePPrivate = &_ChannelMembershipTypePPrivate
 	// ChannelMembershipTypePUnknownFutureValue is a pointer to ChannelMembershipTypeVUnknownFutureValue
 	ChannelMembershipTypePUnknownFutureValue = &_ChannelMembershipTypePUnknownFutureValue
+	// ChannelMembershipTypePShared is a pointer to ChannelMembershipTypeVShared
+	ChannelMembershipTypePShared = &_ChannelMembershipTypePShared
 )
 
 var (
 	_ChannelMembershipTypePStandard           = ChannelMembershipTypeVStandard
 	_ChannelMembershipTypePPrivate            = ChannelMembershipTypeVPrivate
 	_ChannelMembershipTypePUnknownFutureValue = ChannelMembershipTypeVUnknownFutureValue
+	_ChannelMembershipTypePShared             = ChannelMembershipTypeVShared
 )

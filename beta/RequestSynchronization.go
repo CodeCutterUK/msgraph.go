@@ -163,6 +163,32 @@ func (r *SynchronizationJobCollectionValidateCredentialsRequest) Post(ctx contex
 }
 
 //
+type SynchronizationAcquireAccessTokenRequestBuilder struct{ BaseRequestBuilder }
+
+// AcquireAccessToken action undocumented
+func (b *SynchronizationRequestBuilder) AcquireAccessToken(reqObj *SynchronizationAcquireAccessTokenRequestParameter) *SynchronizationAcquireAccessTokenRequestBuilder {
+	bb := &SynchronizationAcquireAccessTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/acquireAccessToken"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type SynchronizationAcquireAccessTokenRequest struct{ BaseRequest }
+
+//
+func (b *SynchronizationAcquireAccessTokenRequestBuilder) Request() *SynchronizationAcquireAccessTokenRequest {
+	return &SynchronizationAcquireAccessTokenRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *SynchronizationAcquireAccessTokenRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
 type SynchronizationJobPauseRequestBuilder struct{ BaseRequestBuilder }
 
 // Pause action undocumented
@@ -215,55 +241,30 @@ func (r *SynchronizationJobStartRequest) Post(ctx context.Context) error {
 }
 
 //
-type SynchronizationJobStopRequestBuilder struct{ BaseRequestBuilder }
+type SynchronizationJobProvisionOnDemandRequestBuilder struct{ BaseRequestBuilder }
 
-// Stop action undocumented
-func (b *SynchronizationJobRequestBuilder) Stop(reqObj *SynchronizationJobStopRequestParameter) *SynchronizationJobStopRequestBuilder {
-	bb := &SynchronizationJobStopRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/stop"
+// ProvisionOnDemand action undocumented
+func (b *SynchronizationJobRequestBuilder) ProvisionOnDemand(reqObj *SynchronizationJobProvisionOnDemandRequestParameter) *SynchronizationJobProvisionOnDemandRequestBuilder {
+	bb := &SynchronizationJobProvisionOnDemandRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/provisionOnDemand"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type SynchronizationJobStopRequest struct{ BaseRequest }
+type SynchronizationJobProvisionOnDemandRequest struct{ BaseRequest }
 
 //
-func (b *SynchronizationJobStopRequestBuilder) Request() *SynchronizationJobStopRequest {
-	return &SynchronizationJobStopRequest{
+func (b *SynchronizationJobProvisionOnDemandRequestBuilder) Request() *SynchronizationJobProvisionOnDemandRequest {
+	return &SynchronizationJobProvisionOnDemandRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *SynchronizationJobStopRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type SynchronizationJobApplyRequestBuilder struct{ BaseRequestBuilder }
-
-// Apply action undocumented
-func (b *SynchronizationJobRequestBuilder) Apply(reqObj *SynchronizationJobApplyRequestParameter) *SynchronizationJobApplyRequestBuilder {
-	bb := &SynchronizationJobApplyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/apply"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type SynchronizationJobApplyRequest struct{ BaseRequest }
-
-//
-func (b *SynchronizationJobApplyRequestBuilder) Request() *SynchronizationJobApplyRequest {
-	return &SynchronizationJobApplyRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *SynchronizationJobApplyRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+func (r *SynchronizationJobProvisionOnDemandRequest) Post(ctx context.Context) (resObj *StringKeyStringValuePair, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }
 
 //
@@ -289,6 +290,32 @@ func (b *SynchronizationJobRestartRequestBuilder) Request() *SynchronizationJobR
 
 //
 func (r *SynchronizationJobRestartRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type SynchronizationJobStopRequestBuilder struct{ BaseRequestBuilder }
+
+// Stop action undocumented
+func (b *SynchronizationJobRequestBuilder) Stop(reqObj *SynchronizationJobStopRequestParameter) *SynchronizationJobStopRequestBuilder {
+	bb := &SynchronizationJobStopRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/stop"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type SynchronizationJobStopRequest struct{ BaseRequest }
+
+//
+func (b *SynchronizationJobStopRequestBuilder) Request() *SynchronizationJobStopRequest {
+	return &SynchronizationJobStopRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *SynchronizationJobStopRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 

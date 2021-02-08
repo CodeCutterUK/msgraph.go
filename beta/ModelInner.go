@@ -6,8 +6,8 @@ package msgraph
 type InnerErrorDetail struct {
 	// Object is the base model of InnerErrorDetail
 	Object
-	// Source undocumented
-	Source *string `json:"source,omitempty"`
 	// Message undocumented
 	Message *string `json:"message,omitempty"`
+	// Source undocumented
+	Source *string `json:"source,omitempty"`
 }

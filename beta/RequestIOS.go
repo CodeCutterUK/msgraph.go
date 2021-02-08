@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // IOSCertificateProfileRequestBuilder is request builder for IOSCertificateProfile
@@ -799,32 +799,6 @@ func (r *IOSVPPAppRevokeAllLicensesRequest) Post(ctx context.Context) error {
 }
 
 //
-type IOSVPPAppRevokeUserLicenseRequestBuilder struct{ BaseRequestBuilder }
-
-// RevokeUserLicense action undocumented
-func (b *IOSVPPAppRequestBuilder) RevokeUserLicense(reqObj *IOSVPPAppRevokeUserLicenseRequestParameter) *IOSVPPAppRevokeUserLicenseRequestBuilder {
-	bb := &IOSVPPAppRevokeUserLicenseRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/revokeUserLicense"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type IOSVPPAppRevokeUserLicenseRequest struct{ BaseRequest }
-
-//
-func (b *IOSVPPAppRevokeUserLicenseRequestBuilder) Request() *IOSVPPAppRevokeUserLicenseRequest {
-	return &IOSVPPAppRevokeUserLicenseRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *IOSVPPAppRevokeUserLicenseRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type IOSVPPAppRevokeDeviceLicenseRequestBuilder struct{ BaseRequestBuilder }
 
 // RevokeDeviceLicense action undocumented
@@ -847,5 +821,31 @@ func (b *IOSVPPAppRevokeDeviceLicenseRequestBuilder) Request() *IOSVPPAppRevokeD
 
 //
 func (r *IOSVPPAppRevokeDeviceLicenseRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type IOSVPPAppRevokeUserLicenseRequestBuilder struct{ BaseRequestBuilder }
+
+// RevokeUserLicense action undocumented
+func (b *IOSVPPAppRequestBuilder) RevokeUserLicense(reqObj *IOSVPPAppRevokeUserLicenseRequestParameter) *IOSVPPAppRevokeUserLicenseRequestBuilder {
+	bb := &IOSVPPAppRevokeUserLicenseRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/revokeUserLicense"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type IOSVPPAppRevokeUserLicenseRequest struct{ BaseRequest }
+
+//
+func (b *IOSVPPAppRevokeUserLicenseRequestBuilder) Request() *IOSVPPAppRevokeUserLicenseRequest {
+	return &IOSVPPAppRevokeUserLicenseRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *IOSVPPAppRevokeUserLicenseRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }

@@ -10,9 +10,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
-	"github.com/yaegashi/msgraph.go/msauth"
-	msgraph "github.com/yaegashi/msgraph.go/v1.0"
+	"github.com/codecutteruk/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/msauth"
+	msgraph "github.com/codecutteruk/msgraph.go/v1.0"
 	"golang.org/x/oauth2"
 )
 

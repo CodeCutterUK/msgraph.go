@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // RoleScopeTagCollectionGetRoleScopeTagsByIDRequestParameter undocumented
@@ -131,6 +131,13 @@ func (r *RoleDefinitionRoleAssignmentsCollectionRequest) Get(ctx context.Context
 func (r *RoleDefinitionRoleAssignmentsCollectionRequest) Add(ctx context.Context, reqObj *RoleAssignment) (resObj *RoleAssignment, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
+}
+
+// DeviceManagement is navigation property
+func (b *RoleManagementRequestBuilder) DeviceManagement() *RbacApplicationMultipleRequestBuilder {
+	bb := &RbacApplicationMultipleRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/deviceManagement"
+	return bb
 }
 
 // Directory is navigation property

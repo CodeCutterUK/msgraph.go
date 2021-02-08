@@ -14,6 +14,8 @@ const (
 	StagedFeatureNameVPasswordHashSync StagedFeatureName = "passwordHashSync"
 	// StagedFeatureNameVUnknownFutureValue undocumented
 	StagedFeatureNameVUnknownFutureValue StagedFeatureName = "unknownFutureValue"
+	// StagedFeatureNameVEmailAsAlternateID undocumented
+	StagedFeatureNameVEmailAsAlternateID StagedFeatureName = "emailAsAlternateId"
 )
 
 var (
@@ -25,6 +27,8 @@ var (
 	StagedFeatureNamePPasswordHashSync = &_StagedFeatureNamePPasswordHashSync
 	// StagedFeatureNamePUnknownFutureValue is a pointer to StagedFeatureNameVUnknownFutureValue
 	StagedFeatureNamePUnknownFutureValue = &_StagedFeatureNamePUnknownFutureValue
+	// StagedFeatureNamePEmailAsAlternateID is a pointer to StagedFeatureNameVEmailAsAlternateID
+	StagedFeatureNamePEmailAsAlternateID = &_StagedFeatureNamePEmailAsAlternateID
 )
 
 var (
@@ -32,4 +36,5 @@ var (
 	_StagedFeatureNamePSeamlessSso               = StagedFeatureNameVSeamlessSso
 	_StagedFeatureNamePPasswordHashSync          = StagedFeatureNameVPasswordHashSync
 	_StagedFeatureNamePUnknownFutureValue        = StagedFeatureNameVUnknownFutureValue
+	_StagedFeatureNamePEmailAsAlternateID        = StagedFeatureNameVEmailAsAlternateID
 )

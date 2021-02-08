@@ -2,7 +2,7 @@
 
 package msgraph
 
-// Report undocumented
+// Report Device Configuration profile History reports.
 type Report struct {
 	// Object is the base model of Report
 	Object
@@ -16,8 +16,18 @@ type ReportRoot struct {
 	Entity
 	// ApplicationSignInDetailedSummary undocumented
 	ApplicationSignInDetailedSummary []ApplicationSignInDetailedSummary `json:"applicationSignInDetailedSummary,omitempty"`
+	// AuthenticationMethods undocumented
+	AuthenticationMethods *AuthenticationMethodsRoot `json:"authenticationMethods,omitempty"`
 	// CredentialUserRegistrationDetails undocumented
 	CredentialUserRegistrationDetails []CredentialUserRegistrationDetails `json:"credentialUserRegistrationDetails,omitempty"`
 	// UserCredentialUsageDetails undocumented
 	UserCredentialUsageDetails []UserCredentialUsageDetails `json:"userCredentialUsageDetails,omitempty"`
+	// DailyPrintUsageSummariesByPrinter undocumented
+	DailyPrintUsageSummariesByPrinter []PrintUsageSummaryByPrinter `json:"dailyPrintUsageSummariesByPrinter,omitempty"`
+	// DailyPrintUsageSummariesByUser undocumented
+	DailyPrintUsageSummariesByUser []PrintUsageSummaryByUser `json:"dailyPrintUsageSummariesByUser,omitempty"`
+	// MonthlyPrintUsageSummariesByPrinter undocumented
+	MonthlyPrintUsageSummariesByPrinter []PrintUsageSummaryByPrinter `json:"monthlyPrintUsageSummariesByPrinter,omitempty"`
+	// MonthlyPrintUsageSummariesByUser undocumented
+	MonthlyPrintUsageSummariesByUser []PrintUsageSummaryByUser `json:"monthlyPrintUsageSummariesByUser,omitempty"`
 }

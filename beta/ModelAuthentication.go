@@ -4,30 +4,86 @@ package msgraph
 
 import "time"
 
+// Authentication undocumented
+type Authentication struct {
+	// Entity is the base model of Authentication
+	Entity
+	// EmailMethods undocumented
+	EmailMethods []EmailAuthenticationMethod `json:"emailMethods,omitempty"`
+	// Fido2Methods undocumented
+	Fido2Methods []Fido2AuthenticationMethod `json:"fido2Methods,omitempty"`
+	// Methods undocumented
+	Methods []AuthenticationMethod `json:"methods,omitempty"`
+	// Operations undocumented
+	Operations []LongRunningOperation `json:"operations,omitempty"`
+	// PasswordlessMicrosoftAuthenticatorMethods undocumented
+	PasswordlessMicrosoftAuthenticatorMethods []PasswordlessMicrosoftAuthenticatorAuthenticationMethod `json:"passwordlessMicrosoftAuthenticatorMethods,omitempty"`
+	// PasswordMethods undocumented
+	PasswordMethods []PasswordAuthenticationMethod `json:"passwordMethods,omitempty"`
+	// PhoneMethods undocumented
+	PhoneMethods []PhoneAuthenticationMethod `json:"phoneMethods,omitempty"`
+}
+
+// AuthenticationContextClassReference undocumented
+type AuthenticationContextClassReference struct {
+	// Entity is the base model of AuthenticationContextClassReference
+	Entity
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// IsAvailable undocumented
+	IsAvailable *bool `json:"isAvailable,omitempty"`
+}
+
 // AuthenticationDetail undocumented
 type AuthenticationDetail struct {
 	// Object is the base model of AuthenticationDetail
 	Object
-	// AuthenticationStepDateTime undocumented
-	AuthenticationStepDateTime *time.Time `json:"authenticationStepDateTime,omitempty"`
 	// AuthenticationMethod undocumented
 	AuthenticationMethod *string `json:"authenticationMethod,omitempty"`
 	// AuthenticationMethodDetail undocumented
 	AuthenticationMethodDetail *string `json:"authenticationMethodDetail,omitempty"`
-	// Succeeded undocumented
-	Succeeded *bool `json:"succeeded,omitempty"`
-	// AuthenticationStepResultDetail undocumented
-	AuthenticationStepResultDetail *string `json:"authenticationStepResultDetail,omitempty"`
+	// AuthenticationStepDateTime undocumented
+	AuthenticationStepDateTime *time.Time `json:"authenticationStepDateTime,omitempty"`
 	// AuthenticationStepRequirement undocumented
 	AuthenticationStepRequirement *string `json:"authenticationStepRequirement,omitempty"`
+	// AuthenticationStepResultDetail undocumented
+	AuthenticationStepResultDetail *string `json:"authenticationStepResultDetail,omitempty"`
+	// Succeeded undocumented
+	Succeeded *bool `json:"succeeded,omitempty"`
+}
+
+// AuthenticationFlowsPolicy undocumented
+type AuthenticationFlowsPolicy struct {
+	// Entity is the base model of AuthenticationFlowsPolicy
+	Entity
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// SelfServiceSignUp undocumented
+	SelfServiceSignUp *SelfServiceSignUpAuthenticationFlowConfiguration `json:"selfServiceSignUp,omitempty"`
+}
+
+// AuthenticationMethod undocumented
+type AuthenticationMethod struct {
+	// Entity is the base model of AuthenticationMethod
+	Entity
+}
+
+// AuthenticationMethodsRoot undocumented
+type AuthenticationMethodsRoot struct {
+	// Entity is the base model of AuthenticationMethodsRoot
+	Entity
 }
 
 // AuthenticationRequirementPolicy undocumented
 type AuthenticationRequirementPolicy struct {
 	// Object is the base model of AuthenticationRequirementPolicy
 	Object
-	// RequirementProvider undocumented
-	RequirementProvider *RequirementProvider `json:"requirementProvider,omitempty"`
 	// Detail undocumented
 	Detail *string `json:"detail,omitempty"`
+	// RequirementProvider undocumented
+	RequirementProvider *RequirementProvider `json:"requirementProvider,omitempty"`
 }

@@ -2,6 +2,23 @@
 
 package msgraph
 
+// TeamCreationMode undocumented
+type TeamCreationMode string
+
+const (
+	// TeamCreationModeVMigration undocumented
+	TeamCreationModeVMigration TeamCreationMode = "migration"
+)
+
+var (
+	// TeamCreationModePMigration is a pointer to TeamCreationModeVMigration
+	TeamCreationModePMigration = &_TeamCreationModePMigration
+)
+
+var (
+	_TeamCreationModePMigration = TeamCreationModeVMigration
+)
+
 // TeamSpecialization undocumented
 type TeamSpecialization string
 

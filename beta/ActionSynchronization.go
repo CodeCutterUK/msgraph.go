@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // SynchronizationJobCollectionValidateCredentialsRequestParameter undocumented
@@ -23,6 +23,12 @@ type SynchronizationJobCollectionValidateCredentialsRequestParameter struct {
 	Credentials []SynchronizationSecretKeyStringValuePair `json:"credentials,omitempty"`
 }
 
+// SynchronizationAcquireAccessTokenRequestParameter undocumented
+type SynchronizationAcquireAccessTokenRequestParameter struct {
+	// Credentials undocumented
+	Credentials []SynchronizationSecretKeyStringValuePair `json:"credentials,omitempty"`
+}
+
 // SynchronizationJobPauseRequestParameter undocumented
 type SynchronizationJobPauseRequestParameter struct {
 }
@@ -31,24 +37,20 @@ type SynchronizationJobPauseRequestParameter struct {
 type SynchronizationJobStartRequestParameter struct {
 }
 
-// SynchronizationJobStopRequestParameter undocumented
-type SynchronizationJobStopRequestParameter struct {
-}
-
-// SynchronizationJobApplyRequestParameter undocumented
-type SynchronizationJobApplyRequestParameter struct {
-	// ObjectID undocumented
-	ObjectID *string `json:"objectId,omitempty"`
-	// TypeName undocumented
-	TypeName *string `json:"typeName,omitempty"`
-	// RuleID undocumented
-	RuleID *string `json:"ruleId,omitempty"`
+// SynchronizationJobProvisionOnDemandRequestParameter undocumented
+type SynchronizationJobProvisionOnDemandRequestParameter struct {
+	// Parameters undocumented
+	Parameters []SynchronizationJobApplicationParameters `json:"parameters,omitempty"`
 }
 
 // SynchronizationJobRestartRequestParameter undocumented
 type SynchronizationJobRestartRequestParameter struct {
 	// Criteria undocumented
 	Criteria *SynchronizationJobRestartCriteria `json:"criteria,omitempty"`
+}
+
+// SynchronizationJobStopRequestParameter undocumented
+type SynchronizationJobStopRequestParameter struct {
 }
 
 // SynchronizationJobValidateCredentialsRequestParameter undocumented

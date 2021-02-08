@@ -2,6 +2,33 @@
 
 package msgraph
 
+// EducationAddedStudentAction undocumented
+type EducationAddedStudentAction string
+
+const (
+	// EducationAddedStudentActionVNone undocumented
+	EducationAddedStudentActionVNone EducationAddedStudentAction = "none"
+	// EducationAddedStudentActionVAssignIfOpen undocumented
+	EducationAddedStudentActionVAssignIfOpen EducationAddedStudentAction = "assignIfOpen"
+	// EducationAddedStudentActionVUnknownFutureValue undocumented
+	EducationAddedStudentActionVUnknownFutureValue EducationAddedStudentAction = "unknownFutureValue"
+)
+
+var (
+	// EducationAddedStudentActionPNone is a pointer to EducationAddedStudentActionVNone
+	EducationAddedStudentActionPNone = &_EducationAddedStudentActionPNone
+	// EducationAddedStudentActionPAssignIfOpen is a pointer to EducationAddedStudentActionVAssignIfOpen
+	EducationAddedStudentActionPAssignIfOpen = &_EducationAddedStudentActionPAssignIfOpen
+	// EducationAddedStudentActionPUnknownFutureValue is a pointer to EducationAddedStudentActionVUnknownFutureValue
+	EducationAddedStudentActionPUnknownFutureValue = &_EducationAddedStudentActionPUnknownFutureValue
+)
+
+var (
+	_EducationAddedStudentActionPNone               = EducationAddedStudentActionVNone
+	_EducationAddedStudentActionPAssignIfOpen       = EducationAddedStudentActionVAssignIfOpen
+	_EducationAddedStudentActionPUnknownFutureValue = EducationAddedStudentActionVUnknownFutureValue
+)
+
 // EducationAssignmentStatus undocumented
 type EducationAssignmentStatus string
 
@@ -44,6 +71,8 @@ const (
 	EducationExternalSourceVManual EducationExternalSource = "manual"
 	// EducationExternalSourceVUnknownFutureValue undocumented
 	EducationExternalSourceVUnknownFutureValue EducationExternalSource = "unknownFutureValue"
+	// EducationExternalSourceVLms undocumented
+	EducationExternalSourceVLms EducationExternalSource = "lms"
 )
 
 var (
@@ -53,12 +82,15 @@ var (
 	EducationExternalSourcePManual = &_EducationExternalSourcePManual
 	// EducationExternalSourcePUnknownFutureValue is a pointer to EducationExternalSourceVUnknownFutureValue
 	EducationExternalSourcePUnknownFutureValue = &_EducationExternalSourcePUnknownFutureValue
+	// EducationExternalSourcePLms is a pointer to EducationExternalSourceVLms
+	EducationExternalSourcePLms = &_EducationExternalSourcePLms
 )
 
 var (
 	_EducationExternalSourcePSis                = EducationExternalSourceVSis
 	_EducationExternalSourcePManual             = EducationExternalSourceVManual
 	_EducationExternalSourcePUnknownFutureValue = EducationExternalSourceVUnknownFutureValue
+	_EducationExternalSourcePLms                = EducationExternalSourceVLms
 )
 
 // EducationGender undocumented

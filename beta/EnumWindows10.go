@@ -200,6 +200,8 @@ const (
 	Windows10VpnAuthenticationMethodVUsernameAndPassword Windows10VpnAuthenticationMethod = "usernameAndPassword"
 	// Windows10VpnAuthenticationMethodVCustomEapXML undocumented
 	Windows10VpnAuthenticationMethodVCustomEapXML Windows10VpnAuthenticationMethod = "customEapXml"
+	// Windows10VpnAuthenticationMethodVDerivedCredential undocumented
+	Windows10VpnAuthenticationMethodVDerivedCredential Windows10VpnAuthenticationMethod = "derivedCredential"
 )
 
 var (
@@ -209,12 +211,15 @@ var (
 	Windows10VpnAuthenticationMethodPUsernameAndPassword = &_Windows10VpnAuthenticationMethodPUsernameAndPassword
 	// Windows10VpnAuthenticationMethodPCustomEapXML is a pointer to Windows10VpnAuthenticationMethodVCustomEapXML
 	Windows10VpnAuthenticationMethodPCustomEapXML = &_Windows10VpnAuthenticationMethodPCustomEapXML
+	// Windows10VpnAuthenticationMethodPDerivedCredential is a pointer to Windows10VpnAuthenticationMethodVDerivedCredential
+	Windows10VpnAuthenticationMethodPDerivedCredential = &_Windows10VpnAuthenticationMethodPDerivedCredential
 )
 
 var (
 	_Windows10VpnAuthenticationMethodPCertificate         = Windows10VpnAuthenticationMethodVCertificate
 	_Windows10VpnAuthenticationMethodPUsernameAndPassword = Windows10VpnAuthenticationMethodVUsernameAndPassword
 	_Windows10VpnAuthenticationMethodPCustomEapXML        = Windows10VpnAuthenticationMethodVCustomEapXML
+	_Windows10VpnAuthenticationMethodPDerivedCredential   = Windows10VpnAuthenticationMethodVDerivedCredential
 )
 
 // Windows10VpnConnectionType undocumented

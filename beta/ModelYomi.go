@@ -10,10 +10,10 @@ type YomiPersonName struct {
 	DisplayName *string `json:"displayName,omitempty"`
 	// First undocumented
 	First *string `json:"first,omitempty"`
+	// Last undocumented
+	Last *string `json:"last,omitempty"`
 	// Maiden undocumented
 	Maiden *string `json:"maiden,omitempty"`
 	// Middle undocumented
 	Middle *string `json:"middle,omitempty"`
-	// Last undocumented
-	Last *string `json:"last,omitempty"`
 }

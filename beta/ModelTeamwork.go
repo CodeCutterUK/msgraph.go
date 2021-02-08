@@ -9,3 +9,57 @@ type Teamwork struct {
 	// WorkforceIntegrations undocumented
 	WorkforceIntegrations []WorkforceIntegration `json:"workforceIntegrations,omitempty"`
 }
+
+// TeamworkActivityTopic undocumented
+type TeamworkActivityTopic struct {
+	// Object is the base model of TeamworkActivityTopic
+	Object
+	// Source undocumented
+	Source *TeamworkActivityTopicSource `json:"source,omitempty"`
+	// Value undocumented
+	Value *string `json:"value,omitempty"`
+	// WebURL undocumented
+	WebURL *string `json:"webUrl,omitempty"`
+}
+
+// TeamworkBot undocumented
+type TeamworkBot struct {
+	// Entity is the base model of TeamworkBot
+	Entity
+}
+
+// TeamworkNotificationRecipient undocumented
+type TeamworkNotificationRecipient struct {
+	// Object is the base model of TeamworkNotificationRecipient
+	Object
+}
+
+// TeamworkTag undocumented
+type TeamworkTag struct {
+	// Entity is the base model of TeamworkTag
+	Entity
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// MemberCount undocumented
+	MemberCount *int `json:"memberCount,omitempty"`
+	// TagType undocumented
+	TagType *TeamworkTagType `json:"tagType,omitempty"`
+	// TeamID undocumented
+	TeamID *string `json:"teamId,omitempty"`
+	// Members undocumented
+	Members []TeamworkTagMember `json:"members,omitempty"`
+}
+
+// TeamworkTagMember undocumented
+type TeamworkTagMember struct {
+	// Entity is the base model of TeamworkTagMember
+	Entity
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// TenantID undocumented
+	TenantID *string `json:"tenantId,omitempty"`
+	// UserID undocumented
+	UserID *string `json:"userId,omitempty"`
+}

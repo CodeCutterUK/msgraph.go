@@ -8,8 +8,14 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// ConversationMemberCollectionAddRequestParameter undocumented
+type ConversationMemberCollectionAddRequestParameter struct {
+	// Values undocumented
+	Values []ConversationMember `json:"values,omitempty"`
+}
 
 // ConversationThreadReplyRequestParameter undocumented
 type ConversationThreadReplyRequestParameter struct {

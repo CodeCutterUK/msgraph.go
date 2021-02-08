@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // AndroidCertificateProfileBaseRequestBuilder is request builder for AndroidCertificateProfileBase
@@ -77,6 +77,39 @@ func (r *AndroidDeviceOwnerCertificateProfileBaseRequest) Delete(ctx context.Con
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
+// AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequestBuilder is request builder for AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration
+type AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest
+func (b *AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequestBuilder) Request() *AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest {
+	return &AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest is request for AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration
+type AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest struct{ BaseRequest }
+
+// Get performs GET request for AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration
+func (r *AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest) Get(ctx context.Context) (resObj *AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration
+func (r *AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest) Update(ctx context.Context, reqObj *AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for AndroidDeviceOwnerDerivedCredentialAuthenticationConfiguration
+func (r *AndroidDeviceOwnerDerivedCredentialAuthenticationConfigurationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // AndroidDeviceOwnerEnrollmentProfileRequestBuilder is request builder for AndroidDeviceOwnerEnrollmentProfile
 type AndroidDeviceOwnerEnrollmentProfileRequestBuilder struct{ BaseRequestBuilder }
 
@@ -140,6 +173,72 @@ func (r *AndroidDeviceOwnerEnterpriseWiFiConfigurationRequest) Update(ctx contex
 
 // Delete performs DELETE request for AndroidDeviceOwnerEnterpriseWiFiConfiguration
 func (r *AndroidDeviceOwnerEnterpriseWiFiConfigurationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// AndroidDeviceOwnerImportedPFXCertificateProfileRequestBuilder is request builder for AndroidDeviceOwnerImportedPFXCertificateProfile
+type AndroidDeviceOwnerImportedPFXCertificateProfileRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns AndroidDeviceOwnerImportedPFXCertificateProfileRequest
+func (b *AndroidDeviceOwnerImportedPFXCertificateProfileRequestBuilder) Request() *AndroidDeviceOwnerImportedPFXCertificateProfileRequest {
+	return &AndroidDeviceOwnerImportedPFXCertificateProfileRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// AndroidDeviceOwnerImportedPFXCertificateProfileRequest is request for AndroidDeviceOwnerImportedPFXCertificateProfile
+type AndroidDeviceOwnerImportedPFXCertificateProfileRequest struct{ BaseRequest }
+
+// Get performs GET request for AndroidDeviceOwnerImportedPFXCertificateProfile
+func (r *AndroidDeviceOwnerImportedPFXCertificateProfileRequest) Get(ctx context.Context) (resObj *AndroidDeviceOwnerImportedPFXCertificateProfile, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for AndroidDeviceOwnerImportedPFXCertificateProfile
+func (r *AndroidDeviceOwnerImportedPFXCertificateProfileRequest) Update(ctx context.Context, reqObj *AndroidDeviceOwnerImportedPFXCertificateProfile) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for AndroidDeviceOwnerImportedPFXCertificateProfile
+func (r *AndroidDeviceOwnerImportedPFXCertificateProfileRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// AndroidDeviceOwnerPkcsCertificateProfileRequestBuilder is request builder for AndroidDeviceOwnerPkcsCertificateProfile
+type AndroidDeviceOwnerPkcsCertificateProfileRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns AndroidDeviceOwnerPkcsCertificateProfileRequest
+func (b *AndroidDeviceOwnerPkcsCertificateProfileRequestBuilder) Request() *AndroidDeviceOwnerPkcsCertificateProfileRequest {
+	return &AndroidDeviceOwnerPkcsCertificateProfileRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// AndroidDeviceOwnerPkcsCertificateProfileRequest is request for AndroidDeviceOwnerPkcsCertificateProfile
+type AndroidDeviceOwnerPkcsCertificateProfileRequest struct{ BaseRequest }
+
+// Get performs GET request for AndroidDeviceOwnerPkcsCertificateProfile
+func (r *AndroidDeviceOwnerPkcsCertificateProfileRequest) Get(ctx context.Context) (resObj *AndroidDeviceOwnerPkcsCertificateProfile, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for AndroidDeviceOwnerPkcsCertificateProfile
+func (r *AndroidDeviceOwnerPkcsCertificateProfileRequest) Update(ctx context.Context, reqObj *AndroidDeviceOwnerPkcsCertificateProfile) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for AndroidDeviceOwnerPkcsCertificateProfile
+func (r *AndroidDeviceOwnerPkcsCertificateProfileRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
@@ -1254,32 +1353,6 @@ func (r *AndroidManagedAppProtectionCollectionHasPayloadLinksRequest) Post(ctx c
 }
 
 //
-type AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder struct{ BaseRequestBuilder }
-
-// RevokeToken action undocumented
-func (b *AndroidDeviceOwnerEnrollmentProfileRequestBuilder) RevokeToken(reqObj *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestParameter) *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder {
-	bb := &AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/revokeToken"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest struct{ BaseRequest }
-
-//
-func (b *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder) Request() *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest {
-	return &AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type AndroidDeviceOwnerEnrollmentProfileCreateTokenRequestBuilder struct{ BaseRequestBuilder }
 
 // CreateToken action undocumented
@@ -1306,28 +1379,28 @@ func (r *AndroidDeviceOwnerEnrollmentProfileCreateTokenRequest) Post(ctx context
 }
 
 //
-type AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder struct{ BaseRequestBuilder }
+type AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder struct{ BaseRequestBuilder }
 
 // RevokeToken action undocumented
-func (b *AndroidForWorkEnrollmentProfileRequestBuilder) RevokeToken(reqObj *AndroidForWorkEnrollmentProfileRevokeTokenRequestParameter) *AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder {
-	bb := &AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+func (b *AndroidDeviceOwnerEnrollmentProfileRequestBuilder) RevokeToken(reqObj *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestParameter) *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder {
+	bb := &AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.BaseRequestBuilder.baseURL += "/revokeToken"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type AndroidForWorkEnrollmentProfileRevokeTokenRequest struct{ BaseRequest }
+type AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest struct{ BaseRequest }
 
 //
-func (b *AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder) Request() *AndroidForWorkEnrollmentProfileRevokeTokenRequest {
-	return &AndroidForWorkEnrollmentProfileRevokeTokenRequest{
+func (b *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequestBuilder) Request() *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest {
+	return &AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *AndroidForWorkEnrollmentProfileRevokeTokenRequest) Post(ctx context.Context) error {
+func (r *AndroidDeviceOwnerEnrollmentProfileRevokeTokenRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -1358,30 +1431,29 @@ func (r *AndroidForWorkEnrollmentProfileCreateTokenRequest) Post(ctx context.Con
 }
 
 //
-type AndroidForWorkSettingsRequestSignupURLRequestBuilder struct{ BaseRequestBuilder }
+type AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder struct{ BaseRequestBuilder }
 
-// RequestSignupURL action undocumented
-func (b *AndroidForWorkSettingsRequestBuilder) RequestSignupURL(reqObj *AndroidForWorkSettingsRequestSignupURLRequestParameter) *AndroidForWorkSettingsRequestSignupURLRequestBuilder {
-	bb := &AndroidForWorkSettingsRequestSignupURLRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/requestSignupUrl"
+// RevokeToken action undocumented
+func (b *AndroidForWorkEnrollmentProfileRequestBuilder) RevokeToken(reqObj *AndroidForWorkEnrollmentProfileRevokeTokenRequestParameter) *AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder {
+	bb := &AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/revokeToken"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type AndroidForWorkSettingsRequestSignupURLRequest struct{ BaseRequest }
+type AndroidForWorkEnrollmentProfileRevokeTokenRequest struct{ BaseRequest }
 
 //
-func (b *AndroidForWorkSettingsRequestSignupURLRequestBuilder) Request() *AndroidForWorkSettingsRequestSignupURLRequest {
-	return &AndroidForWorkSettingsRequestSignupURLRequest{
+func (b *AndroidForWorkEnrollmentProfileRevokeTokenRequestBuilder) Request() *AndroidForWorkEnrollmentProfileRevokeTokenRequest {
+	return &AndroidForWorkEnrollmentProfileRevokeTokenRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *AndroidForWorkSettingsRequestSignupURLRequest) Post(ctx context.Context) (resObj *string, err error) {
-	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
-	return
+func (r *AndroidForWorkEnrollmentProfileRevokeTokenRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
 //
@@ -1408,6 +1480,33 @@ func (b *AndroidForWorkSettingsCompleteSignupRequestBuilder) Request() *AndroidF
 //
 func (r *AndroidForWorkSettingsCompleteSignupRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type AndroidForWorkSettingsRequestSignupURLRequestBuilder struct{ BaseRequestBuilder }
+
+// RequestSignupURL action undocumented
+func (b *AndroidForWorkSettingsRequestBuilder) RequestSignupURL(reqObj *AndroidForWorkSettingsRequestSignupURLRequestParameter) *AndroidForWorkSettingsRequestSignupURLRequestBuilder {
+	bb := &AndroidForWorkSettingsRequestSignupURLRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/requestSignupUrl"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type AndroidForWorkSettingsRequestSignupURLRequest struct{ BaseRequest }
+
+//
+func (b *AndroidForWorkSettingsRequestSignupURLRequestBuilder) Request() *AndroidForWorkSettingsRequestSignupURLRequest {
+	return &AndroidForWorkSettingsRequestSignupURLRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *AndroidForWorkSettingsRequestSignupURLRequest) Post(ctx context.Context) (resObj *string, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }
 
 //
@@ -1489,6 +1588,59 @@ func (r *AndroidManagedStoreAccountEnterpriseSettingsApproveAppsRequest) Post(ct
 }
 
 //
+type AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder struct{ BaseRequestBuilder }
+
+// CompleteSignup action undocumented
+func (b *AndroidManagedStoreAccountEnterpriseSettingsRequestBuilder) CompleteSignup(reqObj *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestParameter) *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder {
+	bb := &AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/completeSignup"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest struct{ BaseRequest }
+
+//
+func (b *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder) Request() *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest {
+	return &AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder struct{ BaseRequestBuilder }
+
+// CreateGooglePlayWebToken action undocumented
+func (b *AndroidManagedStoreAccountEnterpriseSettingsRequestBuilder) CreateGooglePlayWebToken(reqObj *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestParameter) *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder {
+	bb := &AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/createGooglePlayWebToken"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest struct{ BaseRequest }
+
+//
+func (b *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder) Request() *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest {
+	return &AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest) Post(ctx context.Context) (resObj *string, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
 type AndroidManagedStoreAccountEnterpriseSettingsRequestSignupURLRequestBuilder struct{ BaseRequestBuilder }
 
 // RequestSignupURL action undocumented
@@ -1516,28 +1668,28 @@ func (r *AndroidManagedStoreAccountEnterpriseSettingsRequestSignupURLRequest) Po
 }
 
 //
-type AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder struct{ BaseRequestBuilder }
+type AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder struct{ BaseRequestBuilder }
 
-// CompleteSignup action undocumented
-func (b *AndroidManagedStoreAccountEnterpriseSettingsRequestBuilder) CompleteSignup(reqObj *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestParameter) *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder {
-	bb := &AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/completeSignup"
+// SetAndroidDeviceOwnerFullyManagedEnrollmentState action undocumented
+func (b *AndroidManagedStoreAccountEnterpriseSettingsRequestBuilder) SetAndroidDeviceOwnerFullyManagedEnrollmentState(reqObj *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestParameter) *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder {
+	bb := &AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/setAndroidDeviceOwnerFullyManagedEnrollmentState"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest struct{ BaseRequest }
+type AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest struct{ BaseRequest }
 
 //
-func (b *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequestBuilder) Request() *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest {
-	return &AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest{
+func (b *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder) Request() *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest {
+	return &AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *AndroidManagedStoreAccountEnterpriseSettingsCompleteSignupRequest) Post(ctx context.Context) error {
+func (r *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -1590,58 +1742,5 @@ func (b *AndroidManagedStoreAccountEnterpriseSettingsUnbindRequestBuilder) Reque
 
 //
 func (r *AndroidManagedStoreAccountEnterpriseSettingsUnbindRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder struct{ BaseRequestBuilder }
-
-// CreateGooglePlayWebToken action undocumented
-func (b *AndroidManagedStoreAccountEnterpriseSettingsRequestBuilder) CreateGooglePlayWebToken(reqObj *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestParameter) *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder {
-	bb := &AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/createGooglePlayWebToken"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest struct{ BaseRequest }
-
-//
-func (b *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequestBuilder) Request() *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest {
-	return &AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *AndroidManagedStoreAccountEnterpriseSettingsCreateGooglePlayWebTokenRequest) Post(ctx context.Context) (resObj *string, err error) {
-	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
-	return
-}
-
-//
-type AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder struct{ BaseRequestBuilder }
-
-// SetAndroidDeviceOwnerFullyManagedEnrollmentState action undocumented
-func (b *AndroidManagedStoreAccountEnterpriseSettingsRequestBuilder) SetAndroidDeviceOwnerFullyManagedEnrollmentState(reqObj *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestParameter) *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder {
-	bb := &AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/setAndroidDeviceOwnerFullyManagedEnrollmentState"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest struct{ BaseRequest }
-
-//
-func (b *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequestBuilder) Request() *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest {
-	return &AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *AndroidManagedStoreAccountEnterpriseSettingsSetAndroidDeviceOwnerFullyManagedEnrollmentStateRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }

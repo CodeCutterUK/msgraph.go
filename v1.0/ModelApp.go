@@ -2,6 +2,8 @@
 
 package msgraph
 
+import "time"
+
 // AppCatalogs undocumented
 type AppCatalogs struct {
 	// Entity is the base model of AppCatalogs
@@ -10,7 +12,7 @@ type AppCatalogs struct {
 	TeamsApps []TeamsApp `json:"teamsApps,omitempty"`
 }
 
-// AppConfigurationSettingItem undocumented
+// AppConfigurationSettingItem Contains properties for App configuration setting item.
 type AppConfigurationSettingItem struct {
 	// Object is the base model of AppConfigurationSettingItem
 	Object
@@ -44,18 +46,18 @@ type AppIdentity struct {
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty"`
 }
 
-// AppListItem undocumented
+// AppListItem Represents an app in the list of managed applications
 type AppListItem struct {
 	// Object is the base model of AppListItem
 	Object
+	// AppID The bundle identifier of the application
+	AppID *string `json:"appId,omitempty"`
+	// AppStoreURL The Store URL of the application
+	AppStoreURL *string `json:"appStoreUrl,omitempty"`
 	// Name The application name
 	Name *string `json:"name,omitempty"`
 	// Publisher The publisher of the application
 	Publisher *string `json:"publisher,omitempty"`
-	// AppStoreURL The Store URL of the application
-	AppStoreURL *string `json:"appStoreUrl,omitempty"`
-	// AppID The application or bundle identifier of the application
-	AppID *string `json:"appId,omitempty"`
 }
 
 // AppRole undocumented
@@ -76,4 +78,24 @@ type AppRole struct {
 	Origin *string `json:"origin,omitempty"`
 	// Value undocumented
 	Value *string `json:"value,omitempty"`
+}
+
+// AppRoleAssignment undocumented
+type AppRoleAssignment struct {
+	// DirectoryObject is the base model of AppRoleAssignment
+	DirectoryObject
+	// AppRoleID undocumented
+	AppRoleID *UUID `json:"appRoleId,omitempty"`
+	// CreatedDateTime undocumented
+	CreatedDateTime *time.Time `json:"createdDateTime,omitempty"`
+	// PrincipalDisplayName undocumented
+	PrincipalDisplayName *string `json:"principalDisplayName,omitempty"`
+	// PrincipalID undocumented
+	PrincipalID *UUID `json:"principalId,omitempty"`
+	// PrincipalType undocumented
+	PrincipalType *string `json:"principalType,omitempty"`
+	// ResourceDisplayName undocumented
+	ResourceDisplayName *string `json:"resourceDisplayName,omitempty"`
+	// ResourceID undocumented
+	ResourceID *UUID `json:"resourceId,omitempty"`
 }

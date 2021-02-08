@@ -10,6 +10,8 @@ const (
 	AgreementAcceptanceStateVAccepted AgreementAcceptanceState = "accepted"
 	// AgreementAcceptanceStateVDeclined undocumented
 	AgreementAcceptanceStateVDeclined AgreementAcceptanceState = "declined"
+	// AgreementAcceptanceStateVUnknownFutureValue undocumented
+	AgreementAcceptanceStateVUnknownFutureValue AgreementAcceptanceState = "unknownFutureValue"
 )
 
 var (
@@ -17,9 +19,12 @@ var (
 	AgreementAcceptanceStatePAccepted = &_AgreementAcceptanceStatePAccepted
 	// AgreementAcceptanceStatePDeclined is a pointer to AgreementAcceptanceStateVDeclined
 	AgreementAcceptanceStatePDeclined = &_AgreementAcceptanceStatePDeclined
+	// AgreementAcceptanceStatePUnknownFutureValue is a pointer to AgreementAcceptanceStateVUnknownFutureValue
+	AgreementAcceptanceStatePUnknownFutureValue = &_AgreementAcceptanceStatePUnknownFutureValue
 )
 
 var (
-	_AgreementAcceptanceStatePAccepted = AgreementAcceptanceStateVAccepted
-	_AgreementAcceptanceStatePDeclined = AgreementAcceptanceStateVDeclined
+	_AgreementAcceptanceStatePAccepted           = AgreementAcceptanceStateVAccepted
+	_AgreementAcceptanceStatePDeclined           = AgreementAcceptanceStateVDeclined
+	_AgreementAcceptanceStatePUnknownFutureValue = AgreementAcceptanceStateVUnknownFutureValue
 )

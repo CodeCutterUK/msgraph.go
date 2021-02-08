@@ -8,8 +8,14 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// CallCollectionLogTeleconferenceDeviceQualityRequestParameter undocumented
+type CallCollectionLogTeleconferenceDeviceQualityRequestParameter struct {
+	// Quality undocumented
+	Quality *TeleconferenceDeviceQuality `json:"quality,omitempty"`
+}
 
 // CallAnswerRequestParameter undocumented
 type CallAnswerRequestParameter struct {
@@ -19,6 +25,12 @@ type CallAnswerRequestParameter struct {
 	MediaConfig *MediaConfig `json:"mediaConfig,omitempty"`
 	// AcceptedModalities undocumented
 	AcceptedModalities []Modality `json:"acceptedModalities,omitempty"`
+}
+
+// CallCancelMediaProcessingRequestParameter undocumented
+type CallCancelMediaProcessingRequestParameter struct {
+	// ClientContext undocumented
+	ClientContext *string `json:"clientContext,omitempty"`
 }
 
 // CallChangeScreenSharingRoleRequestParameter undocumented
@@ -97,6 +109,14 @@ type CallTransferRequestParameter struct {
 
 // CallUnmuteRequestParameter undocumented
 type CallUnmuteRequestParameter struct {
+	// ClientContext undocumented
+	ClientContext *string `json:"clientContext,omitempty"`
+}
+
+// CallUpdateRecordingStatusRequestParameter undocumented
+type CallUpdateRecordingStatusRequestParameter struct {
+	// Status undocumented
+	Status *RecordingStatus `json:"status,omitempty"`
 	// ClientContext undocumented
 	ClientContext *string `json:"clientContext,omitempty"`
 }

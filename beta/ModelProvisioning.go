@@ -8,62 +8,70 @@ import "time"
 type ProvisioningObjectSummary struct {
 	// Entity is the base model of ProvisioningObjectSummary
 	Entity
-	// ActivityDateTime undocumented
-	ActivityDateTime *time.Time `json:"activityDateTime,omitempty"`
-	// TenantID undocumented
-	TenantID *string `json:"tenantId,omitempty"`
-	// JobID undocumented
-	JobID *string `json:"jobId,omitempty"`
-	// CycleID undocumented
-	CycleID *string `json:"cycleId,omitempty"`
-	// ChangeID undocumented
-	ChangeID *string `json:"changeId,omitempty"`
 	// Action undocumented
 	Action *string `json:"action,omitempty"`
+	// ActivityDateTime undocumented
+	ActivityDateTime *time.Time `json:"activityDateTime,omitempty"`
+	// ChangeID undocumented
+	ChangeID *string `json:"changeId,omitempty"`
+	// CycleID undocumented
+	CycleID *string `json:"cycleId,omitempty"`
 	// DurationInMilliseconds undocumented
 	DurationInMilliseconds *int `json:"durationInMilliseconds,omitempty"`
 	// InitiatedBy undocumented
 	InitiatedBy *Initiator `json:"initiatedBy,omitempty"`
-	// SourceSystem undocumented
-	SourceSystem *ProvisioningSystemDetails `json:"sourceSystem,omitempty"`
-	// TargetSystem undocumented
-	TargetSystem *ProvisioningSystemDetails `json:"targetSystem,omitempty"`
-	// SourceIdentity undocumented
-	SourceIdentity *ProvisionedIdentity `json:"sourceIdentity,omitempty"`
-	// TargetIdentity undocumented
-	TargetIdentity *ProvisionedIdentity `json:"targetIdentity,omitempty"`
-	// StatusInfo undocumented
-	StatusInfo *StatusBase `json:"statusInfo,omitempty"`
-	// ProvisioningSteps undocumented
-	ProvisioningSteps []ProvisioningStep `json:"provisioningSteps,omitempty"`
+	// JobID undocumented
+	JobID *string `json:"jobId,omitempty"`
 	// ModifiedProperties undocumented
 	ModifiedProperties []ModifiedProperty `json:"modifiedProperties,omitempty"`
+	// ProvisioningSteps undocumented
+	ProvisioningSteps []ProvisioningStep `json:"provisioningSteps,omitempty"`
+	// ServicePrincipal undocumented
+	ServicePrincipal *ProvisioningServicePrincipal `json:"servicePrincipal,omitempty"`
+	// SourceIdentity undocumented
+	SourceIdentity *ProvisionedIdentity `json:"sourceIdentity,omitempty"`
+	// SourceSystem undocumented
+	SourceSystem *ProvisioningSystemDetails `json:"sourceSystem,omitempty"`
+	// StatusInfo undocumented
+	StatusInfo *StatusBase `json:"statusInfo,omitempty"`
+	// TargetIdentity undocumented
+	TargetIdentity *ProvisionedIdentity `json:"targetIdentity,omitempty"`
+	// TargetSystem undocumented
+	TargetSystem *ProvisioningSystemDetails `json:"targetSystem,omitempty"`
+	// TenantID undocumented
+	TenantID *string `json:"tenantId,omitempty"`
+}
+
+// ProvisioningServicePrincipal undocumented
+type ProvisioningServicePrincipal struct {
+	// Identity is the base model of ProvisioningServicePrincipal
+	Identity
 }
 
 // ProvisioningStep undocumented
 type ProvisioningStep struct {
 	// Object is the base model of ProvisioningStep
 	Object
-	// Name undocumented
-	Name *string `json:"name,omitempty"`
-	// Status undocumented
-	Status *ProvisioningResult `json:"status,omitempty"`
 	// Description undocumented
 	Description *string `json:"description,omitempty"`
 	// Details undocumented
 	Details *DetailsInfo `json:"details,omitempty"`
+	// Name undocumented
+	Name *string `json:"name,omitempty"`
 	// ProvisioningStepType undocumented
 	ProvisioningStepType *ProvisioningStepType `json:"provisioningStepType,omitempty"`
+	// Status undocumented
+	Status *ProvisioningResult `json:"status,omitempty"`
 }
 
 // ProvisioningSystemDetails undocumented
 type ProvisioningSystemDetails struct {
 	// Object is the base model of ProvisioningSystemDetails
 	Object
-	// ID undocumented
-	ID *string `json:"id,omitempty"`
-	// DisplayName undocumented
-	DisplayName *string `json:"displayName,omitempty"`
 	// Details undocumented
 	Details *DetailsInfo `json:"details,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// ID undocumented
+	ID *string `json:"id,omitempty"`
 }

@@ -8,8 +8,14 @@ type LanguageProficiency struct {
 	ItemFacet
 	// DisplayName undocumented
 	DisplayName *string `json:"displayName,omitempty"`
-	// Tag undocumented
-	Tag *string `json:"tag,omitempty"`
 	// Proficiency undocumented
 	Proficiency *LanguageProficiencyLevel `json:"proficiency,omitempty"`
+	// Reading undocumented
+	Reading *LanguageProficiencyLevel `json:"reading,omitempty"`
+	// Spoken undocumented
+	Spoken *LanguageProficiencyLevel `json:"spoken,omitempty"`
+	// Tag undocumented
+	Tag *string `json:"tag,omitempty"`
+	// Written undocumented
+	Written *LanguageProficiencyLevel `json:"written,omitempty"`
 }

@@ -2,16 +2,36 @@
 
 package msgraph
 
+// OpenIDConnectProvider undocumented
+type OpenIDConnectProvider struct {
+	// IdentityProvider is the base model of OpenIDConnectProvider
+	IdentityProvider
+	// ClaimsMapping undocumented
+	ClaimsMapping *ClaimsMapping `json:"claimsMapping,omitempty"`
+	// DomainHint undocumented
+	DomainHint *string `json:"domainHint,omitempty"`
+	// MetadataURL undocumented
+	MetadataURL *string `json:"metadataUrl,omitempty"`
+	// ResponseMode undocumented
+	ResponseMode *OpenIDConnectResponseMode `json:"responseMode,omitempty"`
+	// ResponseType undocumented
+	ResponseType *OpenIDConnectResponseTypes `json:"responseType,omitempty"`
+	// Scope undocumented
+	Scope *string `json:"scope,omitempty"`
+}
+
 // OpenShift undocumented
 type OpenShift struct {
 	// ChangeTrackedEntity is the base model of OpenShift
 	ChangeTrackedEntity
-	// SharedOpenShift undocumented
-	SharedOpenShift *OpenShiftItem `json:"sharedOpenShift,omitempty"`
 	// DraftOpenShift undocumented
 	DraftOpenShift *OpenShiftItem `json:"draftOpenShift,omitempty"`
+	// IsStagedForDeletion undocumented
+	IsStagedForDeletion *bool `json:"isStagedForDeletion,omitempty"`
 	// SchedulingGroupID undocumented
 	SchedulingGroupID *string `json:"schedulingGroupId,omitempty"`
+	// SharedOpenShift undocumented
+	SharedOpenShift *OpenShiftItem `json:"sharedOpenShift,omitempty"`
 }
 
 // OpenShiftChangeRequestObject undocumented

@@ -104,28 +104,55 @@ func (r *DepOnboardingSettingRequest) Delete(ctx context.Context) error {
 }
 
 //
-type DepOnboardingSettingUploadDepTokenRequestBuilder struct{ BaseRequestBuilder }
+type DepOnboardingSettingGenerateEncryptionPublicKeyRequestBuilder struct{ BaseRequestBuilder }
 
-// UploadDepToken action undocumented
-func (b *DepOnboardingSettingRequestBuilder) UploadDepToken(reqObj *DepOnboardingSettingUploadDepTokenRequestParameter) *DepOnboardingSettingUploadDepTokenRequestBuilder {
-	bb := &DepOnboardingSettingUploadDepTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/uploadDepToken"
+// GenerateEncryptionPublicKey action undocumented
+func (b *DepOnboardingSettingRequestBuilder) GenerateEncryptionPublicKey(reqObj *DepOnboardingSettingGenerateEncryptionPublicKeyRequestParameter) *DepOnboardingSettingGenerateEncryptionPublicKeyRequestBuilder {
+	bb := &DepOnboardingSettingGenerateEncryptionPublicKeyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/generateEncryptionPublicKey"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type DepOnboardingSettingUploadDepTokenRequest struct{ BaseRequest }
+type DepOnboardingSettingGenerateEncryptionPublicKeyRequest struct{ BaseRequest }
 
 //
-func (b *DepOnboardingSettingUploadDepTokenRequestBuilder) Request() *DepOnboardingSettingUploadDepTokenRequest {
-	return &DepOnboardingSettingUploadDepTokenRequest{
+func (b *DepOnboardingSettingGenerateEncryptionPublicKeyRequestBuilder) Request() *DepOnboardingSettingGenerateEncryptionPublicKeyRequest {
+	return &DepOnboardingSettingGenerateEncryptionPublicKeyRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *DepOnboardingSettingUploadDepTokenRequest) Post(ctx context.Context) error {
+func (r *DepOnboardingSettingGenerateEncryptionPublicKeyRequest) Post(ctx context.Context) (resObj *string, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder struct{ BaseRequestBuilder }
+
+// ShareForSchoolDataSyncService action undocumented
+func (b *DepOnboardingSettingRequestBuilder) ShareForSchoolDataSyncService(reqObj *DepOnboardingSettingShareForSchoolDataSyncServiceRequestParameter) *DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder {
+	bb := &DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/shareForSchoolDataSyncService"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type DepOnboardingSettingShareForSchoolDataSyncServiceRequest struct{ BaseRequest }
+
+//
+func (b *DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder) Request() *DepOnboardingSettingShareForSchoolDataSyncServiceRequest {
+	return &DepOnboardingSettingShareForSchoolDataSyncServiceRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *DepOnboardingSettingShareForSchoolDataSyncServiceRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -156,32 +183,6 @@ func (r *DepOnboardingSettingSyncWithAppleDeviceEnrollmentProgramRequest) Post(c
 }
 
 //
-type DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder struct{ BaseRequestBuilder }
-
-// ShareForSchoolDataSyncService action undocumented
-func (b *DepOnboardingSettingRequestBuilder) ShareForSchoolDataSyncService(reqObj *DepOnboardingSettingShareForSchoolDataSyncServiceRequestParameter) *DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder {
-	bb := &DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/shareForSchoolDataSyncService"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type DepOnboardingSettingShareForSchoolDataSyncServiceRequest struct{ BaseRequest }
-
-//
-func (b *DepOnboardingSettingShareForSchoolDataSyncServiceRequestBuilder) Request() *DepOnboardingSettingShareForSchoolDataSyncServiceRequest {
-	return &DepOnboardingSettingShareForSchoolDataSyncServiceRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *DepOnboardingSettingShareForSchoolDataSyncServiceRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type DepOnboardingSettingUnshareForSchoolDataSyncServiceRequestBuilder struct{ BaseRequestBuilder }
 
 // UnshareForSchoolDataSyncService action undocumented
@@ -204,5 +205,31 @@ func (b *DepOnboardingSettingUnshareForSchoolDataSyncServiceRequestBuilder) Requ
 
 //
 func (r *DepOnboardingSettingUnshareForSchoolDataSyncServiceRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type DepOnboardingSettingUploadDepTokenRequestBuilder struct{ BaseRequestBuilder }
+
+// UploadDepToken action undocumented
+func (b *DepOnboardingSettingRequestBuilder) UploadDepToken(reqObj *DepOnboardingSettingUploadDepTokenRequestParameter) *DepOnboardingSettingUploadDepTokenRequestBuilder {
+	bb := &DepOnboardingSettingUploadDepTokenRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/uploadDepToken"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type DepOnboardingSettingUploadDepTokenRequest struct{ BaseRequest }
+
+//
+func (b *DepOnboardingSettingUploadDepTokenRequestBuilder) Request() *DepOnboardingSettingUploadDepTokenRequest {
+	return &DepOnboardingSettingUploadDepTokenRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *DepOnboardingSettingUploadDepTokenRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }

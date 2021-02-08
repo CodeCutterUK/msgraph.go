@@ -356,33 +356,6 @@ func (r *PrivilegedRoleSelfDeactivateRequest) Post(ctx context.Context) (resObj 
 }
 
 //
-type PrivilegedRoleAssignmentMakePermanentRequestBuilder struct{ BaseRequestBuilder }
-
-// MakePermanent action undocumented
-func (b *PrivilegedRoleAssignmentRequestBuilder) MakePermanent(reqObj *PrivilegedRoleAssignmentMakePermanentRequestParameter) *PrivilegedRoleAssignmentMakePermanentRequestBuilder {
-	bb := &PrivilegedRoleAssignmentMakePermanentRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/makePermanent"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type PrivilegedRoleAssignmentMakePermanentRequest struct{ BaseRequest }
-
-//
-func (b *PrivilegedRoleAssignmentMakePermanentRequestBuilder) Request() *PrivilegedRoleAssignmentMakePermanentRequest {
-	return &PrivilegedRoleAssignmentMakePermanentRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *PrivilegedRoleAssignmentMakePermanentRequest) Post(ctx context.Context) (resObj *PrivilegedRoleAssignment, err error) {
-	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
-	return
-}
-
-//
 type PrivilegedRoleAssignmentMakeEligibleRequestBuilder struct{ BaseRequestBuilder }
 
 // MakeEligible action undocumented
@@ -405,6 +378,33 @@ func (b *PrivilegedRoleAssignmentMakeEligibleRequestBuilder) Request() *Privileg
 
 //
 func (r *PrivilegedRoleAssignmentMakeEligibleRequest) Post(ctx context.Context) (resObj *PrivilegedRoleAssignment, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type PrivilegedRoleAssignmentMakePermanentRequestBuilder struct{ BaseRequestBuilder }
+
+// MakePermanent action undocumented
+func (b *PrivilegedRoleAssignmentRequestBuilder) MakePermanent(reqObj *PrivilegedRoleAssignmentMakePermanentRequestParameter) *PrivilegedRoleAssignmentMakePermanentRequestBuilder {
+	bb := &PrivilegedRoleAssignmentMakePermanentRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/makePermanent"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type PrivilegedRoleAssignmentMakePermanentRequest struct{ BaseRequest }
+
+//
+func (b *PrivilegedRoleAssignmentMakePermanentRequestBuilder) Request() *PrivilegedRoleAssignmentMakePermanentRequest {
+	return &PrivilegedRoleAssignmentMakePermanentRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *PrivilegedRoleAssignmentMakePermanentRequest) Post(ctx context.Context) (resObj *PrivilegedRoleAssignment, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
 }

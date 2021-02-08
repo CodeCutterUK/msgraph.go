@@ -8,12 +8,12 @@ type WebAccount struct {
 	ItemFacet
 	// Description undocumented
 	Description *string `json:"description,omitempty"`
-	// UserID undocumented
-	UserID *string `json:"userId,omitempty"`
 	// Service undocumented
 	Service *ServiceInformation `json:"service,omitempty"`
 	// StatusMessage undocumented
 	StatusMessage *string `json:"statusMessage,omitempty"`
+	// UserID undocumented
+	UserID *string `json:"userId,omitempty"`
 	// WebURL undocumented
 	WebURL *string `json:"webUrl,omitempty"`
 }
@@ -34,22 +34,22 @@ type WebApplication struct {
 	Object
 	// HomePageURL undocumented
 	HomePageURL *string `json:"homePageUrl,omitempty"`
-	// RedirectUris undocumented
-	RedirectUris []string `json:"redirectUris,omitempty"`
-	// OAuth2AllowImplicitFlow undocumented
-	OAuth2AllowImplicitFlow *bool `json:"oauth2AllowImplicitFlow,omitempty"`
-	// LogoutURL undocumented
-	LogoutURL *string `json:"logoutUrl,omitempty"`
 	// ImplicitGrantSettings undocumented
 	ImplicitGrantSettings *ImplicitGrantSettings `json:"implicitGrantSettings,omitempty"`
+	// LogoutURL undocumented
+	LogoutURL *string `json:"logoutUrl,omitempty"`
+	// OAuth2AllowImplicitFlow undocumented
+	OAuth2AllowImplicitFlow *bool `json:"oauth2AllowImplicitFlow,omitempty"`
+	// RedirectUris undocumented
+	RedirectUris []string `json:"redirectUris,omitempty"`
 }
 
 // WebPart undocumented
 type WebPart struct {
 	// Object is the base model of WebPart
 	Object
-	// Type undocumented
-	Type *string `json:"type,omitempty"`
 	// Data undocumented
 	Data *SitePageData `json:"data,omitempty"`
+	// Type undocumented
+	Type *string `json:"type,omitempty"`
 }

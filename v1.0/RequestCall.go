@@ -38,6 +38,32 @@ func (r *CallRequest) Delete(ctx context.Context) error {
 }
 
 //
+type CallCollectionLogTeleconferenceDeviceQualityRequestBuilder struct{ BaseRequestBuilder }
+
+// LogTeleconferenceDeviceQuality action undocumented
+func (b *CloudCommunicationsCallsCollectionRequestBuilder) LogTeleconferenceDeviceQuality(reqObj *CallCollectionLogTeleconferenceDeviceQualityRequestParameter) *CallCollectionLogTeleconferenceDeviceQualityRequestBuilder {
+	bb := &CallCollectionLogTeleconferenceDeviceQualityRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/logTeleconferenceDeviceQuality"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type CallCollectionLogTeleconferenceDeviceQualityRequest struct{ BaseRequest }
+
+//
+func (b *CallCollectionLogTeleconferenceDeviceQualityRequestBuilder) Request() *CallCollectionLogTeleconferenceDeviceQualityRequest {
+	return &CallCollectionLogTeleconferenceDeviceQualityRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *CallCollectionLogTeleconferenceDeviceQualityRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
 type CallAnswerRequestBuilder struct{ BaseRequestBuilder }
 
 // Answer action undocumented
@@ -61,6 +87,33 @@ func (b *CallAnswerRequestBuilder) Request() *CallAnswerRequest {
 //
 func (r *CallAnswerRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type CallCancelMediaProcessingRequestBuilder struct{ BaseRequestBuilder }
+
+// CancelMediaProcessing action undocumented
+func (b *CallRequestBuilder) CancelMediaProcessing(reqObj *CallCancelMediaProcessingRequestParameter) *CallCancelMediaProcessingRequestBuilder {
+	bb := &CallCancelMediaProcessingRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/cancelMediaProcessing"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type CallCancelMediaProcessingRequest struct{ BaseRequest }
+
+//
+func (b *CallCancelMediaProcessingRequestBuilder) Request() *CallCancelMediaProcessingRequest {
+	return &CallCancelMediaProcessingRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *CallCancelMediaProcessingRequest) Post(ctx context.Context) (resObj *CancelMediaProcessingOperation, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }
 
 //
@@ -324,6 +377,33 @@ func (b *CallUnmuteRequestBuilder) Request() *CallUnmuteRequest {
 
 //
 func (r *CallUnmuteRequest) Post(ctx context.Context) (resObj *UnmuteParticipantOperation, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type CallUpdateRecordingStatusRequestBuilder struct{ BaseRequestBuilder }
+
+// UpdateRecordingStatus action undocumented
+func (b *CallRequestBuilder) UpdateRecordingStatus(reqObj *CallUpdateRecordingStatusRequestParameter) *CallUpdateRecordingStatusRequestBuilder {
+	bb := &CallUpdateRecordingStatusRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/updateRecordingStatus"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type CallUpdateRecordingStatusRequest struct{ BaseRequest }
+
+//
+func (b *CallUpdateRecordingStatusRequestBuilder) Request() *CallUpdateRecordingStatusRequest {
+	return &CallUpdateRecordingStatusRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *CallUpdateRecordingStatusRequest) Post(ctx context.Context) (resObj *UpdateRecordingStatusOperation, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
 }

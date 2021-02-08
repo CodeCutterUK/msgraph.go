@@ -4,18 +4,32 @@ package msgraph
 
 import "time"
 
+// ExactDataMatchStoreColumn undocumented
+type ExactDataMatchStoreColumn struct {
+	// Object is the base model of ExactDataMatchStoreColumn
+	Object
+	// IgnoredDelimiters undocumented
+	IgnoredDelimiters []string `json:"ignoredDelimiters,omitempty"`
+	// IsCaseInsensitive undocumented
+	IsCaseInsensitive *bool `json:"isCaseInsensitive,omitempty"`
+	// IsSearchable undocumented
+	IsSearchable *bool `json:"isSearchable,omitempty"`
+	// Name undocumented
+	Name *string `json:"name,omitempty"`
+}
+
 // ExactMatchClassificationRequestObject undocumented
 type ExactMatchClassificationRequestObject struct {
 	// Object is the base model of ExactMatchClassificationRequestObject
 	Object
+	// ContentClassifications undocumented
+	ContentClassifications []ContentClassification `json:"contentClassifications,omitempty"`
 	// SensitiveTypeIDs undocumented
 	SensitiveTypeIDs []string `json:"sensitiveTypeIds,omitempty"`
 	// Text undocumented
 	Text *string `json:"text,omitempty"`
 	// TimeoutInMs undocumented
 	TimeoutInMs *int `json:"timeoutInMs,omitempty"`
-	// ContentClassifications undocumented
-	ContentClassifications []ContentClassification `json:"contentClassifications,omitempty"`
 }
 
 // ExactMatchClassificationResult undocumented
@@ -23,7 +37,7 @@ type ExactMatchClassificationResult struct {
 	// Object is the base model of ExactMatchClassificationResult
 	Object
 	// Classification undocumented
-	Classification []DetectedSensitiveContent `json:"classification,omitempty"`
+	Classification []ExactMatchDetectedSensitiveContent `json:"classification,omitempty"`
 	// Errors undocumented
 	Errors []ClassificationError `json:"errors,omitempty"`
 }
@@ -32,30 +46,40 @@ type ExactMatchClassificationResult struct {
 type ExactMatchDataStore struct {
 	// Entity is the base model of ExactMatchDataStore
 	Entity
-	// DisplayName undocumented
-	DisplayName *string `json:"displayName,omitempty"`
-	// Description undocumented
-	Description *string `json:"description,omitempty"`
+	// Columns undocumented
+	Columns []ExactDataMatchStoreColumn `json:"columns,omitempty"`
 	// DataLastUpdatedDateTime undocumented
 	DataLastUpdatedDateTime *time.Time `json:"dataLastUpdatedDateTime,omitempty"`
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
 	// Sessions undocumented
 	Sessions []ExactMatchSession `json:"sessions,omitempty"`
+}
+
+// ExactMatchDetectedSensitiveContent undocumented
+type ExactMatchDetectedSensitiveContent struct {
+	// DetectedSensitiveContentBase is the base model of ExactMatchDetectedSensitiveContent
+	DetectedSensitiveContentBase
+	// Matches undocumented
+	Matches []ExactMatchSensitiveContentLocation `json:"matches,omitempty"`
 }
 
 // ExactMatchJobBase undocumented
 type ExactMatchJobBase struct {
 	// Entity is the base model of ExactMatchJobBase
 	Entity
-	// CreationDateTime undocumented
-	CreationDateTime *time.Time `json:"creationDateTime,omitempty"`
-	// StartDateTime undocumented
-	StartDateTime *time.Time `json:"startDateTime,omitempty"`
-	// LastUpdatedDateTime undocumented
-	LastUpdatedDateTime *time.Time `json:"lastUpdatedDateTime,omitempty"`
 	// CompletionDateTime undocumented
 	CompletionDateTime *time.Time `json:"completionDateTime,omitempty"`
+	// CreationDateTime undocumented
+	CreationDateTime *time.Time `json:"creationDateTime,omitempty"`
 	// Error undocumented
 	Error *ClassificationError `json:"error,omitempty"`
+	// LastUpdatedDateTime undocumented
+	LastUpdatedDateTime *time.Time `json:"lastUpdatedDateTime,omitempty"`
+	// StartDateTime undocumented
+	StartDateTime *time.Time `json:"startDateTime,omitempty"`
 }
 
 // ExactMatchLookupJob undocumented
@@ -68,38 +92,46 @@ type ExactMatchLookupJob struct {
 	MatchingRows []LookupResultRow `json:"matchingRows,omitempty"`
 }
 
+// ExactMatchSensitiveContentLocation undocumented
+type ExactMatchSensitiveContentLocation struct {
+	// SensitiveContentLocationBase is the base model of ExactMatchSensitiveContentLocation
+	SensitiveContentLocationBase
+}
+
 // ExactMatchSession undocumented
 type ExactMatchSession struct {
 	// ExactMatchJobBase is the base model of ExactMatchSession
 	ExactMatchJobBase
+	// Checksum undocumented
+	Checksum *string `json:"checksum,omitempty"`
 	// DatastoreID undocumented
 	DatastoreID *string `json:"datastoreId,omitempty"`
-	// UploadAgentID undocumented
-	UploadAgentID *string `json:"uploadAgentId,omitempty"`
+	// DataUploadURI undocumented
+	DataUploadURI *string `json:"dataUploadURI,omitempty"`
 	// Fields undocumented
 	Fields []string `json:"fields,omitempty"`
 	// FileName undocumented
 	FileName *string `json:"fileName,omitempty"`
-	// Checksum undocumented
-	Checksum *string `json:"checksum,omitempty"`
-	// DataUploadURI undocumented
-	DataUploadURI *string `json:"dataUploadURI,omitempty"`
-	// RemainingBlockCount undocumented
-	RemainingBlockCount *int `json:"remainingBlockCount,omitempty"`
-	// TotalBlockCount undocumented
-	TotalBlockCount *int `json:"totalBlockCount,omitempty"`
-	// State undocumented
-	State *string `json:"state,omitempty"`
-	// UploadCompletionDateTime undocumented
-	UploadCompletionDateTime *time.Time `json:"uploadCompletionDateTime,omitempty"`
 	// ProcessingCompletionDateTime undocumented
 	ProcessingCompletionDateTime *time.Time `json:"processingCompletionDateTime,omitempty"`
-	// RowsPerBlock undocumented
-	RowsPerBlock *int `json:"rowsPerBlock,omitempty"`
-	// TotalJobCount undocumented
-	TotalJobCount *int `json:"totalJobCount,omitempty"`
+	// RemainingBlockCount undocumented
+	RemainingBlockCount *int `json:"remainingBlockCount,omitempty"`
 	// RemainingJobCount undocumented
 	RemainingJobCount *int `json:"remainingJobCount,omitempty"`
+	// RowsPerBlock undocumented
+	RowsPerBlock *int `json:"rowsPerBlock,omitempty"`
+	// Salt undocumented
+	Salt *string `json:"salt,omitempty"`
+	// State undocumented
+	State *string `json:"state,omitempty"`
+	// TotalBlockCount undocumented
+	TotalBlockCount *int `json:"totalBlockCount,omitempty"`
+	// TotalJobCount undocumented
+	TotalJobCount *int `json:"totalJobCount,omitempty"`
+	// UploadAgentID undocumented
+	UploadAgentID *string `json:"uploadAgentId,omitempty"`
+	// UploadCompletionDateTime undocumented
+	UploadCompletionDateTime *time.Time `json:"uploadCompletionDateTime,omitempty"`
 	// UploadAgent undocumented
 	UploadAgent *ExactMatchUploadAgent `json:"uploadAgent,omitempty"`
 }
@@ -108,8 +140,8 @@ type ExactMatchSession struct {
 type ExactMatchUploadAgent struct {
 	// Entity is the base model of ExactMatchUploadAgent
 	Entity
-	// Description undocumented
-	Description *string `json:"description,omitempty"`
 	// CreationDateTime undocumented
 	CreationDateTime *time.Time `json:"creationDateTime,omitempty"`
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
 }

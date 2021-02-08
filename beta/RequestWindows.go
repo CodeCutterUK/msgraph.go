@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // WindowsAutopilotDeploymentProfileRequestBuilder is request builder for WindowsAutopilotDeploymentProfile
@@ -1001,6 +1001,72 @@ func (r *WindowsProtectionStateRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
+// WindowsQualityUpdateProfileRequestBuilder is request builder for WindowsQualityUpdateProfile
+type WindowsQualityUpdateProfileRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns WindowsQualityUpdateProfileRequest
+func (b *WindowsQualityUpdateProfileRequestBuilder) Request() *WindowsQualityUpdateProfileRequest {
+	return &WindowsQualityUpdateProfileRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// WindowsQualityUpdateProfileRequest is request for WindowsQualityUpdateProfile
+type WindowsQualityUpdateProfileRequest struct{ BaseRequest }
+
+// Get performs GET request for WindowsQualityUpdateProfile
+func (r *WindowsQualityUpdateProfileRequest) Get(ctx context.Context) (resObj *WindowsQualityUpdateProfile, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for WindowsQualityUpdateProfile
+func (r *WindowsQualityUpdateProfileRequest) Update(ctx context.Context, reqObj *WindowsQualityUpdateProfile) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for WindowsQualityUpdateProfile
+func (r *WindowsQualityUpdateProfileRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// WindowsQualityUpdateProfileAssignmentRequestBuilder is request builder for WindowsQualityUpdateProfileAssignment
+type WindowsQualityUpdateProfileAssignmentRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns WindowsQualityUpdateProfileAssignmentRequest
+func (b *WindowsQualityUpdateProfileAssignmentRequestBuilder) Request() *WindowsQualityUpdateProfileAssignmentRequest {
+	return &WindowsQualityUpdateProfileAssignmentRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// WindowsQualityUpdateProfileAssignmentRequest is request for WindowsQualityUpdateProfileAssignment
+type WindowsQualityUpdateProfileAssignmentRequest struct{ BaseRequest }
+
+// Get performs GET request for WindowsQualityUpdateProfileAssignment
+func (r *WindowsQualityUpdateProfileAssignmentRequest) Get(ctx context.Context) (resObj *WindowsQualityUpdateProfileAssignment, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for WindowsQualityUpdateProfileAssignment
+func (r *WindowsQualityUpdateProfileAssignmentRequest) Update(ctx context.Context, reqObj *WindowsQualityUpdateProfileAssignment) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for WindowsQualityUpdateProfileAssignment
+func (r *WindowsQualityUpdateProfileAssignmentRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // WindowsUniversalAppXRequestBuilder is request builder for WindowsUniversalAppX
 type WindowsUniversalAppXRequestBuilder struct{ BaseRequestBuilder }
 
@@ -1031,6 +1097,39 @@ func (r *WindowsUniversalAppXRequest) Update(ctx context.Context, reqObj *Window
 
 // Delete performs DELETE request for WindowsUniversalAppX
 func (r *WindowsUniversalAppXRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// WindowsUpdateCatalogItemRequestBuilder is request builder for WindowsUpdateCatalogItem
+type WindowsUpdateCatalogItemRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns WindowsUpdateCatalogItemRequest
+func (b *WindowsUpdateCatalogItemRequestBuilder) Request() *WindowsUpdateCatalogItemRequest {
+	return &WindowsUpdateCatalogItemRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// WindowsUpdateCatalogItemRequest is request for WindowsUpdateCatalogItem
+type WindowsUpdateCatalogItemRequest struct{ BaseRequest }
+
+// Get performs GET request for WindowsUpdateCatalogItem
+func (r *WindowsUpdateCatalogItemRequest) Get(ctx context.Context) (resObj *WindowsUpdateCatalogItem, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for WindowsUpdateCatalogItem
+func (r *WindowsUpdateCatalogItemRequest) Update(ctx context.Context, reqObj *WindowsUpdateCatalogItem) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for WindowsUpdateCatalogItem
+func (r *WindowsUpdateCatalogItemRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
@@ -1247,6 +1346,32 @@ func (r *WindowsAutopilotDeploymentProfileAssignRequest) Post(ctx context.Contex
 }
 
 //
+type WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder struct{ BaseRequestBuilder }
+
+// AssignResourceAccountToDevice action undocumented
+func (b *WindowsAutopilotDeviceIdentityRequestBuilder) AssignResourceAccountToDevice(reqObj *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestParameter) *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder {
+	bb := &WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/assignResourceAccountToDevice"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest struct{ BaseRequest }
+
+//
+func (b *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder) Request() *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest {
+	return &WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
 type WindowsAutopilotDeviceIdentityAssignUserToDeviceRequestBuilder struct{ BaseRequestBuilder }
 
 // AssignUserToDevice action undocumented
@@ -1269,6 +1394,32 @@ func (b *WindowsAutopilotDeviceIdentityAssignUserToDeviceRequestBuilder) Request
 
 //
 func (r *WindowsAutopilotDeviceIdentityAssignUserToDeviceRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder struct{ BaseRequestBuilder }
+
+// UnassignResourceAccountFromDevice action undocumented
+func (b *WindowsAutopilotDeviceIdentityRequestBuilder) UnassignResourceAccountFromDevice(reqObj *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestParameter) *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder {
+	bb := &WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/unassignResourceAccountFromDevice"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest struct{ BaseRequest }
+
+//
+func (b *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder) Request() *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest {
+	return &WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -1321,58 +1472,6 @@ func (b *WindowsAutopilotDeviceIdentityUpdateDevicePropertiesRequestBuilder) Req
 
 //
 func (r *WindowsAutopilotDeviceIdentityUpdateDevicePropertiesRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder struct{ BaseRequestBuilder }
-
-// AssignResourceAccountToDevice action undocumented
-func (b *WindowsAutopilotDeviceIdentityRequestBuilder) AssignResourceAccountToDevice(reqObj *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestParameter) *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder {
-	bb := &WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/assignResourceAccountToDevice"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest struct{ BaseRequest }
-
-//
-func (b *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequestBuilder) Request() *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest {
-	return &WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *WindowsAutopilotDeviceIdentityAssignResourceAccountToDeviceRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder struct{ BaseRequestBuilder }
-
-// UnassignResourceAccountFromDevice action undocumented
-func (b *WindowsAutopilotDeviceIdentityRequestBuilder) UnassignResourceAccountFromDevice(reqObj *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestParameter) *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder {
-	bb := &WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/unassignResourceAccountFromDevice"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest struct{ BaseRequest }
-
-//
-func (b *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequestBuilder) Request() *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest {
-	return &WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *WindowsAutopilotDeviceIdentityUnassignResourceAccountFromDeviceRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -1503,6 +1602,32 @@ func (b *WindowsInformationProtectionDeviceRegistrationWipeRequestBuilder) Reque
 
 //
 func (r *WindowsInformationProtectionDeviceRegistrationWipeRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type WindowsQualityUpdateProfileAssignRequestBuilder struct{ BaseRequestBuilder }
+
+// Assign action undocumented
+func (b *WindowsQualityUpdateProfileRequestBuilder) Assign(reqObj *WindowsQualityUpdateProfileAssignRequestParameter) *WindowsQualityUpdateProfileAssignRequestBuilder {
+	bb := &WindowsQualityUpdateProfileAssignRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/assign"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type WindowsQualityUpdateProfileAssignRequest struct{ BaseRequest }
+
+//
+func (b *WindowsQualityUpdateProfileAssignRequestBuilder) Request() *WindowsQualityUpdateProfileAssignRequest {
+	return &WindowsQualityUpdateProfileAssignRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *WindowsQualityUpdateProfileAssignRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 

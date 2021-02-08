@@ -6,14 +6,24 @@ package msgraph
 type Channel struct {
 	// Entity is the base model of Channel
 	Entity
-	// DisplayName undocumented
-	DisplayName *string `json:"displayName,omitempty"`
 	// Description undocumented
 	Description *string `json:"description,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
 	// Email undocumented
 	Email *string `json:"email,omitempty"`
+	// IsFavoriteByDefault undocumented
+	IsFavoriteByDefault *bool `json:"isFavoriteByDefault,omitempty"`
+	// MembershipType undocumented
+	MembershipType *ChannelMembershipType `json:"membershipType,omitempty"`
 	// WebURL undocumented
 	WebURL *string `json:"webUrl,omitempty"`
+	// FilesFolder undocumented
+	FilesFolder *DriveItem `json:"filesFolder,omitempty"`
+	// Members undocumented
+	Members []ConversationMember `json:"members,omitempty"`
+	// Messages undocumented
+	Messages []ChatMessage `json:"messages,omitempty"`
 	// Tabs undocumented
 	Tabs []TeamsTab `json:"tabs,omitempty"`
 }

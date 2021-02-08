@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // UserAssignLicenseRequestParameter undocumented
@@ -25,6 +25,10 @@ type UserChangePasswordRequestParameter struct {
 	CurrentPassword *string `json:"currentPassword,omitempty"`
 	// NewPassword undocumented
 	NewPassword *string `json:"newPassword,omitempty"`
+}
+
+// UserReprocessLicenseAssignmentRequestParameter undocumented
+type UserReprocessLicenseAssignmentRequestParameter struct {
 }
 
 // UserRevokeSignInSessionsRequestParameter undocumented
@@ -51,20 +55,20 @@ type UserFindMeetingTimesRequestParameter struct {
 	MinimumAttendeePercentage *float64 `json:"minimumAttendeePercentage,omitempty"`
 }
 
-// UserSendMailRequestParameter undocumented
-type UserSendMailRequestParameter struct {
-	// Message undocumented
-	Message *Message `json:"Message,omitempty"`
-	// SaveToSentItems undocumented
-	SaveToSentItems *bool `json:"SaveToSentItems,omitempty"`
-}
-
 // UserGetMailTipsRequestParameter undocumented
 type UserGetMailTipsRequestParameter struct {
 	// EmailAddresses undocumented
 	EmailAddresses []string `json:"EmailAddresses,omitempty"`
 	// MailTipsOptions undocumented
 	MailTipsOptions *MailTipsType `json:"MailTipsOptions,omitempty"`
+}
+
+// UserSendMailRequestParameter undocumented
+type UserSendMailRequestParameter struct {
+	// Message undocumented
+	Message *Message `json:"Message,omitempty"`
+	// SaveToSentItems undocumented
+	SaveToSentItems *bool `json:"SaveToSentItems,omitempty"`
 }
 
 // UserTranslateExchangeIDsRequestParameter undocumented
@@ -194,6 +198,116 @@ func (r *UserActivitiesCollectionRequest) Get(ctx context.Context) ([]UserActivi
 func (r *UserActivitiesCollectionRequest) Add(ctx context.Context, reqObj *UserActivity) (resObj *UserActivity, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
+}
+
+// AppRoleAssignments returns request builder for AppRoleAssignment collection
+func (b *UserRequestBuilder) AppRoleAssignments() *UserAppRoleAssignmentsCollectionRequestBuilder {
+	bb := &UserAppRoleAssignmentsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/appRoleAssignments"
+	return bb
+}
+
+// UserAppRoleAssignmentsCollectionRequestBuilder is request builder for AppRoleAssignment collection
+type UserAppRoleAssignmentsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for AppRoleAssignment collection
+func (b *UserAppRoleAssignmentsCollectionRequestBuilder) Request() *UserAppRoleAssignmentsCollectionRequest {
+	return &UserAppRoleAssignmentsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for AppRoleAssignment item
+func (b *UserAppRoleAssignmentsCollectionRequestBuilder) ID(id string) *AppRoleAssignmentRequestBuilder {
+	bb := &AppRoleAssignmentRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserAppRoleAssignmentsCollectionRequest is request for AppRoleAssignment collection
+type UserAppRoleAssignmentsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for AppRoleAssignment collection
+func (r *UserAppRoleAssignmentsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]AppRoleAssignment, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []AppRoleAssignment
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []AppRoleAssignment
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for AppRoleAssignment collection, max N pages
+func (r *UserAppRoleAssignmentsCollectionRequest) GetN(ctx context.Context, n int) ([]AppRoleAssignment, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for AppRoleAssignment collection
+func (r *UserAppRoleAssignmentsCollectionRequest) Get(ctx context.Context) ([]AppRoleAssignment, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for AppRoleAssignment collection
+func (r *UserAppRoleAssignmentsCollectionRequest) Add(ctx context.Context, reqObj *AppRoleAssignment) (resObj *AppRoleAssignment, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// Authentication is navigation property
+func (b *UserRequestBuilder) Authentication() *AuthenticationRequestBuilder {
+	bb := &AuthenticationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/authentication"
+	return bb
 }
 
 // Calendar is navigation property
@@ -1343,49 +1457,35 @@ func (r *UserExtensionsCollectionRequest) Add(ctx context.Context, reqObj *Exten
 	return
 }
 
-// InferenceClassification is navigation property
-func (b *UserRequestBuilder) InferenceClassification() *InferenceClassificationRequestBuilder {
-	bb := &InferenceClassificationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.baseURL += "/inferenceClassification"
+// FollowedSites returns request builder for Site collection
+func (b *UserRequestBuilder) FollowedSites() *UserFollowedSitesCollectionRequestBuilder {
+	bb := &UserFollowedSitesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/followedSites"
 	return bb
 }
 
-// Insights is navigation property
-func (b *UserRequestBuilder) Insights() *OfficeGraphInsightsRequestBuilder {
-	bb := &OfficeGraphInsightsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.baseURL += "/insights"
-	return bb
-}
+// UserFollowedSitesCollectionRequestBuilder is request builder for Site collection
+type UserFollowedSitesCollectionRequestBuilder struct{ BaseRequestBuilder }
 
-// JoinedTeams returns request builder for Group collection
-func (b *UserRequestBuilder) JoinedTeams() *UserJoinedTeamsCollectionRequestBuilder {
-	bb := &UserJoinedTeamsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.baseURL += "/joinedTeams"
-	return bb
-}
-
-// UserJoinedTeamsCollectionRequestBuilder is request builder for Group collection
-type UserJoinedTeamsCollectionRequestBuilder struct{ BaseRequestBuilder }
-
-// Request returns request for Group collection
-func (b *UserJoinedTeamsCollectionRequestBuilder) Request() *UserJoinedTeamsCollectionRequest {
-	return &UserJoinedTeamsCollectionRequest{
+// Request returns request for Site collection
+func (b *UserFollowedSitesCollectionRequestBuilder) Request() *UserFollowedSitesCollectionRequest {
+	return &UserFollowedSitesCollectionRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
 	}
 }
 
-// ID returns request builder for Group item
-func (b *UserJoinedTeamsCollectionRequestBuilder) ID(id string) *GroupRequestBuilder {
-	bb := &GroupRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+// ID returns request builder for Site item
+func (b *UserFollowedSitesCollectionRequestBuilder) ID(id string) *SiteRequestBuilder {
+	bb := &SiteRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/" + id
 	return bb
 }
 
-// UserJoinedTeamsCollectionRequest is request for Group collection
-type UserJoinedTeamsCollectionRequest struct{ BaseRequest }
+// UserFollowedSitesCollectionRequest is request for Site collection
+type UserFollowedSitesCollectionRequest struct{ BaseRequest }
 
-// Paging perfoms paging operation for Group collection
-func (r *UserJoinedTeamsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]Group, error) {
+// Paging perfoms paging operation for Site collection
+func (r *UserFollowedSitesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]Site, error) {
 	req, err := r.NewJSONRequest(method, path, obj)
 	if err != nil {
 		return nil, err
@@ -1397,7 +1497,7 @@ func (r *UserJoinedTeamsCollectionRequest) Paging(ctx context.Context, method, p
 	if err != nil {
 		return nil, err
 	}
-	var values []Group
+	var values []Site
 	for {
 		if res.StatusCode != http.StatusOK {
 			b, _ := ioutil.ReadAll(res.Body)
@@ -1411,7 +1511,7 @@ func (r *UserJoinedTeamsCollectionRequest) Paging(ctx context.Context, method, p
 		}
 		var (
 			paging Paging
-			value  []Group
+			value  []Site
 		)
 		err := jsonx.NewDecoder(res.Body).Decode(&paging)
 		res.Body.Close()
@@ -1440,8 +1540,8 @@ func (r *UserJoinedTeamsCollectionRequest) Paging(ctx context.Context, method, p
 	}
 }
 
-// GetN performs GET request for Group collection, max N pages
-func (r *UserJoinedTeamsCollectionRequest) GetN(ctx context.Context, n int) ([]Group, error) {
+// GetN performs GET request for Site collection, max N pages
+func (r *UserFollowedSitesCollectionRequest) GetN(ctx context.Context, n int) ([]Site, error) {
 	var query string
 	if r.query != nil {
 		query = "?" + r.query.Encode()
@@ -1449,13 +1549,130 @@ func (r *UserJoinedTeamsCollectionRequest) GetN(ctx context.Context, n int) ([]G
 	return r.Paging(ctx, "GET", query, nil, n)
 }
 
-// Get performs GET request for Group collection
-func (r *UserJoinedTeamsCollectionRequest) Get(ctx context.Context) ([]Group, error) {
+// Get performs GET request for Site collection
+func (r *UserFollowedSitesCollectionRequest) Get(ctx context.Context) ([]Site, error) {
 	return r.GetN(ctx, 0)
 }
 
-// Add performs POST request for Group collection
-func (r *UserJoinedTeamsCollectionRequest) Add(ctx context.Context, reqObj *Group) (resObj *Group, err error) {
+// Add performs POST request for Site collection
+func (r *UserFollowedSitesCollectionRequest) Add(ctx context.Context, reqObj *Site) (resObj *Site, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// InferenceClassification is navigation property
+func (b *UserRequestBuilder) InferenceClassification() *InferenceClassificationRequestBuilder {
+	bb := &InferenceClassificationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/inferenceClassification"
+	return bb
+}
+
+// Insights is navigation property
+func (b *UserRequestBuilder) Insights() *OfficeGraphInsightsRequestBuilder {
+	bb := &OfficeGraphInsightsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/insights"
+	return bb
+}
+
+// JoinedTeams returns request builder for Team collection
+func (b *UserRequestBuilder) JoinedTeams() *UserJoinedTeamsCollectionRequestBuilder {
+	bb := &UserJoinedTeamsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/joinedTeams"
+	return bb
+}
+
+// UserJoinedTeamsCollectionRequestBuilder is request builder for Team collection
+type UserJoinedTeamsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for Team collection
+func (b *UserJoinedTeamsCollectionRequestBuilder) Request() *UserJoinedTeamsCollectionRequest {
+	return &UserJoinedTeamsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for Team item
+func (b *UserJoinedTeamsCollectionRequestBuilder) ID(id string) *TeamRequestBuilder {
+	bb := &TeamRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserJoinedTeamsCollectionRequest is request for Team collection
+type UserJoinedTeamsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for Team collection
+func (r *UserJoinedTeamsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]Team, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []Team
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []Team
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for Team collection, max N pages
+func (r *UserJoinedTeamsCollectionRequest) GetN(ctx context.Context, n int) ([]Team, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for Team collection
+func (r *UserJoinedTeamsCollectionRequest) Get(ctx context.Context) ([]Team, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for Team collection
+func (r *UserJoinedTeamsCollectionRequest) Add(ctx context.Context, reqObj *Team) (resObj *Team, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }
@@ -2085,6 +2302,109 @@ func (r *UserMessagesCollectionRequest) Add(ctx context.Context, reqObj *Message
 	return
 }
 
+// OAuth2PermissionGrants returns request builder for OAuth2PermissionGrant collection
+func (b *UserRequestBuilder) OAuth2PermissionGrants() *UserOAuth2PermissionGrantsCollectionRequestBuilder {
+	bb := &UserOAuth2PermissionGrantsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/oauth2PermissionGrants"
+	return bb
+}
+
+// UserOAuth2PermissionGrantsCollectionRequestBuilder is request builder for OAuth2PermissionGrant collection
+type UserOAuth2PermissionGrantsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for OAuth2PermissionGrant collection
+func (b *UserOAuth2PermissionGrantsCollectionRequestBuilder) Request() *UserOAuth2PermissionGrantsCollectionRequest {
+	return &UserOAuth2PermissionGrantsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for OAuth2PermissionGrant item
+func (b *UserOAuth2PermissionGrantsCollectionRequestBuilder) ID(id string) *OAuth2PermissionGrantRequestBuilder {
+	bb := &OAuth2PermissionGrantRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserOAuth2PermissionGrantsCollectionRequest is request for OAuth2PermissionGrant collection
+type UserOAuth2PermissionGrantsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for OAuth2PermissionGrant collection
+func (r *UserOAuth2PermissionGrantsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]OAuth2PermissionGrant, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []OAuth2PermissionGrant
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []OAuth2PermissionGrant
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for OAuth2PermissionGrant collection, max N pages
+func (r *UserOAuth2PermissionGrantsCollectionRequest) GetN(ctx context.Context, n int) ([]OAuth2PermissionGrant, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for OAuth2PermissionGrant collection
+func (r *UserOAuth2PermissionGrantsCollectionRequest) Get(ctx context.Context) ([]OAuth2PermissionGrant, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for OAuth2PermissionGrant collection
+func (r *UserOAuth2PermissionGrantsCollectionRequest) Add(ctx context.Context, reqObj *OAuth2PermissionGrant) (resObj *OAuth2PermissionGrant, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
 // Onenote is navigation property
 func (b *UserRequestBuilder) Onenote() *OnenoteRequestBuilder {
 	bb := &OnenoteRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -2628,6 +2948,13 @@ func (b *UserRequestBuilder) Planner() *PlannerUserRequestBuilder {
 	return bb
 }
 
+// Presence is navigation property
+func (b *UserRequestBuilder) Presence() *PresenceRequestBuilder {
+	bb := &PresenceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/presence"
+	return bb
+}
+
 // RegisteredDevices returns request builder for DirectoryObject collection
 func (b *UserRequestBuilder) RegisteredDevices() *UserRegisteredDevicesCollectionRequestBuilder {
 	bb := &UserRegisteredDevicesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -2731,10 +3058,127 @@ func (r *UserRegisteredDevicesCollectionRequest) Add(ctx context.Context, reqObj
 	return
 }
 
+// ScopedRoleMemberOf returns request builder for ScopedRoleMembership collection
+func (b *UserRequestBuilder) ScopedRoleMemberOf() *UserScopedRoleMemberOfCollectionRequestBuilder {
+	bb := &UserScopedRoleMemberOfCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/scopedRoleMemberOf"
+	return bb
+}
+
+// UserScopedRoleMemberOfCollectionRequestBuilder is request builder for ScopedRoleMembership collection
+type UserScopedRoleMemberOfCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for ScopedRoleMembership collection
+func (b *UserScopedRoleMemberOfCollectionRequestBuilder) Request() *UserScopedRoleMemberOfCollectionRequest {
+	return &UserScopedRoleMemberOfCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for ScopedRoleMembership item
+func (b *UserScopedRoleMemberOfCollectionRequestBuilder) ID(id string) *ScopedRoleMembershipRequestBuilder {
+	bb := &ScopedRoleMembershipRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserScopedRoleMemberOfCollectionRequest is request for ScopedRoleMembership collection
+type UserScopedRoleMemberOfCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for ScopedRoleMembership collection
+func (r *UserScopedRoleMemberOfCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]ScopedRoleMembership, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []ScopedRoleMembership
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []ScopedRoleMembership
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for ScopedRoleMembership collection, max N pages
+func (r *UserScopedRoleMemberOfCollectionRequest) GetN(ctx context.Context, n int) ([]ScopedRoleMembership, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for ScopedRoleMembership collection
+func (r *UserScopedRoleMemberOfCollectionRequest) Get(ctx context.Context) ([]ScopedRoleMembership, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for ScopedRoleMembership collection
+func (r *UserScopedRoleMemberOfCollectionRequest) Add(ctx context.Context, reqObj *ScopedRoleMembership) (resObj *ScopedRoleMembership, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
 // Settings is navigation property
 func (b *UserRequestBuilder) Settings() *UserSettingsRequestBuilder {
 	bb := &UserSettingsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/settings"
+	return bb
+}
+
+// Teamwork is navigation property
+func (b *UserRequestBuilder) Teamwork() *UserTeamworkRequestBuilder {
+	bb := &UserTeamworkRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/teamwork"
+	return bb
+}
+
+// Todo is navigation property
+func (b *UserRequestBuilder) Todo() *TodoRequestBuilder {
+	bb := &TodoRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/todo"
 	return bb
 }
 
@@ -3043,6 +3487,123 @@ func (r *UserInstallStateSummaryDeviceStatesCollectionRequest) Get(ctx context.C
 
 // Add performs POST request for DeviceInstallState collection
 func (r *UserInstallStateSummaryDeviceStatesCollectionRequest) Add(ctx context.Context, reqObj *DeviceInstallState) (resObj *DeviceInstallState, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// Chat is navigation property
+func (b *UserScopeTeamsAppInstallationRequestBuilder) Chat() *ChatRequestBuilder {
+	bb := &ChatRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/chat"
+	return bb
+}
+
+// ShiftPreferences is navigation property
+func (b *UserSettingsRequestBuilder) ShiftPreferences() *ShiftPreferencesRequestBuilder {
+	bb := &ShiftPreferencesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/shiftPreferences"
+	return bb
+}
+
+// InstalledApps returns request builder for UserScopeTeamsAppInstallation collection
+func (b *UserTeamworkRequestBuilder) InstalledApps() *UserTeamworkInstalledAppsCollectionRequestBuilder {
+	bb := &UserTeamworkInstalledAppsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/installedApps"
+	return bb
+}
+
+// UserTeamworkInstalledAppsCollectionRequestBuilder is request builder for UserScopeTeamsAppInstallation collection
+type UserTeamworkInstalledAppsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UserScopeTeamsAppInstallation collection
+func (b *UserTeamworkInstalledAppsCollectionRequestBuilder) Request() *UserTeamworkInstalledAppsCollectionRequest {
+	return &UserTeamworkInstalledAppsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UserScopeTeamsAppInstallation item
+func (b *UserTeamworkInstalledAppsCollectionRequestBuilder) ID(id string) *UserScopeTeamsAppInstallationRequestBuilder {
+	bb := &UserScopeTeamsAppInstallationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserTeamworkInstalledAppsCollectionRequest is request for UserScopeTeamsAppInstallation collection
+type UserTeamworkInstalledAppsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UserScopeTeamsAppInstallation collection
+func (r *UserTeamworkInstalledAppsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UserScopeTeamsAppInstallation, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UserScopeTeamsAppInstallation
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UserScopeTeamsAppInstallation
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UserScopeTeamsAppInstallation collection, max N pages
+func (r *UserTeamworkInstalledAppsCollectionRequest) GetN(ctx context.Context, n int) ([]UserScopeTeamsAppInstallation, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UserScopeTeamsAppInstallation collection
+func (r *UserTeamworkInstalledAppsCollectionRequest) Get(ctx context.Context) ([]UserScopeTeamsAppInstallation, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UserScopeTeamsAppInstallation collection
+func (r *UserTeamworkInstalledAppsCollectionRequest) Add(ctx context.Context, reqObj *UserScopeTeamsAppInstallation) (resObj *UserScopeTeamsAppInstallation, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }

@@ -2,9 +2,31 @@
 
 package msgraph
 
-// Search undocumented
-type Search struct {
-	// Entity is the base model of Search
+// SearchAggregation undocumented
+type SearchAggregation struct {
+	// Object is the base model of SearchAggregation
+	Object
+	// Buckets undocumented
+	Buckets []SearchBucket `json:"buckets,omitempty"`
+	// Field undocumented
+	Field *string `json:"field,omitempty"`
+}
+
+// SearchBucket undocumented
+type SearchBucket struct {
+	// Object is the base model of SearchBucket
+	Object
+	// AggregationFilterToken undocumented
+	AggregationFilterToken *string `json:"aggregationFilterToken,omitempty"`
+	// Count undocumented
+	Count *int `json:"count,omitempty"`
+	// Key undocumented
+	Key *string `json:"key,omitempty"`
+}
+
+// SearchEntity undocumented
+type SearchEntity struct {
+	// Entity is the base model of SearchEntity
 	Entity
 }
 
@@ -12,14 +34,22 @@ type Search struct {
 type SearchHit struct {
 	// Object is the base model of SearchHit
 	Object
+	// ContentSource undocumented
+	ContentSource *string `json:"contentSource,omitempty"`
+	// HitID undocumented
+	HitID *string `json:"hitId,omitempty"`
+	// Rank undocumented
+	Rank *int `json:"rank,omitempty"`
+	// Summary undocumented
+	Summary *string `json:"summary,omitempty"`
 	// _id undocumented
 	_id *string `json:"_id,omitempty"`
 	// _score undocumented
 	_score *int `json:"_score,omitempty"`
-	// _sortField undocumented
-	_sortField *string `json:"_sortField,omitempty"`
 	// _summary undocumented
 	_summary *string `json:"_summary,omitempty"`
+	// Resource undocumented
+	Resource *Entity `json:"resource,omitempty"`
 	// _source undocumented
 	_source *Entity `json:"_source,omitempty"`
 }
@@ -28,18 +58,22 @@ type SearchHit struct {
 type SearchHitsContainer struct {
 	// Object is the base model of SearchHitsContainer
 	Object
+	// Aggregations undocumented
+	Aggregations []SearchAggregation `json:"aggregations,omitempty"`
 	// Hits undocumented
 	Hits []SearchHit `json:"hits,omitempty"`
-	// Total undocumented
-	Total *int `json:"total,omitempty"`
 	// MoreResultsAvailable undocumented
 	MoreResultsAvailable *bool `json:"moreResultsAvailable,omitempty"`
+	// Total undocumented
+	Total *int `json:"total,omitempty"`
 }
 
 // SearchQuery undocumented
 type SearchQuery struct {
 	// Object is the base model of SearchQuery
 	Object
+	// QueryString undocumented
+	QueryString *string `json:"queryString,omitempty"`
 	// Query_string undocumented
 	Query_string *SearchQueryString `json:"query_string,omitempty"`
 }
@@ -56,30 +90,38 @@ type SearchQueryString struct {
 type SearchRequestObject struct {
 	// Object is the base model of SearchRequestObject
 	Object
-	// EntityTypes undocumented
-	EntityTypes []EntityType `json:"entityTypes,omitempty"`
+	// AggregationFilters undocumented
+	AggregationFilters []string `json:"aggregationFilters,omitempty"`
+	// Aggregations undocumented
+	Aggregations []AggregationOption `json:"aggregations,omitempty"`
 	// ContentSources undocumented
 	ContentSources []string `json:"contentSources,omitempty"`
-	// Query undocumented
-	Query *SearchQuery `json:"query,omitempty"`
-	// From undocumented
-	From *int `json:"from,omitempty"`
-	// Size undocumented
-	Size *int `json:"size,omitempty"`
-	// Stored_fields undocumented
-	Stored_fields []string `json:"stored_fields,omitempty"`
 	// EnableTopResults undocumented
 	EnableTopResults *bool `json:"enableTopResults,omitempty"`
+	// EntityTypes undocumented
+	EntityTypes []EntityType `json:"entityTypes,omitempty"`
+	// Fields undocumented
+	Fields []string `json:"fields,omitempty"`
+	// From undocumented
+	From *int `json:"from,omitempty"`
+	// Query undocumented
+	Query *SearchQuery `json:"query,omitempty"`
+	// Size undocumented
+	Size *int `json:"size,omitempty"`
+	// SortProperties undocumented
+	SortProperties []SortProperty `json:"sortProperties,omitempty"`
+	// Stored_fields undocumented
+	Stored_fields []string `json:"stored_fields,omitempty"`
 }
 
 // SearchResponse undocumented
 type SearchResponse struct {
 	// Object is the base model of SearchResponse
 	Object
-	// SearchTerms undocumented
-	SearchTerms []string `json:"searchTerms,omitempty"`
 	// HitsContainers undocumented
 	HitsContainers []SearchHitsContainer `json:"hitsContainers,omitempty"`
+	// SearchTerms undocumented
+	SearchTerms []string `json:"searchTerms,omitempty"`
 }
 
 // SearchResult undocumented

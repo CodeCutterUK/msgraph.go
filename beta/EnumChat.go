@@ -146,3 +146,35 @@ var (
 	_ChatMessageTypePChatEvent = ChatMessageTypeVChatEvent
 	_ChatMessageTypePTyping    = ChatMessageTypeVTyping
 )
+
+// ChatType undocumented
+type ChatType string
+
+const (
+	// ChatTypeVOneOnOne undocumented
+	ChatTypeVOneOnOne ChatType = "oneOnOne"
+	// ChatTypeVGroup undocumented
+	ChatTypeVGroup ChatType = "group"
+	// ChatTypeVMeeting undocumented
+	ChatTypeVMeeting ChatType = "meeting"
+	// ChatTypeVUnknownFutureValue undocumented
+	ChatTypeVUnknownFutureValue ChatType = "unknownFutureValue"
+)
+
+var (
+	// ChatTypePOneOnOne is a pointer to ChatTypeVOneOnOne
+	ChatTypePOneOnOne = &_ChatTypePOneOnOne
+	// ChatTypePGroup is a pointer to ChatTypeVGroup
+	ChatTypePGroup = &_ChatTypePGroup
+	// ChatTypePMeeting is a pointer to ChatTypeVMeeting
+	ChatTypePMeeting = &_ChatTypePMeeting
+	// ChatTypePUnknownFutureValue is a pointer to ChatTypeVUnknownFutureValue
+	ChatTypePUnknownFutureValue = &_ChatTypePUnknownFutureValue
+)
+
+var (
+	_ChatTypePOneOnOne           = ChatTypeVOneOnOne
+	_ChatTypePGroup              = ChatTypeVGroup
+	_ChatTypePMeeting            = ChatTypeVMeeting
+	_ChatTypePUnknownFutureValue = ChatTypeVUnknownFutureValue
+)

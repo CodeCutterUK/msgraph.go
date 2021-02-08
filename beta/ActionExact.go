@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // ExactMatchDataStoreLookupRequestParameter undocumented
@@ -25,12 +25,12 @@ type ExactMatchDataStoreLookupRequestParameter struct {
 type ExactMatchSessionCancelRequestParameter struct {
 }
 
-// ExactMatchSessionCommitRequestParameter undocumented
-type ExactMatchSessionCommitRequestParameter struct {
-}
-
 // ExactMatchSessionRenewRequestParameter undocumented
 type ExactMatchSessionRenewRequestParameter struct {
+}
+
+// ExactMatchSessionCommitRequestParameter undocumented
+type ExactMatchSessionCommitRequestParameter struct {
 }
 
 // Sessions returns request builder for ExactMatchSession collection

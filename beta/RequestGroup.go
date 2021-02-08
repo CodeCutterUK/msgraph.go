@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // GroupRequestBuilder is request builder for Group
@@ -74,6 +74,39 @@ func (r *GroupLifecyclePolicyRequest) Update(ctx context.Context, reqObj *GroupL
 
 // Delete performs DELETE request for GroupLifecyclePolicy
 func (r *GroupLifecyclePolicyRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// GroupPolicyCategoryRequestBuilder is request builder for GroupPolicyCategory
+type GroupPolicyCategoryRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns GroupPolicyCategoryRequest
+func (b *GroupPolicyCategoryRequestBuilder) Request() *GroupPolicyCategoryRequest {
+	return &GroupPolicyCategoryRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// GroupPolicyCategoryRequest is request for GroupPolicyCategory
+type GroupPolicyCategoryRequest struct{ BaseRequest }
+
+// Get performs GET request for GroupPolicyCategory
+func (r *GroupPolicyCategoryRequest) Get(ctx context.Context) (resObj *GroupPolicyCategory, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for GroupPolicyCategory
+func (r *GroupPolicyCategoryRequest) Update(ctx context.Context, reqObj *GroupPolicyCategory) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for GroupPolicyCategory
+func (r *GroupPolicyCategoryRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
@@ -275,6 +308,72 @@ func (r *GroupPolicyMigrationReportRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
+// GroupPolicyObjectFileRequestBuilder is request builder for GroupPolicyObjectFile
+type GroupPolicyObjectFileRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns GroupPolicyObjectFileRequest
+func (b *GroupPolicyObjectFileRequestBuilder) Request() *GroupPolicyObjectFileRequest {
+	return &GroupPolicyObjectFileRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// GroupPolicyObjectFileRequest is request for GroupPolicyObjectFile
+type GroupPolicyObjectFileRequest struct{ BaseRequest }
+
+// Get performs GET request for GroupPolicyObjectFile
+func (r *GroupPolicyObjectFileRequest) Get(ctx context.Context) (resObj *GroupPolicyObjectFile, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for GroupPolicyObjectFile
+func (r *GroupPolicyObjectFileRequest) Update(ctx context.Context, reqObj *GroupPolicyObjectFile) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for GroupPolicyObjectFile
+func (r *GroupPolicyObjectFileRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// GroupPolicyOperationRequestBuilder is request builder for GroupPolicyOperation
+type GroupPolicyOperationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns GroupPolicyOperationRequest
+func (b *GroupPolicyOperationRequestBuilder) Request() *GroupPolicyOperationRequest {
+	return &GroupPolicyOperationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// GroupPolicyOperationRequest is request for GroupPolicyOperation
+type GroupPolicyOperationRequest struct{ BaseRequest }
+
+// Get performs GET request for GroupPolicyOperation
+func (r *GroupPolicyOperationRequest) Get(ctx context.Context) (resObj *GroupPolicyOperation, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for GroupPolicyOperation
+func (r *GroupPolicyOperationRequest) Update(ctx context.Context, reqObj *GroupPolicyOperation) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for GroupPolicyOperation
+func (r *GroupPolicyOperationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // GroupPolicyPresentationRequestBuilder is request builder for GroupPolicyPresentation
 type GroupPolicyPresentationRequestBuilder struct{ BaseRequestBuilder }
 
@@ -374,8 +473,49 @@ func (r *GroupPolicySettingMappingRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
+// GroupPolicyUploadedDefinitionFileRequestBuilder is request builder for GroupPolicyUploadedDefinitionFile
+type GroupPolicyUploadedDefinitionFileRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns GroupPolicyUploadedDefinitionFileRequest
+func (b *GroupPolicyUploadedDefinitionFileRequestBuilder) Request() *GroupPolicyUploadedDefinitionFileRequest {
+	return &GroupPolicyUploadedDefinitionFileRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// GroupPolicyUploadedDefinitionFileRequest is request for GroupPolicyUploadedDefinitionFile
+type GroupPolicyUploadedDefinitionFileRequest struct{ BaseRequest }
+
+// Get performs GET request for GroupPolicyUploadedDefinitionFile
+func (r *GroupPolicyUploadedDefinitionFileRequest) Get(ctx context.Context) (resObj *GroupPolicyUploadedDefinitionFile, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for GroupPolicyUploadedDefinitionFile
+func (r *GroupPolicyUploadedDefinitionFileRequest) Update(ctx context.Context, reqObj *GroupPolicyUploadedDefinitionFile) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for GroupPolicyUploadedDefinitionFile
+func (r *GroupPolicyUploadedDefinitionFileRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 //
 type GroupCollectionEvaluateDynamicMembershipRequestBuilder struct{ BaseRequestBuilder }
+
+// EvaluateDynamicMembership action undocumented
+func (b *PrinterShareAllowedGroupsCollectionRequestBuilder) EvaluateDynamicMembership(reqObj *GroupCollectionEvaluateDynamicMembershipRequestParameter) *GroupCollectionEvaluateDynamicMembershipRequestBuilder {
+	bb := &GroupCollectionEvaluateDynamicMembershipRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/evaluateDynamicMembership"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
 
 // EvaluateDynamicMembership action undocumented
 func (b *UserJoinedGroupsCollectionRequestBuilder) EvaluateDynamicMembership(reqObj *GroupCollectionEvaluateDynamicMembershipRequestParameter) *GroupCollectionEvaluateDynamicMembershipRequestBuilder {
@@ -456,29 +596,30 @@ func (r *GroupPolicyMigrationReportCollectionCreateMigrationReportRequest) Post(
 }
 
 //
-type GroupValidatePropertiesRequestBuilder struct{ BaseRequestBuilder }
+type GroupAssignLicenseRequestBuilder struct{ BaseRequestBuilder }
 
-// ValidateProperties action undocumented
-func (b *GroupRequestBuilder) ValidateProperties(reqObj *GroupValidatePropertiesRequestParameter) *GroupValidatePropertiesRequestBuilder {
-	bb := &GroupValidatePropertiesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/validateProperties"
+// AssignLicense action undocumented
+func (b *GroupRequestBuilder) AssignLicense(reqObj *GroupAssignLicenseRequestParameter) *GroupAssignLicenseRequestBuilder {
+	bb := &GroupAssignLicenseRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/assignLicense"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type GroupValidatePropertiesRequest struct{ BaseRequest }
+type GroupAssignLicenseRequest struct{ BaseRequest }
 
 //
-func (b *GroupValidatePropertiesRequestBuilder) Request() *GroupValidatePropertiesRequest {
-	return &GroupValidatePropertiesRequest{
+func (b *GroupAssignLicenseRequestBuilder) Request() *GroupAssignLicenseRequest {
+	return &GroupAssignLicenseRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *GroupValidatePropertiesRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+func (r *GroupAssignLicenseRequest) Post(ctx context.Context) (resObj *Group, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }
 
 //
@@ -569,81 +710,28 @@ func (r *GroupCheckGrantedPermissionsForAppRequest) Post(ctx context.Context) ([
 }
 
 //
-type GroupAssignLicenseRequestBuilder struct{ BaseRequestBuilder }
+type GroupValidatePropertiesRequestBuilder struct{ BaseRequestBuilder }
 
-// AssignLicense action undocumented
-func (b *GroupRequestBuilder) AssignLicense(reqObj *GroupAssignLicenseRequestParameter) *GroupAssignLicenseRequestBuilder {
-	bb := &GroupAssignLicenseRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/assignLicense"
+// ValidateProperties action undocumented
+func (b *GroupRequestBuilder) ValidateProperties(reqObj *GroupValidatePropertiesRequestParameter) *GroupValidatePropertiesRequestBuilder {
+	bb := &GroupValidatePropertiesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/validateProperties"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type GroupAssignLicenseRequest struct{ BaseRequest }
+type GroupValidatePropertiesRequest struct{ BaseRequest }
 
 //
-func (b *GroupAssignLicenseRequestBuilder) Request() *GroupAssignLicenseRequest {
-	return &GroupAssignLicenseRequest{
+func (b *GroupValidatePropertiesRequestBuilder) Request() *GroupValidatePropertiesRequest {
+	return &GroupValidatePropertiesRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *GroupAssignLicenseRequest) Post(ctx context.Context) (resObj *Group, err error) {
-	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
-	return
-}
-
-//
-type GroupSubscribeByMailRequestBuilder struct{ BaseRequestBuilder }
-
-// SubscribeByMail action undocumented
-func (b *GroupRequestBuilder) SubscribeByMail(reqObj *GroupSubscribeByMailRequestParameter) *GroupSubscribeByMailRequestBuilder {
-	bb := &GroupSubscribeByMailRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/subscribeByMail"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type GroupSubscribeByMailRequest struct{ BaseRequest }
-
-//
-func (b *GroupSubscribeByMailRequestBuilder) Request() *GroupSubscribeByMailRequest {
-	return &GroupSubscribeByMailRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *GroupSubscribeByMailRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type GroupUnsubscribeByMailRequestBuilder struct{ BaseRequestBuilder }
-
-// UnsubscribeByMail action undocumented
-func (b *GroupRequestBuilder) UnsubscribeByMail(reqObj *GroupUnsubscribeByMailRequestParameter) *GroupUnsubscribeByMailRequestBuilder {
-	bb := &GroupUnsubscribeByMailRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/unsubscribeByMail"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type GroupUnsubscribeByMailRequest struct{ BaseRequest }
-
-//
-func (b *GroupUnsubscribeByMailRequestBuilder) Request() *GroupUnsubscribeByMailRequest {
-	return &GroupUnsubscribeByMailRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *GroupUnsubscribeByMailRequest) Post(ctx context.Context) error {
+func (r *GroupValidatePropertiesRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -726,28 +814,54 @@ func (r *GroupResetUnseenCountRequest) Post(ctx context.Context) error {
 }
 
 //
-type GroupRenewRequestBuilder struct{ BaseRequestBuilder }
+type GroupSubscribeByMailRequestBuilder struct{ BaseRequestBuilder }
 
-// Renew action undocumented
-func (b *GroupRequestBuilder) Renew(reqObj *GroupRenewRequestParameter) *GroupRenewRequestBuilder {
-	bb := &GroupRenewRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/renew"
+// SubscribeByMail action undocumented
+func (b *GroupRequestBuilder) SubscribeByMail(reqObj *GroupSubscribeByMailRequestParameter) *GroupSubscribeByMailRequestBuilder {
+	bb := &GroupSubscribeByMailRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/subscribeByMail"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type GroupRenewRequest struct{ BaseRequest }
+type GroupSubscribeByMailRequest struct{ BaseRequest }
 
 //
-func (b *GroupRenewRequestBuilder) Request() *GroupRenewRequest {
-	return &GroupRenewRequest{
+func (b *GroupSubscribeByMailRequestBuilder) Request() *GroupSubscribeByMailRequest {
+	return &GroupSubscribeByMailRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *GroupRenewRequest) Post(ctx context.Context) error {
+func (r *GroupSubscribeByMailRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type GroupUnsubscribeByMailRequestBuilder struct{ BaseRequestBuilder }
+
+// UnsubscribeByMail action undocumented
+func (b *GroupRequestBuilder) UnsubscribeByMail(reqObj *GroupUnsubscribeByMailRequestParameter) *GroupUnsubscribeByMailRequestBuilder {
+	bb := &GroupUnsubscribeByMailRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/unsubscribeByMail"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupUnsubscribeByMailRequest struct{ BaseRequest }
+
+//
+func (b *GroupUnsubscribeByMailRequestBuilder) Request() *GroupUnsubscribeByMailRequest {
+	return &GroupUnsubscribeByMailRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupUnsubscribeByMailRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -776,6 +890,32 @@ func (b *GroupEvaluateDynamicMembershipRequestBuilder) Request() *GroupEvaluateD
 func (r *GroupEvaluateDynamicMembershipRequest) Post(ctx context.Context) (resObj *EvaluateDynamicMembershipResult, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
+}
+
+//
+type GroupRenewRequestBuilder struct{ BaseRequestBuilder }
+
+// Renew action undocumented
+func (b *GroupRequestBuilder) Renew(reqObj *GroupRenewRequestParameter) *GroupRenewRequestBuilder {
+	bb := &GroupRenewRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/renew"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupRenewRequest struct{ BaseRequest }
+
+//
+func (b *GroupRenewRequestBuilder) Request() *GroupRenewRequest {
+	return &GroupRenewRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupRenewRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
 //
@@ -942,5 +1082,135 @@ func (b *GroupPolicyConfigurationUpdateDefinitionValuesRequestBuilder) Request()
 
 //
 func (r *GroupPolicyConfigurationUpdateDefinitionValuesRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type GroupPolicyUploadedDefinitionFileRemoveRequestBuilder struct{ BaseRequestBuilder }
+
+// Remove action undocumented
+func (b *GroupPolicyUploadedDefinitionFileRequestBuilder) Remove(reqObj *GroupPolicyUploadedDefinitionFileRemoveRequestParameter) *GroupPolicyUploadedDefinitionFileRemoveRequestBuilder {
+	bb := &GroupPolicyUploadedDefinitionFileRemoveRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/remove"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupPolicyUploadedDefinitionFileRemoveRequest struct{ BaseRequest }
+
+//
+func (b *GroupPolicyUploadedDefinitionFileRemoveRequestBuilder) Request() *GroupPolicyUploadedDefinitionFileRemoveRequest {
+	return &GroupPolicyUploadedDefinitionFileRemoveRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupPolicyUploadedDefinitionFileRemoveRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type GroupPolicyUploadedDefinitionFileAddLanguageFilesRequestBuilder struct{ BaseRequestBuilder }
+
+// AddLanguageFiles action undocumented
+func (b *GroupPolicyUploadedDefinitionFileRequestBuilder) AddLanguageFiles(reqObj *GroupPolicyUploadedDefinitionFileAddLanguageFilesRequestParameter) *GroupPolicyUploadedDefinitionFileAddLanguageFilesRequestBuilder {
+	bb := &GroupPolicyUploadedDefinitionFileAddLanguageFilesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/addLanguageFiles"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupPolicyUploadedDefinitionFileAddLanguageFilesRequest struct{ BaseRequest }
+
+//
+func (b *GroupPolicyUploadedDefinitionFileAddLanguageFilesRequestBuilder) Request() *GroupPolicyUploadedDefinitionFileAddLanguageFilesRequest {
+	return &GroupPolicyUploadedDefinitionFileAddLanguageFilesRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupPolicyUploadedDefinitionFileAddLanguageFilesRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequestBuilder struct{ BaseRequestBuilder }
+
+// RemoveLanguageFiles action undocumented
+func (b *GroupPolicyUploadedDefinitionFileRequestBuilder) RemoveLanguageFiles(reqObj *GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequestParameter) *GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequestBuilder {
+	bb := &GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/removeLanguageFiles"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequest struct{ BaseRequest }
+
+//
+func (b *GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequestBuilder) Request() *GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequest {
+	return &GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupPolicyUploadedDefinitionFileRemoveLanguageFilesRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequestBuilder struct{ BaseRequestBuilder }
+
+// UpdateLanguageFiles action undocumented
+func (b *GroupPolicyUploadedDefinitionFileRequestBuilder) UpdateLanguageFiles(reqObj *GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequestParameter) *GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequestBuilder {
+	bb := &GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/updateLanguageFiles"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequest struct{ BaseRequest }
+
+//
+func (b *GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequestBuilder) Request() *GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequest {
+	return &GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupPolicyUploadedDefinitionFileUpdateLanguageFilesRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type GroupPolicyUploadedDefinitionFileUploadNewVersionRequestBuilder struct{ BaseRequestBuilder }
+
+// UploadNewVersion action undocumented
+func (b *GroupPolicyUploadedDefinitionFileRequestBuilder) UploadNewVersion(reqObj *GroupPolicyUploadedDefinitionFileUploadNewVersionRequestParameter) *GroupPolicyUploadedDefinitionFileUploadNewVersionRequestBuilder {
+	bb := &GroupPolicyUploadedDefinitionFileUploadNewVersionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/uploadNewVersion"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type GroupPolicyUploadedDefinitionFileUploadNewVersionRequest struct{ BaseRequest }
+
+//
+func (b *GroupPolicyUploadedDefinitionFileUploadNewVersionRequestBuilder) Request() *GroupPolicyUploadedDefinitionFileUploadNewVersionRequest {
+	return &GroupPolicyUploadedDefinitionFileUploadNewVersionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *GroupPolicyUploadedDefinitionFileUploadNewVersionRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }

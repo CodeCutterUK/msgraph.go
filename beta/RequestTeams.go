@@ -136,39 +136,6 @@ func (r *TeamsAsyncOperationRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
-// TeamsCatalogAppRequestBuilder is request builder for TeamsCatalogApp
-type TeamsCatalogAppRequestBuilder struct{ BaseRequestBuilder }
-
-// Request returns TeamsCatalogAppRequest
-func (b *TeamsCatalogAppRequestBuilder) Request() *TeamsCatalogAppRequest {
-	return &TeamsCatalogAppRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
-	}
-}
-
-// TeamsCatalogAppRequest is request for TeamsCatalogApp
-type TeamsCatalogAppRequest struct{ BaseRequest }
-
-// Get performs GET request for TeamsCatalogApp
-func (r *TeamsCatalogAppRequest) Get(ctx context.Context) (resObj *TeamsCatalogApp, err error) {
-	var query string
-	if r.query != nil {
-		query = "?" + r.query.Encode()
-	}
-	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
-	return
-}
-
-// Update performs PATCH request for TeamsCatalogApp
-func (r *TeamsCatalogAppRequest) Update(ctx context.Context, reqObj *TeamsCatalogApp) error {
-	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
-}
-
-// Delete performs DELETE request for TeamsCatalogApp
-func (r *TeamsCatalogAppRequest) Delete(ctx context.Context) error {
-	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
-}
-
 // TeamsTabRequestBuilder is request builder for TeamsTab
 type TeamsTabRequestBuilder struct{ BaseRequestBuilder }
 

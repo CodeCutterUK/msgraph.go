@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // PolicySetCollectionGetPolicySetsRequestParameter undocumented
@@ -29,35 +29,35 @@ type PolicySetUpdateRequestParameter struct {
 	Assignments []PolicySetAssignment `json:"assignments,omitempty"`
 }
 
-// AppliesTo returns request builder for DirectoryObject collection
-func (b *PolicyRequestBuilder) AppliesTo() *PolicyAppliesToCollectionRequestBuilder {
-	bb := &PolicyAppliesToCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.baseURL += "/appliesTo"
+// ActivityBasedTimeoutPolicies returns request builder for ActivityBasedTimeoutPolicy collection
+func (b *PolicyRootRequestBuilder) ActivityBasedTimeoutPolicies() *PolicyRootActivityBasedTimeoutPoliciesCollectionRequestBuilder {
+	bb := &PolicyRootActivityBasedTimeoutPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/activityBasedTimeoutPolicies"
 	return bb
 }
 
-// PolicyAppliesToCollectionRequestBuilder is request builder for DirectoryObject collection
-type PolicyAppliesToCollectionRequestBuilder struct{ BaseRequestBuilder }
+// PolicyRootActivityBasedTimeoutPoliciesCollectionRequestBuilder is request builder for ActivityBasedTimeoutPolicy collection
+type PolicyRootActivityBasedTimeoutPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
 
-// Request returns request for DirectoryObject collection
-func (b *PolicyAppliesToCollectionRequestBuilder) Request() *PolicyAppliesToCollectionRequest {
-	return &PolicyAppliesToCollectionRequest{
+// Request returns request for ActivityBasedTimeoutPolicy collection
+func (b *PolicyRootActivityBasedTimeoutPoliciesCollectionRequestBuilder) Request() *PolicyRootActivityBasedTimeoutPoliciesCollectionRequest {
+	return &PolicyRootActivityBasedTimeoutPoliciesCollectionRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
 	}
 }
 
-// ID returns request builder for DirectoryObject item
-func (b *PolicyAppliesToCollectionRequestBuilder) ID(id string) *DirectoryObjectRequestBuilder {
-	bb := &DirectoryObjectRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+// ID returns request builder for ActivityBasedTimeoutPolicy item
+func (b *PolicyRootActivityBasedTimeoutPoliciesCollectionRequestBuilder) ID(id string) *ActivityBasedTimeoutPolicyRequestBuilder {
+	bb := &ActivityBasedTimeoutPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/" + id
 	return bb
 }
 
-// PolicyAppliesToCollectionRequest is request for DirectoryObject collection
-type PolicyAppliesToCollectionRequest struct{ BaseRequest }
+// PolicyRootActivityBasedTimeoutPoliciesCollectionRequest is request for ActivityBasedTimeoutPolicy collection
+type PolicyRootActivityBasedTimeoutPoliciesCollectionRequest struct{ BaseRequest }
 
-// Paging perfoms paging operation for DirectoryObject collection
-func (r *PolicyAppliesToCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]DirectoryObject, error) {
+// Paging perfoms paging operation for ActivityBasedTimeoutPolicy collection
+func (r *PolicyRootActivityBasedTimeoutPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]ActivityBasedTimeoutPolicy, error) {
 	req, err := r.NewJSONRequest(method, path, obj)
 	if err != nil {
 		return nil, err
@@ -69,7 +69,7 @@ func (r *PolicyAppliesToCollectionRequest) Paging(ctx context.Context, method, p
 	if err != nil {
 		return nil, err
 	}
-	var values []DirectoryObject
+	var values []ActivityBasedTimeoutPolicy
 	for {
 		if res.StatusCode != http.StatusOK {
 			b, _ := ioutil.ReadAll(res.Body)
@@ -83,7 +83,7 @@ func (r *PolicyAppliesToCollectionRequest) Paging(ctx context.Context, method, p
 		}
 		var (
 			paging Paging
-			value  []DirectoryObject
+			value  []ActivityBasedTimeoutPolicy
 		)
 		err := jsonx.NewDecoder(res.Body).Decode(&paging)
 		res.Body.Close()
@@ -112,8 +112,8 @@ func (r *PolicyAppliesToCollectionRequest) Paging(ctx context.Context, method, p
 	}
 }
 
-// GetN performs GET request for DirectoryObject collection, max N pages
-func (r *PolicyAppliesToCollectionRequest) GetN(ctx context.Context, n int) ([]DirectoryObject, error) {
+// GetN performs GET request for ActivityBasedTimeoutPolicy collection, max N pages
+func (r *PolicyRootActivityBasedTimeoutPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]ActivityBasedTimeoutPolicy, error) {
 	var query string
 	if r.query != nil {
 		query = "?" + r.query.Encode()
@@ -121,13 +121,872 @@ func (r *PolicyAppliesToCollectionRequest) GetN(ctx context.Context, n int) ([]D
 	return r.Paging(ctx, "GET", query, nil, n)
 }
 
-// Get performs GET request for DirectoryObject collection
-func (r *PolicyAppliesToCollectionRequest) Get(ctx context.Context) ([]DirectoryObject, error) {
+// Get performs GET request for ActivityBasedTimeoutPolicy collection
+func (r *PolicyRootActivityBasedTimeoutPoliciesCollectionRequest) Get(ctx context.Context) ([]ActivityBasedTimeoutPolicy, error) {
 	return r.GetN(ctx, 0)
 }
 
-// Add performs POST request for DirectoryObject collection
-func (r *PolicyAppliesToCollectionRequest) Add(ctx context.Context, reqObj *DirectoryObject) (resObj *DirectoryObject, err error) {
+// Add performs POST request for ActivityBasedTimeoutPolicy collection
+func (r *PolicyRootActivityBasedTimeoutPoliciesCollectionRequest) Add(ctx context.Context, reqObj *ActivityBasedTimeoutPolicy) (resObj *ActivityBasedTimeoutPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// AdminConsentRequestPolicy is navigation property
+func (b *PolicyRootRequestBuilder) AdminConsentRequestPolicy() *AdminConsentRequestPolicyRequestBuilder {
+	bb := &AdminConsentRequestPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/adminConsentRequestPolicy"
+	return bb
+}
+
+// AuthenticationFlowsPolicy is navigation property
+func (b *PolicyRootRequestBuilder) AuthenticationFlowsPolicy() *AuthenticationFlowsPolicyRequestBuilder {
+	bb := &AuthenticationFlowsPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/authenticationFlowsPolicy"
+	return bb
+}
+
+// AuthorizationPolicy returns request builder for AuthorizationPolicy collection
+func (b *PolicyRootRequestBuilder) AuthorizationPolicy() *PolicyRootAuthorizationPolicyCollectionRequestBuilder {
+	bb := &PolicyRootAuthorizationPolicyCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/authorizationPolicy"
+	return bb
+}
+
+// PolicyRootAuthorizationPolicyCollectionRequestBuilder is request builder for AuthorizationPolicy collection
+type PolicyRootAuthorizationPolicyCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for AuthorizationPolicy collection
+func (b *PolicyRootAuthorizationPolicyCollectionRequestBuilder) Request() *PolicyRootAuthorizationPolicyCollectionRequest {
+	return &PolicyRootAuthorizationPolicyCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for AuthorizationPolicy item
+func (b *PolicyRootAuthorizationPolicyCollectionRequestBuilder) ID(id string) *AuthorizationPolicyRequestBuilder {
+	bb := &AuthorizationPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootAuthorizationPolicyCollectionRequest is request for AuthorizationPolicy collection
+type PolicyRootAuthorizationPolicyCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for AuthorizationPolicy collection
+func (r *PolicyRootAuthorizationPolicyCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]AuthorizationPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []AuthorizationPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []AuthorizationPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for AuthorizationPolicy collection, max N pages
+func (r *PolicyRootAuthorizationPolicyCollectionRequest) GetN(ctx context.Context, n int) ([]AuthorizationPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for AuthorizationPolicy collection
+func (r *PolicyRootAuthorizationPolicyCollectionRequest) Get(ctx context.Context) ([]AuthorizationPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for AuthorizationPolicy collection
+func (r *PolicyRootAuthorizationPolicyCollectionRequest) Add(ctx context.Context, reqObj *AuthorizationPolicy) (resObj *AuthorizationPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// B2cAuthenticationMethodsPolicy is navigation property
+func (b *PolicyRootRequestBuilder) B2cAuthenticationMethodsPolicy() *B2cAuthenticationMethodsPolicyRequestBuilder {
+	bb := &B2cAuthenticationMethodsPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/b2cAuthenticationMethodsPolicy"
+	return bb
+}
+
+// ClaimsMappingPolicies returns request builder for ClaimsMappingPolicy collection
+func (b *PolicyRootRequestBuilder) ClaimsMappingPolicies() *PolicyRootClaimsMappingPoliciesCollectionRequestBuilder {
+	bb := &PolicyRootClaimsMappingPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/claimsMappingPolicies"
+	return bb
+}
+
+// PolicyRootClaimsMappingPoliciesCollectionRequestBuilder is request builder for ClaimsMappingPolicy collection
+type PolicyRootClaimsMappingPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for ClaimsMappingPolicy collection
+func (b *PolicyRootClaimsMappingPoliciesCollectionRequestBuilder) Request() *PolicyRootClaimsMappingPoliciesCollectionRequest {
+	return &PolicyRootClaimsMappingPoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for ClaimsMappingPolicy item
+func (b *PolicyRootClaimsMappingPoliciesCollectionRequestBuilder) ID(id string) *ClaimsMappingPolicyRequestBuilder {
+	bb := &ClaimsMappingPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootClaimsMappingPoliciesCollectionRequest is request for ClaimsMappingPolicy collection
+type PolicyRootClaimsMappingPoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for ClaimsMappingPolicy collection
+func (r *PolicyRootClaimsMappingPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]ClaimsMappingPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []ClaimsMappingPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []ClaimsMappingPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for ClaimsMappingPolicy collection, max N pages
+func (r *PolicyRootClaimsMappingPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]ClaimsMappingPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for ClaimsMappingPolicy collection
+func (r *PolicyRootClaimsMappingPoliciesCollectionRequest) Get(ctx context.Context) ([]ClaimsMappingPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for ClaimsMappingPolicy collection
+func (r *PolicyRootClaimsMappingPoliciesCollectionRequest) Add(ctx context.Context, reqObj *ClaimsMappingPolicy) (resObj *ClaimsMappingPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// ConditionalAccessPolicies returns request builder for ConditionalAccessPolicy collection
+func (b *PolicyRootRequestBuilder) ConditionalAccessPolicies() *PolicyRootConditionalAccessPoliciesCollectionRequestBuilder {
+	bb := &PolicyRootConditionalAccessPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/conditionalAccessPolicies"
+	return bb
+}
+
+// PolicyRootConditionalAccessPoliciesCollectionRequestBuilder is request builder for ConditionalAccessPolicy collection
+type PolicyRootConditionalAccessPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for ConditionalAccessPolicy collection
+func (b *PolicyRootConditionalAccessPoliciesCollectionRequestBuilder) Request() *PolicyRootConditionalAccessPoliciesCollectionRequest {
+	return &PolicyRootConditionalAccessPoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for ConditionalAccessPolicy item
+func (b *PolicyRootConditionalAccessPoliciesCollectionRequestBuilder) ID(id string) *ConditionalAccessPolicyRequestBuilder {
+	bb := &ConditionalAccessPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootConditionalAccessPoliciesCollectionRequest is request for ConditionalAccessPolicy collection
+type PolicyRootConditionalAccessPoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for ConditionalAccessPolicy collection
+func (r *PolicyRootConditionalAccessPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]ConditionalAccessPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []ConditionalAccessPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []ConditionalAccessPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for ConditionalAccessPolicy collection, max N pages
+func (r *PolicyRootConditionalAccessPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]ConditionalAccessPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for ConditionalAccessPolicy collection
+func (r *PolicyRootConditionalAccessPoliciesCollectionRequest) Get(ctx context.Context) ([]ConditionalAccessPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for ConditionalAccessPolicy collection
+func (r *PolicyRootConditionalAccessPoliciesCollectionRequest) Add(ctx context.Context, reqObj *ConditionalAccessPolicy) (resObj *ConditionalAccessPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// DirectoryRoleAccessReviewPolicy is navigation property
+func (b *PolicyRootRequestBuilder) DirectoryRoleAccessReviewPolicy() *DirectoryRoleAccessReviewPolicyRequestBuilder {
+	bb := &DirectoryRoleAccessReviewPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/directoryRoleAccessReviewPolicy"
+	return bb
+}
+
+// HomeRealmDiscoveryPolicies returns request builder for HomeRealmDiscoveryPolicy collection
+func (b *PolicyRootRequestBuilder) HomeRealmDiscoveryPolicies() *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequestBuilder {
+	bb := &PolicyRootHomeRealmDiscoveryPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/homeRealmDiscoveryPolicies"
+	return bb
+}
+
+// PolicyRootHomeRealmDiscoveryPoliciesCollectionRequestBuilder is request builder for HomeRealmDiscoveryPolicy collection
+type PolicyRootHomeRealmDiscoveryPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for HomeRealmDiscoveryPolicy collection
+func (b *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequestBuilder) Request() *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest {
+	return &PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for HomeRealmDiscoveryPolicy item
+func (b *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequestBuilder) ID(id string) *HomeRealmDiscoveryPolicyRequestBuilder {
+	bb := &HomeRealmDiscoveryPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest is request for HomeRealmDiscoveryPolicy collection
+type PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for HomeRealmDiscoveryPolicy collection
+func (r *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]HomeRealmDiscoveryPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []HomeRealmDiscoveryPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []HomeRealmDiscoveryPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for HomeRealmDiscoveryPolicy collection, max N pages
+func (r *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]HomeRealmDiscoveryPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for HomeRealmDiscoveryPolicy collection
+func (r *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest) Get(ctx context.Context) ([]HomeRealmDiscoveryPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for HomeRealmDiscoveryPolicy collection
+func (r *PolicyRootHomeRealmDiscoveryPoliciesCollectionRequest) Add(ctx context.Context, reqObj *HomeRealmDiscoveryPolicy) (resObj *HomeRealmDiscoveryPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// IdentitySecurityDefaultsEnforcementPolicy is navigation property
+func (b *PolicyRootRequestBuilder) IdentitySecurityDefaultsEnforcementPolicy() *IdentitySecurityDefaultsEnforcementPolicyRequestBuilder {
+	bb := &IdentitySecurityDefaultsEnforcementPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/identitySecurityDefaultsEnforcementPolicy"
+	return bb
+}
+
+// PermissionGrantPolicies returns request builder for PermissionGrantPolicy collection
+func (b *PolicyRootRequestBuilder) PermissionGrantPolicies() *PolicyRootPermissionGrantPoliciesCollectionRequestBuilder {
+	bb := &PolicyRootPermissionGrantPoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/permissionGrantPolicies"
+	return bb
+}
+
+// PolicyRootPermissionGrantPoliciesCollectionRequestBuilder is request builder for PermissionGrantPolicy collection
+type PolicyRootPermissionGrantPoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for PermissionGrantPolicy collection
+func (b *PolicyRootPermissionGrantPoliciesCollectionRequestBuilder) Request() *PolicyRootPermissionGrantPoliciesCollectionRequest {
+	return &PolicyRootPermissionGrantPoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for PermissionGrantPolicy item
+func (b *PolicyRootPermissionGrantPoliciesCollectionRequestBuilder) ID(id string) *PermissionGrantPolicyRequestBuilder {
+	bb := &PermissionGrantPolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootPermissionGrantPoliciesCollectionRequest is request for PermissionGrantPolicy collection
+type PolicyRootPermissionGrantPoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for PermissionGrantPolicy collection
+func (r *PolicyRootPermissionGrantPoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]PermissionGrantPolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []PermissionGrantPolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []PermissionGrantPolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for PermissionGrantPolicy collection, max N pages
+func (r *PolicyRootPermissionGrantPoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]PermissionGrantPolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for PermissionGrantPolicy collection
+func (r *PolicyRootPermissionGrantPoliciesCollectionRequest) Get(ctx context.Context) ([]PermissionGrantPolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for PermissionGrantPolicy collection
+func (r *PolicyRootPermissionGrantPoliciesCollectionRequest) Add(ctx context.Context, reqObj *PermissionGrantPolicy) (resObj *PermissionGrantPolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// PrivateLinkResourcePolicies returns request builder for PrivateLinkResourcePolicy collection
+func (b *PolicyRootRequestBuilder) PrivateLinkResourcePolicies() *PolicyRootPrivateLinkResourcePoliciesCollectionRequestBuilder {
+	bb := &PolicyRootPrivateLinkResourcePoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/privateLinkResourcePolicies"
+	return bb
+}
+
+// PolicyRootPrivateLinkResourcePoliciesCollectionRequestBuilder is request builder for PrivateLinkResourcePolicy collection
+type PolicyRootPrivateLinkResourcePoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for PrivateLinkResourcePolicy collection
+func (b *PolicyRootPrivateLinkResourcePoliciesCollectionRequestBuilder) Request() *PolicyRootPrivateLinkResourcePoliciesCollectionRequest {
+	return &PolicyRootPrivateLinkResourcePoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for PrivateLinkResourcePolicy item
+func (b *PolicyRootPrivateLinkResourcePoliciesCollectionRequestBuilder) ID(id string) *PrivateLinkResourcePolicyRequestBuilder {
+	bb := &PrivateLinkResourcePolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootPrivateLinkResourcePoliciesCollectionRequest is request for PrivateLinkResourcePolicy collection
+type PolicyRootPrivateLinkResourcePoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for PrivateLinkResourcePolicy collection
+func (r *PolicyRootPrivateLinkResourcePoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]PrivateLinkResourcePolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []PrivateLinkResourcePolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []PrivateLinkResourcePolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for PrivateLinkResourcePolicy collection, max N pages
+func (r *PolicyRootPrivateLinkResourcePoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]PrivateLinkResourcePolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for PrivateLinkResourcePolicy collection
+func (r *PolicyRootPrivateLinkResourcePoliciesCollectionRequest) Get(ctx context.Context) ([]PrivateLinkResourcePolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for PrivateLinkResourcePolicy collection
+func (r *PolicyRootPrivateLinkResourcePoliciesCollectionRequest) Add(ctx context.Context, reqObj *PrivateLinkResourcePolicy) (resObj *PrivateLinkResourcePolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// TokenIssuancePolicies returns request builder for TokenIssuancePolicy collection
+func (b *PolicyRootRequestBuilder) TokenIssuancePolicies() *PolicyRootTokenIssuancePoliciesCollectionRequestBuilder {
+	bb := &PolicyRootTokenIssuancePoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/tokenIssuancePolicies"
+	return bb
+}
+
+// PolicyRootTokenIssuancePoliciesCollectionRequestBuilder is request builder for TokenIssuancePolicy collection
+type PolicyRootTokenIssuancePoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for TokenIssuancePolicy collection
+func (b *PolicyRootTokenIssuancePoliciesCollectionRequestBuilder) Request() *PolicyRootTokenIssuancePoliciesCollectionRequest {
+	return &PolicyRootTokenIssuancePoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for TokenIssuancePolicy item
+func (b *PolicyRootTokenIssuancePoliciesCollectionRequestBuilder) ID(id string) *TokenIssuancePolicyRequestBuilder {
+	bb := &TokenIssuancePolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootTokenIssuancePoliciesCollectionRequest is request for TokenIssuancePolicy collection
+type PolicyRootTokenIssuancePoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for TokenIssuancePolicy collection
+func (r *PolicyRootTokenIssuancePoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]TokenIssuancePolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []TokenIssuancePolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []TokenIssuancePolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for TokenIssuancePolicy collection, max N pages
+func (r *PolicyRootTokenIssuancePoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]TokenIssuancePolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for TokenIssuancePolicy collection
+func (r *PolicyRootTokenIssuancePoliciesCollectionRequest) Get(ctx context.Context) ([]TokenIssuancePolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for TokenIssuancePolicy collection
+func (r *PolicyRootTokenIssuancePoliciesCollectionRequest) Add(ctx context.Context, reqObj *TokenIssuancePolicy) (resObj *TokenIssuancePolicy, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// TokenLifetimePolicies returns request builder for TokenLifetimePolicy collection
+func (b *PolicyRootRequestBuilder) TokenLifetimePolicies() *PolicyRootTokenLifetimePoliciesCollectionRequestBuilder {
+	bb := &PolicyRootTokenLifetimePoliciesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/tokenLifetimePolicies"
+	return bb
+}
+
+// PolicyRootTokenLifetimePoliciesCollectionRequestBuilder is request builder for TokenLifetimePolicy collection
+type PolicyRootTokenLifetimePoliciesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for TokenLifetimePolicy collection
+func (b *PolicyRootTokenLifetimePoliciesCollectionRequestBuilder) Request() *PolicyRootTokenLifetimePoliciesCollectionRequest {
+	return &PolicyRootTokenLifetimePoliciesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for TokenLifetimePolicy item
+func (b *PolicyRootTokenLifetimePoliciesCollectionRequestBuilder) ID(id string) *TokenLifetimePolicyRequestBuilder {
+	bb := &TokenLifetimePolicyRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// PolicyRootTokenLifetimePoliciesCollectionRequest is request for TokenLifetimePolicy collection
+type PolicyRootTokenLifetimePoliciesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for TokenLifetimePolicy collection
+func (r *PolicyRootTokenLifetimePoliciesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]TokenLifetimePolicy, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []TokenLifetimePolicy
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []TokenLifetimePolicy
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for TokenLifetimePolicy collection, max N pages
+func (r *PolicyRootTokenLifetimePoliciesCollectionRequest) GetN(ctx context.Context, n int) ([]TokenLifetimePolicy, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for TokenLifetimePolicy collection
+func (r *PolicyRootTokenLifetimePoliciesCollectionRequest) Get(ctx context.Context) ([]TokenLifetimePolicy, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for TokenLifetimePolicy collection
+func (r *PolicyRootTokenLifetimePoliciesCollectionRequest) Add(ctx context.Context, reqObj *TokenLifetimePolicy) (resObj *TokenLifetimePolicy, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }

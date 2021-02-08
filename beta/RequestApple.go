@@ -104,6 +104,33 @@ func (r *AppleUserInitiatedEnrollmentProfileRequest) Delete(ctx context.Context)
 }
 
 //
+type ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestBuilder struct{ BaseRequestBuilder }
+
+// GenerateApplePushNotificationCertificateSigningRequestAction action undocumented
+func (b *ApplePushNotificationCertificateRequestBuilder) GenerateApplePushNotificationCertificateSigningRequestAction(reqObj *ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestParameter) *ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestBuilder {
+	bb := &ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/generateApplePushNotificationCertificateSigningRequest"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequest struct{ BaseRequest }
+
+//
+func (b *ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestBuilder) Request() *ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequest {
+	return &ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequest) Post(ctx context.Context) (resObj *string, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
 type AppleUserInitiatedEnrollmentProfileSetPriorityRequestBuilder struct{ BaseRequestBuilder }
 
 // SetPriority action undocumented

@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // MobileAppRequestBuilder is request builder for MobileApp
@@ -471,6 +471,33 @@ func (r *MobileThreatDefenseConnectorRequest) Update(ctx context.Context, reqObj
 // Delete performs DELETE request for MobileThreatDefenseConnector
 func (r *MobileThreatDefenseConnectorRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+//
+type MobileAppCollectionValidateXMLRequestBuilder struct{ BaseRequestBuilder }
+
+// ValidateXML action undocumented
+func (b *DeviceAppManagementMobileAppsCollectionRequestBuilder) ValidateXML(reqObj *MobileAppCollectionValidateXMLRequestParameter) *MobileAppCollectionValidateXMLRequestBuilder {
+	bb := &MobileAppCollectionValidateXMLRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/validateXml"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type MobileAppCollectionValidateXMLRequest struct{ BaseRequest }
+
+//
+func (b *MobileAppCollectionValidateXMLRequestBuilder) Request() *MobileAppCollectionValidateXMLRequest {
+	return &MobileAppCollectionValidateXMLRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *MobileAppCollectionValidateXMLRequest) Post(ctx context.Context) (resObj *string, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }
 
 //

@@ -8,8 +8,12 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// ChannelCompleteMigrationRequestParameter undocumented
+type ChannelCompleteMigrationRequestParameter struct {
+}
 
 // FilesFolder is navigation property
 func (b *ChannelRequestBuilder) FilesFolder() *DriveItemRequestBuilder {

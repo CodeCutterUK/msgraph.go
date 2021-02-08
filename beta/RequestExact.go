@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // ExactMatchDataStoreRequestBuilder is request builder for ExactMatchDataStore
@@ -257,32 +257,6 @@ func (r *ExactMatchSessionCancelRequest) Post(ctx context.Context) error {
 }
 
 //
-type ExactMatchSessionCommitRequestBuilder struct{ BaseRequestBuilder }
-
-// Commit action undocumented
-func (b *ExactMatchSessionRequestBuilder) Commit(reqObj *ExactMatchSessionCommitRequestParameter) *ExactMatchSessionCommitRequestBuilder {
-	bb := &ExactMatchSessionCommitRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/commit"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type ExactMatchSessionCommitRequest struct{ BaseRequest }
-
-//
-func (b *ExactMatchSessionCommitRequestBuilder) Request() *ExactMatchSessionCommitRequest {
-	return &ExactMatchSessionCommitRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *ExactMatchSessionCommitRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type ExactMatchSessionRenewRequestBuilder struct{ BaseRequestBuilder }
 
 // Renew action undocumented
@@ -307,4 +281,30 @@ func (b *ExactMatchSessionRenewRequestBuilder) Request() *ExactMatchSessionRenew
 func (r *ExactMatchSessionRenewRequest) Post(ctx context.Context) (resObj *ExactMatchSession, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
+}
+
+//
+type ExactMatchSessionCommitRequestBuilder struct{ BaseRequestBuilder }
+
+// Commit action undocumented
+func (b *ExactMatchSessionRequestBuilder) Commit(reqObj *ExactMatchSessionCommitRequestParameter) *ExactMatchSessionCommitRequestBuilder {
+	bb := &ExactMatchSessionCommitRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/commit"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type ExactMatchSessionCommitRequest struct{ BaseRequest }
+
+//
+func (b *ExactMatchSessionCommitRequestBuilder) Request() *ExactMatchSessionCommitRequest {
+	return &ExactMatchSessionCommitRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *ExactMatchSessionCommitRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }

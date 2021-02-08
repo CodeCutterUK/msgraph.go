@@ -65,6 +65,32 @@ func (r *ServicePrincipalCreatePasswordSingleSignOnCredentialsRequest) Post(ctx 
 }
 
 //
+type ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder struct{ BaseRequestBuilder }
+
+// DeletePasswordSingleSignOnCredentials action undocumented
+func (b *ServicePrincipalRequestBuilder) DeletePasswordSingleSignOnCredentials(reqObj *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestParameter) *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder {
+	bb := &ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/deletePasswordSingleSignOnCredentials"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest struct{ BaseRequest }
+
+//
+func (b *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder) Request() *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest {
+	return &ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
 type ServicePrincipalGetPasswordSingleSignOnCredentialsRequestBuilder struct{ BaseRequestBuilder }
 
 // GetPasswordSingleSignOnCredentials action undocumented
@@ -89,32 +115,6 @@ func (b *ServicePrincipalGetPasswordSingleSignOnCredentialsRequestBuilder) Reque
 func (r *ServicePrincipalGetPasswordSingleSignOnCredentialsRequest) Post(ctx context.Context) (resObj *PasswordSingleSignOnCredentialSet, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
-}
-
-//
-type ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder struct{ BaseRequestBuilder }
-
-// DeletePasswordSingleSignOnCredentials action undocumented
-func (b *ServicePrincipalRequestBuilder) DeletePasswordSingleSignOnCredentials(reqObj *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestParameter) *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder {
-	bb := &ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/deletePasswordSingleSignOnCredentials"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest struct{ BaseRequest }
-
-//
-func (b *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequestBuilder) Request() *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest {
-	return &ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *ServicePrincipalDeletePasswordSingleSignOnCredentialsRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
 //

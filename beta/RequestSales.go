@@ -269,32 +269,6 @@ func (r *SalesQuoteLineRequest) Delete(ctx context.Context) error {
 }
 
 //
-type SalesInvoiceCancelAndSendRequestBuilder struct{ BaseRequestBuilder }
-
-// CancelAndSend action undocumented
-func (b *SalesInvoiceRequestBuilder) CancelAndSend(reqObj *SalesInvoiceCancelAndSendRequestParameter) *SalesInvoiceCancelAndSendRequestBuilder {
-	bb := &SalesInvoiceCancelAndSendRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/cancelAndSend"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type SalesInvoiceCancelAndSendRequest struct{ BaseRequest }
-
-//
-func (b *SalesInvoiceCancelAndSendRequestBuilder) Request() *SalesInvoiceCancelAndSendRequest {
-	return &SalesInvoiceCancelAndSendRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *SalesInvoiceCancelAndSendRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type SalesInvoiceCancelRequestBuilder struct{ BaseRequestBuilder }
 
 // Cancel action undocumented
@@ -317,58 +291,6 @@ func (b *SalesInvoiceCancelRequestBuilder) Request() *SalesInvoiceCancelRequest 
 
 //
 func (r *SalesInvoiceCancelRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type SalesInvoicePostAndSendRequestBuilder struct{ BaseRequestBuilder }
-
-// PostAndSend action undocumented
-func (b *SalesInvoiceRequestBuilder) PostAndSend(reqObj *SalesInvoicePostAndSendRequestParameter) *SalesInvoicePostAndSendRequestBuilder {
-	bb := &SalesInvoicePostAndSendRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/postAndSend"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type SalesInvoicePostAndSendRequest struct{ BaseRequest }
-
-//
-func (b *SalesInvoicePostAndSendRequestBuilder) Request() *SalesInvoicePostAndSendRequest {
-	return &SalesInvoicePostAndSendRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *SalesInvoicePostAndSendRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
-type SalesInvoicePostRequestBuilder struct{ BaseRequestBuilder }
-
-// Post action undocumented
-func (b *SalesInvoiceRequestBuilder) Post(reqObj *SalesInvoicePostRequestParameter) *SalesInvoicePostRequestBuilder {
-	bb := &SalesInvoicePostRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/post"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type SalesInvoicePostRequest struct{ BaseRequest }
-
-//
-func (b *SalesInvoicePostRequestBuilder) Request() *SalesInvoicePostRequest {
-	return &SalesInvoicePostRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *SalesInvoicePostRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -399,28 +321,80 @@ func (r *SalesInvoiceSendRequest) Post(ctx context.Context) error {
 }
 
 //
-type SalesQuoteMakeInvoiceRequestBuilder struct{ BaseRequestBuilder }
+type SalesInvoiceCancelAndSendRequestBuilder struct{ BaseRequestBuilder }
 
-// MakeInvoice action undocumented
-func (b *SalesQuoteRequestBuilder) MakeInvoice(reqObj *SalesQuoteMakeInvoiceRequestParameter) *SalesQuoteMakeInvoiceRequestBuilder {
-	bb := &SalesQuoteMakeInvoiceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/makeInvoice"
+// CancelAndSend action undocumented
+func (b *SalesInvoiceRequestBuilder) CancelAndSend(reqObj *SalesInvoiceCancelAndSendRequestParameter) *SalesInvoiceCancelAndSendRequestBuilder {
+	bb := &SalesInvoiceCancelAndSendRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/cancelAndSend"
 	bb.BaseRequestBuilder.requestObject = reqObj
 	return bb
 }
 
 //
-type SalesQuoteMakeInvoiceRequest struct{ BaseRequest }
+type SalesInvoiceCancelAndSendRequest struct{ BaseRequest }
 
 //
-func (b *SalesQuoteMakeInvoiceRequestBuilder) Request() *SalesQuoteMakeInvoiceRequest {
-	return &SalesQuoteMakeInvoiceRequest{
+func (b *SalesInvoiceCancelAndSendRequestBuilder) Request() *SalesInvoiceCancelAndSendRequest {
+	return &SalesInvoiceCancelAndSendRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
 	}
 }
 
 //
-func (r *SalesQuoteMakeInvoiceRequest) Post(ctx context.Context) error {
+func (r *SalesInvoiceCancelAndSendRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type SalesInvoicePostRequestBuilder struct{ BaseRequestBuilder }
+
+// Post action undocumented
+func (b *SalesInvoiceRequestBuilder) Post(reqObj *SalesInvoicePostRequestParameter) *SalesInvoicePostRequestBuilder {
+	bb := &SalesInvoicePostRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/post"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type SalesInvoicePostRequest struct{ BaseRequest }
+
+//
+func (b *SalesInvoicePostRequestBuilder) Request() *SalesInvoicePostRequest {
+	return &SalesInvoicePostRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *SalesInvoicePostRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type SalesInvoicePostAndSendRequestBuilder struct{ BaseRequestBuilder }
+
+// PostAndSend action undocumented
+func (b *SalesInvoiceRequestBuilder) PostAndSend(reqObj *SalesInvoicePostAndSendRequestParameter) *SalesInvoicePostAndSendRequestBuilder {
+	bb := &SalesInvoicePostAndSendRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/postAndSend"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type SalesInvoicePostAndSendRequest struct{ BaseRequest }
+
+//
+func (b *SalesInvoicePostAndSendRequestBuilder) Request() *SalesInvoicePostAndSendRequest {
+	return &SalesInvoicePostAndSendRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *SalesInvoicePostAndSendRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
@@ -447,5 +421,31 @@ func (b *SalesQuoteSendRequestBuilder) Request() *SalesQuoteSendRequest {
 
 //
 func (r *SalesQuoteSendRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type SalesQuoteMakeInvoiceRequestBuilder struct{ BaseRequestBuilder }
+
+// MakeInvoice action undocumented
+func (b *SalesQuoteRequestBuilder) MakeInvoice(reqObj *SalesQuoteMakeInvoiceRequestParameter) *SalesQuoteMakeInvoiceRequestBuilder {
+	bb := &SalesQuoteMakeInvoiceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/makeInvoice"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type SalesQuoteMakeInvoiceRequest struct{ BaseRequest }
+
+//
+func (b *SalesQuoteMakeInvoiceRequestBuilder) Request() *SalesQuoteMakeInvoiceRequest {
+	return &SalesQuoteMakeInvoiceRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *SalesQuoteMakeInvoiceRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }

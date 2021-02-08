@@ -26,4 +26,6 @@ type DocumentCommentReply struct {
 	Entity
 	// Content undocumented
 	Content *string `json:"content,omitempty"`
+	// Location undocumented
+	Location *string `json:"location,omitempty"`
 }

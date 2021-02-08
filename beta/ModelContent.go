@@ -8,14 +8,14 @@ import "time"
 type ContentClassification struct {
 	// Object is the base model of ContentClassification
 	Object
-	// SensitiveTypeID undocumented
-	SensitiveTypeID *string `json:"sensitiveTypeId,omitempty"`
-	// UniqueCount undocumented
-	UniqueCount *int `json:"uniqueCount,omitempty"`
 	// Confidence undocumented
 	Confidence *int `json:"confidence,omitempty"`
 	// Matches undocumented
 	Matches []MatchLocation `json:"matches,omitempty"`
+	// SensitiveTypeID undocumented
+	SensitiveTypeID *string `json:"sensitiveTypeId,omitempty"`
+	// UniqueCount undocumented
+	UniqueCount *int `json:"uniqueCount,omitempty"`
 }
 
 // ContentInfo undocumented
@@ -24,12 +24,12 @@ type ContentInfo struct {
 	Object
 	// Format undocumented
 	Format *ContentFormat `json:"format,omitempty"`
-	// State undocumented
-	State *ContentState `json:"state,omitempty"`
 	// Identifier undocumented
 	Identifier *string `json:"identifier,omitempty"`
 	// Metadata undocumented
 	Metadata []KeyValuePair `json:"metadata,omitempty"`
+	// State undocumented
+	State *ContentState `json:"state,omitempty"`
 }
 
 // ContentMetadata undocumented
@@ -44,12 +44,12 @@ type ContentProperties struct {
 	Object
 	// Extensions undocumented
 	Extensions []string `json:"extensions,omitempty"`
-	// Metadata undocumented
-	Metadata *ContentMetadata `json:"metadata,omitempty"`
-	// LastModifiedDateTime undocumented
-	LastModifiedDateTime *time.Time `json:"lastModifiedDateTime,omitempty"`
 	// LastModifiedBy undocumented
 	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+	// LastModifiedDateTime undocumented
+	LastModifiedDateTime *time.Time `json:"lastModifiedDateTime,omitempty"`
+	// Metadata undocumented
+	Metadata *ContentMetadata `json:"metadata,omitempty"`
 }
 
 // ContentType undocumented

@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // TrustFrameworkKeySetGenerateKeyRequestParameter undocumented
@@ -17,18 +17,6 @@ type TrustFrameworkKeySetGenerateKeyRequestParameter struct {
 	Use *string `json:"use,omitempty"`
 	// Kty undocumented
 	Kty *string `json:"kty,omitempty"`
-	// Nbf undocumented
-	Nbf *int `json:"nbf,omitempty"`
-	// Exp undocumented
-	Exp *int `json:"exp,omitempty"`
-}
-
-// TrustFrameworkKeySetUploadSecretRequestParameter undocumented
-type TrustFrameworkKeySetUploadSecretRequestParameter struct {
-	// Use undocumented
-	Use *string `json:"use,omitempty"`
-	// K undocumented
-	K *string `json:"k,omitempty"`
 	// Nbf undocumented
 	Nbf *int `json:"nbf,omitempty"`
 	// Exp undocumented
@@ -47,6 +35,18 @@ type TrustFrameworkKeySetUploadPkcs12RequestParameter struct {
 	Key *string `json:"key,omitempty"`
 	// Password undocumented
 	Password *string `json:"password,omitempty"`
+}
+
+// TrustFrameworkKeySetUploadSecretRequestParameter undocumented
+type TrustFrameworkKeySetUploadSecretRequestParameter struct {
+	// Use undocumented
+	Use *string `json:"use,omitempty"`
+	// K undocumented
+	K *string `json:"k,omitempty"`
+	// Nbf undocumented
+	Nbf *int `json:"nbf,omitempty"`
+	// Exp undocumented
+	Exp *int `json:"exp,omitempty"`
 }
 
 // KeySets returns request builder for TrustFrameworkKeySet collection

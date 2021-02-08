@@ -38,6 +38,66 @@ func (r *CallRequest) Delete(ctx context.Context) error {
 }
 
 //
+type CallCollectionLogTeleconferenceDeviceQualityRequestBuilder struct{ BaseRequestBuilder }
+
+// LogTeleconferenceDeviceQuality action undocumented
+func (b *CloudCommunicationsCallsCollectionRequestBuilder) LogTeleconferenceDeviceQuality(reqObj *CallCollectionLogTeleconferenceDeviceQualityRequestParameter) *CallCollectionLogTeleconferenceDeviceQualityRequestBuilder {
+	bb := &CallCollectionLogTeleconferenceDeviceQualityRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/logTeleconferenceDeviceQuality"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+// LogTeleconferenceDeviceQuality action undocumented
+func (b *CommsApplicationCallsCollectionRequestBuilder) LogTeleconferenceDeviceQuality(reqObj *CallCollectionLogTeleconferenceDeviceQualityRequestParameter) *CallCollectionLogTeleconferenceDeviceQualityRequestBuilder {
+	bb := &CallCollectionLogTeleconferenceDeviceQualityRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/logTeleconferenceDeviceQuality"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type CallCollectionLogTeleconferenceDeviceQualityRequest struct{ BaseRequest }
+
+//
+func (b *CallCollectionLogTeleconferenceDeviceQualityRequestBuilder) Request() *CallCollectionLogTeleconferenceDeviceQualityRequest {
+	return &CallCollectionLogTeleconferenceDeviceQualityRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *CallCollectionLogTeleconferenceDeviceQualityRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type CallRedirectRequestBuilder struct{ BaseRequestBuilder }
+
+// Redirect action undocumented
+func (b *CallRequestBuilder) Redirect(reqObj *CallRedirectRequestParameter) *CallRedirectRequestBuilder {
+	bb := &CallRedirectRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/redirect"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type CallRedirectRequest struct{ BaseRequest }
+
+//
+func (b *CallRedirectRequestBuilder) Request() *CallRedirectRequest {
+	return &CallRedirectRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *CallRedirectRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
 type CallAnswerRequestBuilder struct{ BaseRequestBuilder }
 
 // Answer action undocumented
@@ -248,32 +308,6 @@ func (b *CallRecordResponseRequestBuilder) Request() *CallRecordResponseRequest 
 func (r *CallRecordResponseRequest) Post(ctx context.Context) (resObj *RecordOperation, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
-}
-
-//
-type CallRedirectRequestBuilder struct{ BaseRequestBuilder }
-
-// Redirect action undocumented
-func (b *CallRequestBuilder) Redirect(reqObj *CallRedirectRequestParameter) *CallRedirectRequestBuilder {
-	bb := &CallRedirectRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/redirect"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type CallRedirectRequest struct{ BaseRequest }
-
-//
-func (b *CallRedirectRequestBuilder) Request() *CallRedirectRequest {
-	return &CallRedirectRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *CallRedirectRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 
 //

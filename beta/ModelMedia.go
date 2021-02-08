@@ -104,34 +104,34 @@ type MediaContentRatingUnitedStates struct {
 type MediaInfo struct {
 	// Object is the base model of MediaInfo
 	Object
-	// URI undocumented
-	URI *string `json:"uri,omitempty"`
 	// ResourceID undocumented
 	ResourceID *string `json:"resourceId,omitempty"`
+	// URI undocumented
+	URI *string `json:"uri,omitempty"`
 }
 
 // MediaPrompt undocumented
 type MediaPrompt struct {
 	// Prompt is the base model of MediaPrompt
 	Prompt
-	// MediaInfo undocumented
-	MediaInfo *MediaInfo `json:"mediaInfo,omitempty"`
 	// Loop undocumented
 	Loop *int `json:"loop,omitempty"`
+	// MediaInfo undocumented
+	MediaInfo *MediaInfo `json:"mediaInfo,omitempty"`
 }
 
 // MediaStream undocumented
 type MediaStream struct {
 	// Object is the base model of MediaStream
 	Object
-	// MediaType undocumented
-	MediaType *Modality `json:"mediaType,omitempty"`
-	// Label undocumented
-	Label *string `json:"label,omitempty"`
-	// SourceID undocumented
-	SourceID *string `json:"sourceId,omitempty"`
 	// Direction undocumented
 	Direction *MediaDirection `json:"direction,omitempty"`
+	// Label undocumented
+	Label *string `json:"label,omitempty"`
+	// MediaType undocumented
+	MediaType *Modality `json:"mediaType,omitempty"`
 	// ServerMuted undocumented
 	ServerMuted *bool `json:"serverMuted,omitempty"`
+	// SourceID undocumented
+	SourceID *string `json:"sourceId,omitempty"`
 }

@@ -14,6 +14,8 @@ const (
 	ProvisioningResultVSkipped ProvisioningResult = "skipped"
 	// ProvisioningResultVUnknownFutureValue undocumented
 	ProvisioningResultVUnknownFutureValue ProvisioningResult = "unknownFutureValue"
+	// ProvisioningResultVWarning undocumented
+	ProvisioningResultVWarning ProvisioningResult = "warning"
 )
 
 var (
@@ -25,6 +27,8 @@ var (
 	ProvisioningResultPSkipped = &_ProvisioningResultPSkipped
 	// ProvisioningResultPUnknownFutureValue is a pointer to ProvisioningResultVUnknownFutureValue
 	ProvisioningResultPUnknownFutureValue = &_ProvisioningResultPUnknownFutureValue
+	// ProvisioningResultPWarning is a pointer to ProvisioningResultVWarning
+	ProvisioningResultPWarning = &_ProvisioningResultPWarning
 )
 
 var (
@@ -32,6 +36,7 @@ var (
 	_ProvisioningResultPFailure            = ProvisioningResultVFailure
 	_ProvisioningResultPSkipped            = ProvisioningResultVSkipped
 	_ProvisioningResultPUnknownFutureValue = ProvisioningResultVUnknownFutureValue
+	_ProvisioningResultPWarning            = ProvisioningResultVWarning
 )
 
 // ProvisioningStepType undocumented

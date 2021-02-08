@@ -8,8 +8,30 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// CallCollectionLogTeleconferenceDeviceQualityRequestParameter undocumented
+type CallCollectionLogTeleconferenceDeviceQualityRequestParameter struct {
+	// Quality undocumented
+	Quality *TeleconferenceDeviceQuality `json:"quality,omitempty"`
+}
+
+// CallRedirectRequestParameter undocumented
+type CallRedirectRequestParameter struct {
+	// Targets undocumented
+	Targets []InvitationParticipantInfo `json:"targets,omitempty"`
+	// TargetDisposition undocumented
+	TargetDisposition *CallDisposition `json:"targetDisposition,omitempty"`
+	// Timeout undocumented
+	Timeout *int `json:"timeout,omitempty"`
+	// MaskCallee undocumented
+	MaskCallee *bool `json:"maskCallee,omitempty"`
+	// MaskCaller undocumented
+	MaskCaller *bool `json:"maskCaller,omitempty"`
+	// CallbackURI undocumented
+	CallbackURI *string `json:"callbackUri,omitempty"`
+}
 
 // CallAnswerRequestParameter undocumented
 type CallAnswerRequestParameter struct {
@@ -19,6 +41,8 @@ type CallAnswerRequestParameter struct {
 	MediaConfig *MediaConfig `json:"mediaConfig,omitempty"`
 	// AcceptedModalities undocumented
 	AcceptedModalities []Modality `json:"acceptedModalities,omitempty"`
+	// ParticipantCapacity undocumented
+	ParticipantCapacity *int `json:"participantCapacity,omitempty"`
 }
 
 // CallCancelMediaProcessingRequestParameter undocumented
@@ -95,22 +119,6 @@ type CallRecordResponseRequestParameter struct {
 	StopTones []string `json:"stopTones,omitempty"`
 	// ClientContext undocumented
 	ClientContext *string `json:"clientContext,omitempty"`
-}
-
-// CallRedirectRequestParameter undocumented
-type CallRedirectRequestParameter struct {
-	// Targets undocumented
-	Targets []InvitationParticipantInfo `json:"targets,omitempty"`
-	// TargetDisposition undocumented
-	TargetDisposition *CallDisposition `json:"targetDisposition,omitempty"`
-	// Timeout undocumented
-	Timeout *int `json:"timeout,omitempty"`
-	// MaskCallee undocumented
-	MaskCallee *bool `json:"maskCallee,omitempty"`
-	// MaskCaller undocumented
-	MaskCaller *bool `json:"maskCaller,omitempty"`
-	// CallbackURI undocumented
-	CallbackURI *string `json:"callbackUri,omitempty"`
 }
 
 // CallRejectRequestParameter undocumented

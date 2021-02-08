@@ -2,7 +2,14 @@
 
 package msgraph
 
-import "context"
+import (
+	"context"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+
+	"github.com/codecutteruk/msgraph.go/jsonx"
+)
 
 // MicrosoftStoreForBusinessAppRequestBuilder is request builder for MicrosoftStoreForBusinessApp
 type MicrosoftStoreForBusinessAppRequestBuilder struct{ BaseRequestBuilder }
@@ -35,4 +42,397 @@ func (r *MicrosoftStoreForBusinessAppRequest) Update(ctx context.Context, reqObj
 // Delete performs DELETE request for MicrosoftStoreForBusinessApp
 func (r *MicrosoftStoreForBusinessAppRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// MicrosoftTunnelConfigurationRequestBuilder is request builder for MicrosoftTunnelConfiguration
+type MicrosoftTunnelConfigurationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns MicrosoftTunnelConfigurationRequest
+func (b *MicrosoftTunnelConfigurationRequestBuilder) Request() *MicrosoftTunnelConfigurationRequest {
+	return &MicrosoftTunnelConfigurationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// MicrosoftTunnelConfigurationRequest is request for MicrosoftTunnelConfiguration
+type MicrosoftTunnelConfigurationRequest struct{ BaseRequest }
+
+// Get performs GET request for MicrosoftTunnelConfiguration
+func (r *MicrosoftTunnelConfigurationRequest) Get(ctx context.Context) (resObj *MicrosoftTunnelConfiguration, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for MicrosoftTunnelConfiguration
+func (r *MicrosoftTunnelConfigurationRequest) Update(ctx context.Context, reqObj *MicrosoftTunnelConfiguration) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for MicrosoftTunnelConfiguration
+func (r *MicrosoftTunnelConfigurationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// MicrosoftTunnelHealthThresholdRequestBuilder is request builder for MicrosoftTunnelHealthThreshold
+type MicrosoftTunnelHealthThresholdRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns MicrosoftTunnelHealthThresholdRequest
+func (b *MicrosoftTunnelHealthThresholdRequestBuilder) Request() *MicrosoftTunnelHealthThresholdRequest {
+	return &MicrosoftTunnelHealthThresholdRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// MicrosoftTunnelHealthThresholdRequest is request for MicrosoftTunnelHealthThreshold
+type MicrosoftTunnelHealthThresholdRequest struct{ BaseRequest }
+
+// Get performs GET request for MicrosoftTunnelHealthThreshold
+func (r *MicrosoftTunnelHealthThresholdRequest) Get(ctx context.Context) (resObj *MicrosoftTunnelHealthThreshold, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for MicrosoftTunnelHealthThreshold
+func (r *MicrosoftTunnelHealthThresholdRequest) Update(ctx context.Context, reqObj *MicrosoftTunnelHealthThreshold) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for MicrosoftTunnelHealthThreshold
+func (r *MicrosoftTunnelHealthThresholdRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// MicrosoftTunnelServerRequestBuilder is request builder for MicrosoftTunnelServer
+type MicrosoftTunnelServerRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns MicrosoftTunnelServerRequest
+func (b *MicrosoftTunnelServerRequestBuilder) Request() *MicrosoftTunnelServerRequest {
+	return &MicrosoftTunnelServerRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// MicrosoftTunnelServerRequest is request for MicrosoftTunnelServer
+type MicrosoftTunnelServerRequest struct{ BaseRequest }
+
+// Get performs GET request for MicrosoftTunnelServer
+func (r *MicrosoftTunnelServerRequest) Get(ctx context.Context) (resObj *MicrosoftTunnelServer, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for MicrosoftTunnelServer
+func (r *MicrosoftTunnelServerRequest) Update(ctx context.Context, reqObj *MicrosoftTunnelServer) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for MicrosoftTunnelServer
+func (r *MicrosoftTunnelServerRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// MicrosoftTunnelServerLogCollectionResponseRequestBuilder is request builder for MicrosoftTunnelServerLogCollectionResponse
+type MicrosoftTunnelServerLogCollectionResponseRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns MicrosoftTunnelServerLogCollectionResponseRequest
+func (b *MicrosoftTunnelServerLogCollectionResponseRequestBuilder) Request() *MicrosoftTunnelServerLogCollectionResponseRequest {
+	return &MicrosoftTunnelServerLogCollectionResponseRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// MicrosoftTunnelServerLogCollectionResponseRequest is request for MicrosoftTunnelServerLogCollectionResponse
+type MicrosoftTunnelServerLogCollectionResponseRequest struct{ BaseRequest }
+
+// Get performs GET request for MicrosoftTunnelServerLogCollectionResponse
+func (r *MicrosoftTunnelServerLogCollectionResponseRequest) Get(ctx context.Context) (resObj *MicrosoftTunnelServerLogCollectionResponse, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for MicrosoftTunnelServerLogCollectionResponse
+func (r *MicrosoftTunnelServerLogCollectionResponseRequest) Update(ctx context.Context, reqObj *MicrosoftTunnelServerLogCollectionResponse) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for MicrosoftTunnelServerLogCollectionResponse
+func (r *MicrosoftTunnelServerLogCollectionResponseRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// MicrosoftTunnelSiteRequestBuilder is request builder for MicrosoftTunnelSite
+type MicrosoftTunnelSiteRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns MicrosoftTunnelSiteRequest
+func (b *MicrosoftTunnelSiteRequestBuilder) Request() *MicrosoftTunnelSiteRequest {
+	return &MicrosoftTunnelSiteRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// MicrosoftTunnelSiteRequest is request for MicrosoftTunnelSite
+type MicrosoftTunnelSiteRequest struct{ BaseRequest }
+
+// Get performs GET request for MicrosoftTunnelSite
+func (r *MicrosoftTunnelSiteRequest) Get(ctx context.Context) (resObj *MicrosoftTunnelSite, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for MicrosoftTunnelSite
+func (r *MicrosoftTunnelSiteRequest) Update(ctx context.Context, reqObj *MicrosoftTunnelSite) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for MicrosoftTunnelSite
+func (r *MicrosoftTunnelSiteRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+//
+type MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestBuilder struct{ BaseRequestBuilder }
+
+// CreateServerLogCollectionRequestAction action undocumented
+func (b *MicrosoftTunnelServerRequestBuilder) CreateServerLogCollectionRequestAction(reqObj *MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestParameter) *MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestBuilder {
+	bb := &MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/createServerLogCollectionRequest"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequest struct{ BaseRequest }
+
+//
+func (b *MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequestBuilder) Request() *MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequest {
+	return &MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *MicrosoftTunnelServerCreateServerLogCollectionRequestActionRequest) Post(ctx context.Context) (resObj *MicrosoftTunnelServerLogCollectionResponse, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type MicrosoftTunnelServerGetHealthMetricsRequestBuilder struct{ BaseRequestBuilder }
+
+// GetHealthMetrics action undocumented
+func (b *MicrosoftTunnelServerRequestBuilder) GetHealthMetrics(reqObj *MicrosoftTunnelServerGetHealthMetricsRequestParameter) *MicrosoftTunnelServerGetHealthMetricsRequestBuilder {
+	bb := &MicrosoftTunnelServerGetHealthMetricsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/getHealthMetrics"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type MicrosoftTunnelServerGetHealthMetricsRequest struct{ BaseRequest }
+
+//
+func (b *MicrosoftTunnelServerGetHealthMetricsRequestBuilder) Request() *MicrosoftTunnelServerGetHealthMetricsRequest {
+	return &MicrosoftTunnelServerGetHealthMetricsRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *MicrosoftTunnelServerGetHealthMetricsRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]KeyLongValuePair, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []KeyLongValuePair
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []KeyLongValuePair
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+//
+func (r *MicrosoftTunnelServerGetHealthMetricsRequest) PostN(ctx context.Context, n int) ([]KeyLongValuePair, error) {
+	return r.Paging(ctx, "POST", "", r.requestObject, n)
+}
+
+//
+func (r *MicrosoftTunnelServerGetHealthMetricsRequest) Post(ctx context.Context) ([]KeyLongValuePair, error) {
+	return r.Paging(ctx, "POST", "", r.requestObject, 0)
+}
+
+//
+type MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestBuilder struct{ BaseRequestBuilder }
+
+// GetHealthMetricTimeSeries action undocumented
+func (b *MicrosoftTunnelServerRequestBuilder) GetHealthMetricTimeSeries(reqObj *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestParameter) *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestBuilder {
+	bb := &MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/getHealthMetricTimeSeries"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type MicrosoftTunnelServerGetHealthMetricTimeSeriesRequest struct{ BaseRequest }
+
+//
+func (b *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequestBuilder) Request() *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequest {
+	return &MicrosoftTunnelServerGetHealthMetricTimeSeriesRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]KeyValuePair, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []KeyValuePair
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []KeyValuePair
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+//
+func (r *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequest) PostN(ctx context.Context, n int) ([]KeyValuePair, error) {
+	return r.Paging(ctx, "POST", "", r.requestObject, n)
+}
+
+//
+func (r *MicrosoftTunnelServerGetHealthMetricTimeSeriesRequest) Post(ctx context.Context) ([]KeyValuePair, error) {
+	return r.Paging(ctx, "POST", "", r.requestObject, 0)
+}
+
+//
+type MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestBuilder struct{ BaseRequestBuilder }
+
+// CreateDownloadURL action undocumented
+func (b *MicrosoftTunnelServerLogCollectionResponseRequestBuilder) CreateDownloadURL(reqObj *MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestParameter) *MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestBuilder {
+	bb := &MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/createDownloadUrl"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequest struct{ BaseRequest }
+
+//
+func (b *MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequestBuilder) Request() *MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequest {
+	return &MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *MicrosoftTunnelServerLogCollectionResponseCreateDownloadURLRequest) Post(ctx context.Context) (resObj *string, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }

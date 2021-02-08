@@ -6,8 +6,22 @@ package msgraph
 type RbacApplication struct {
 	// Entity is the base model of RbacApplication
 	Entity
-	// RoleDefinitions undocumented
-	RoleDefinitions []UnifiedRoleDefinition `json:"roleDefinitions,omitempty"`
+	// ResourceNamespaces undocumented
+	ResourceNamespaces []UnifiedRbacResourceNamespace `json:"resourceNamespaces,omitempty"`
 	// RoleAssignments undocumented
 	RoleAssignments []UnifiedRoleAssignment `json:"roleAssignments,omitempty"`
+	// RoleDefinitions undocumented
+	RoleDefinitions []UnifiedRoleDefinition `json:"roleDefinitions,omitempty"`
+}
+
+// RbacApplicationMultiple undocumented
+type RbacApplicationMultiple struct {
+	// Entity is the base model of RbacApplicationMultiple
+	Entity
+	// ResourceNamespaces undocumented
+	ResourceNamespaces []UnifiedRbacResourceNamespace `json:"resourceNamespaces,omitempty"`
+	// RoleAssignments undocumented
+	RoleAssignments []UnifiedRoleAssignmentMultiple `json:"roleAssignments,omitempty"`
+	// RoleDefinitions undocumented
+	RoleDefinitions []UnifiedRoleDefinition `json:"roleDefinitions,omitempty"`
 }

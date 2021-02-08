@@ -36,3 +36,36 @@ func (r *OrganizationalBrandingRequest) Update(ctx context.Context, reqObj *Orga
 func (r *OrganizationalBrandingRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
+
+// OrganizationalBrandingLocalizationRequestBuilder is request builder for OrganizationalBrandingLocalization
+type OrganizationalBrandingLocalizationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns OrganizationalBrandingLocalizationRequest
+func (b *OrganizationalBrandingLocalizationRequestBuilder) Request() *OrganizationalBrandingLocalizationRequest {
+	return &OrganizationalBrandingLocalizationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// OrganizationalBrandingLocalizationRequest is request for OrganizationalBrandingLocalization
+type OrganizationalBrandingLocalizationRequest struct{ BaseRequest }
+
+// Get performs GET request for OrganizationalBrandingLocalization
+func (r *OrganizationalBrandingLocalizationRequest) Get(ctx context.Context) (resObj *OrganizationalBrandingLocalization, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for OrganizationalBrandingLocalization
+func (r *OrganizationalBrandingLocalizationRequest) Update(ctx context.Context, reqObj *OrganizationalBrandingLocalization) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for OrganizationalBrandingLocalization
+func (r *OrganizationalBrandingLocalizationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}

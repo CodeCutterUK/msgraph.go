@@ -102,3 +102,69 @@ func (r *AgreementFileRequest) Update(ctx context.Context, reqObj *AgreementFile
 func (r *AgreementFileRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
+
+// AgreementFileLocalizationRequestBuilder is request builder for AgreementFileLocalization
+type AgreementFileLocalizationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns AgreementFileLocalizationRequest
+func (b *AgreementFileLocalizationRequestBuilder) Request() *AgreementFileLocalizationRequest {
+	return &AgreementFileLocalizationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// AgreementFileLocalizationRequest is request for AgreementFileLocalization
+type AgreementFileLocalizationRequest struct{ BaseRequest }
+
+// Get performs GET request for AgreementFileLocalization
+func (r *AgreementFileLocalizationRequest) Get(ctx context.Context) (resObj *AgreementFileLocalization, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for AgreementFileLocalization
+func (r *AgreementFileLocalizationRequest) Update(ctx context.Context, reqObj *AgreementFileLocalization) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for AgreementFileLocalization
+func (r *AgreementFileLocalizationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// AgreementFileVersionRequestBuilder is request builder for AgreementFileVersion
+type AgreementFileVersionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns AgreementFileVersionRequest
+func (b *AgreementFileVersionRequestBuilder) Request() *AgreementFileVersionRequest {
+	return &AgreementFileVersionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// AgreementFileVersionRequest is request for AgreementFileVersion
+type AgreementFileVersionRequest struct{ BaseRequest }
+
+// Get performs GET request for AgreementFileVersion
+func (r *AgreementFileVersionRequest) Get(ctx context.Context) (resObj *AgreementFileVersion, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for AgreementFileVersion
+func (r *AgreementFileVersionRequest) Update(ctx context.Context, reqObj *AgreementFileVersion) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for AgreementFileVersion
+func (r *AgreementFileVersionRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}

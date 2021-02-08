@@ -102,3 +102,29 @@ func (r *ChatMessageHostedContentRequest) Update(ctx context.Context, reqObj *Ch
 func (r *ChatMessageHostedContentRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
+
+//
+type ChatSendActivityNotificationRequestBuilder struct{ BaseRequestBuilder }
+
+// SendActivityNotification action undocumented
+func (b *ChatRequestBuilder) SendActivityNotification(reqObj *ChatSendActivityNotificationRequestParameter) *ChatSendActivityNotificationRequestBuilder {
+	bb := &ChatSendActivityNotificationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/sendActivityNotification"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type ChatSendActivityNotificationRequest struct{ BaseRequest }
+
+//
+func (b *ChatSendActivityNotificationRequestBuilder) Request() *ChatSendActivityNotificationRequest {
+	return &ChatSendActivityNotificationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *ChatSendActivityNotificationRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}

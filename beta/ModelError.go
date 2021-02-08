@@ -6,10 +6,10 @@ package msgraph
 type ErrorDetail struct {
 	// Object is the base model of ErrorDetail
 	Object
+	// Details undocumented
+	Details []InnerErrorDetail `json:"details,omitempty"`
 	// ErrorCode undocumented
 	ErrorCode *string `json:"errorCode,omitempty"`
 	// Message undocumented
 	Message *string `json:"message,omitempty"`
-	// Details undocumented
-	Details []InnerErrorDetail `json:"details,omitempty"`
 }

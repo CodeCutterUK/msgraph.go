@@ -4,6 +4,39 @@ package msgraph
 
 import "context"
 
+// IdentityContainerRequestBuilder is request builder for IdentityContainer
+type IdentityContainerRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns IdentityContainerRequest
+func (b *IdentityContainerRequestBuilder) Request() *IdentityContainerRequest {
+	return &IdentityContainerRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// IdentityContainerRequest is request for IdentityContainer
+type IdentityContainerRequest struct{ BaseRequest }
+
+// Get performs GET request for IdentityContainer
+func (r *IdentityContainerRequest) Get(ctx context.Context) (resObj *IdentityContainer, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for IdentityContainer
+func (r *IdentityContainerRequest) Update(ctx context.Context, reqObj *IdentityContainer) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for IdentityContainer
+func (r *IdentityContainerRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // IdentityProviderRequestBuilder is request builder for IdentityProvider
 type IdentityProviderRequestBuilder struct{ BaseRequestBuilder }
 
@@ -34,5 +67,38 @@ func (r *IdentityProviderRequest) Update(ctx context.Context, reqObj *IdentityPr
 
 // Delete performs DELETE request for IdentityProvider
 func (r *IdentityProviderRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// IdentitySecurityDefaultsEnforcementPolicyRequestBuilder is request builder for IdentitySecurityDefaultsEnforcementPolicy
+type IdentitySecurityDefaultsEnforcementPolicyRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns IdentitySecurityDefaultsEnforcementPolicyRequest
+func (b *IdentitySecurityDefaultsEnforcementPolicyRequestBuilder) Request() *IdentitySecurityDefaultsEnforcementPolicyRequest {
+	return &IdentitySecurityDefaultsEnforcementPolicyRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// IdentitySecurityDefaultsEnforcementPolicyRequest is request for IdentitySecurityDefaultsEnforcementPolicy
+type IdentitySecurityDefaultsEnforcementPolicyRequest struct{ BaseRequest }
+
+// Get performs GET request for IdentitySecurityDefaultsEnforcementPolicy
+func (r *IdentitySecurityDefaultsEnforcementPolicyRequest) Get(ctx context.Context) (resObj *IdentitySecurityDefaultsEnforcementPolicy, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for IdentitySecurityDefaultsEnforcementPolicy
+func (r *IdentitySecurityDefaultsEnforcementPolicyRequest) Update(ctx context.Context, reqObj *IdentitySecurityDefaultsEnforcementPolicy) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for IdentitySecurityDefaultsEnforcementPolicy
+func (r *IdentitySecurityDefaultsEnforcementPolicyRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }

@@ -104,6 +104,33 @@ func (r *ListItemVersionRequest) Delete(ctx context.Context) error {
 }
 
 //
+type ListItemCreateLinkRequestBuilder struct{ BaseRequestBuilder }
+
+// CreateLink action undocumented
+func (b *ListItemRequestBuilder) CreateLink(reqObj *ListItemCreateLinkRequestParameter) *ListItemCreateLinkRequestBuilder {
+	bb := &ListItemCreateLinkRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/createLink"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type ListItemCreateLinkRequest struct{ BaseRequest }
+
+//
+func (b *ListItemCreateLinkRequestBuilder) Request() *ListItemCreateLinkRequest {
+	return &ListItemCreateLinkRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *ListItemCreateLinkRequest) Post(ctx context.Context) (resObj *Permission, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
 type ListItemVersionRestoreVersionRequestBuilder struct{ BaseRequestBuilder }
 
 // RestoreVersion action undocumented

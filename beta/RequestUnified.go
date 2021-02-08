@@ -4,6 +4,105 @@ package msgraph
 
 import "context"
 
+// UnifiedRbacResourceActionRequestBuilder is request builder for UnifiedRbacResourceAction
+type UnifiedRbacResourceActionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns UnifiedRbacResourceActionRequest
+func (b *UnifiedRbacResourceActionRequestBuilder) Request() *UnifiedRbacResourceActionRequest {
+	return &UnifiedRbacResourceActionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// UnifiedRbacResourceActionRequest is request for UnifiedRbacResourceAction
+type UnifiedRbacResourceActionRequest struct{ BaseRequest }
+
+// Get performs GET request for UnifiedRbacResourceAction
+func (r *UnifiedRbacResourceActionRequest) Get(ctx context.Context) (resObj *UnifiedRbacResourceAction, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for UnifiedRbacResourceAction
+func (r *UnifiedRbacResourceActionRequest) Update(ctx context.Context, reqObj *UnifiedRbacResourceAction) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for UnifiedRbacResourceAction
+func (r *UnifiedRbacResourceActionRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// UnifiedRbacResourceNamespaceRequestBuilder is request builder for UnifiedRbacResourceNamespace
+type UnifiedRbacResourceNamespaceRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns UnifiedRbacResourceNamespaceRequest
+func (b *UnifiedRbacResourceNamespaceRequestBuilder) Request() *UnifiedRbacResourceNamespaceRequest {
+	return &UnifiedRbacResourceNamespaceRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// UnifiedRbacResourceNamespaceRequest is request for UnifiedRbacResourceNamespace
+type UnifiedRbacResourceNamespaceRequest struct{ BaseRequest }
+
+// Get performs GET request for UnifiedRbacResourceNamespace
+func (r *UnifiedRbacResourceNamespaceRequest) Get(ctx context.Context) (resObj *UnifiedRbacResourceNamespace, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for UnifiedRbacResourceNamespace
+func (r *UnifiedRbacResourceNamespaceRequest) Update(ctx context.Context, reqObj *UnifiedRbacResourceNamespace) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for UnifiedRbacResourceNamespace
+func (r *UnifiedRbacResourceNamespaceRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// UnifiedRbacResourceScopeRequestBuilder is request builder for UnifiedRbacResourceScope
+type UnifiedRbacResourceScopeRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns UnifiedRbacResourceScopeRequest
+func (b *UnifiedRbacResourceScopeRequestBuilder) Request() *UnifiedRbacResourceScopeRequest {
+	return &UnifiedRbacResourceScopeRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// UnifiedRbacResourceScopeRequest is request for UnifiedRbacResourceScope
+type UnifiedRbacResourceScopeRequest struct{ BaseRequest }
+
+// Get performs GET request for UnifiedRbacResourceScope
+func (r *UnifiedRbacResourceScopeRequest) Get(ctx context.Context) (resObj *UnifiedRbacResourceScope, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for UnifiedRbacResourceScope
+func (r *UnifiedRbacResourceScopeRequest) Update(ctx context.Context, reqObj *UnifiedRbacResourceScope) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for UnifiedRbacResourceScope
+func (r *UnifiedRbacResourceScopeRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // UnifiedRoleAssignmentRequestBuilder is request builder for UnifiedRoleAssignment
 type UnifiedRoleAssignmentRequestBuilder struct{ BaseRequestBuilder }
 
@@ -34,6 +133,39 @@ func (r *UnifiedRoleAssignmentRequest) Update(ctx context.Context, reqObj *Unifi
 
 // Delete performs DELETE request for UnifiedRoleAssignment
 func (r *UnifiedRoleAssignmentRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// UnifiedRoleAssignmentMultipleRequestBuilder is request builder for UnifiedRoleAssignmentMultiple
+type UnifiedRoleAssignmentMultipleRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns UnifiedRoleAssignmentMultipleRequest
+func (b *UnifiedRoleAssignmentMultipleRequestBuilder) Request() *UnifiedRoleAssignmentMultipleRequest {
+	return &UnifiedRoleAssignmentMultipleRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// UnifiedRoleAssignmentMultipleRequest is request for UnifiedRoleAssignmentMultiple
+type UnifiedRoleAssignmentMultipleRequest struct{ BaseRequest }
+
+// Get performs GET request for UnifiedRoleAssignmentMultiple
+func (r *UnifiedRoleAssignmentMultipleRequest) Get(ctx context.Context) (resObj *UnifiedRoleAssignmentMultiple, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for UnifiedRoleAssignmentMultiple
+func (r *UnifiedRoleAssignmentMultipleRequest) Update(ctx context.Context, reqObj *UnifiedRoleAssignmentMultiple) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for UnifiedRoleAssignmentMultiple
+func (r *UnifiedRoleAssignmentMultipleRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
@@ -68,4 +200,31 @@ func (r *UnifiedRoleDefinitionRequest) Update(ctx context.Context, reqObj *Unifi
 // Delete performs DELETE request for UnifiedRoleDefinition
 func (r *UnifiedRoleDefinitionRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+//
+type UnifiedRbacResourceNamespaceImportResourceActionsRequestBuilder struct{ BaseRequestBuilder }
+
+// ImportResourceActions action undocumented
+func (b *UnifiedRbacResourceNamespaceRequestBuilder) ImportResourceActions(reqObj *UnifiedRbacResourceNamespaceImportResourceActionsRequestParameter) *UnifiedRbacResourceNamespaceImportResourceActionsRequestBuilder {
+	bb := &UnifiedRbacResourceNamespaceImportResourceActionsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/importResourceActions"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type UnifiedRbacResourceNamespaceImportResourceActionsRequest struct{ BaseRequest }
+
+//
+func (b *UnifiedRbacResourceNamespaceImportResourceActionsRequestBuilder) Request() *UnifiedRbacResourceNamespaceImportResourceActionsRequest {
+	return &UnifiedRbacResourceNamespaceImportResourceActionsRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *UnifiedRbacResourceNamespaceImportResourceActionsRequest) Post(ctx context.Context) (resObj *UnifiedRbacResourceNamespace, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }

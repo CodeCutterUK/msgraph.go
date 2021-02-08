@@ -2,7 +2,7 @@
 
 package msgraph
 
-// Report undocumented
+// Report Device Configuration profile History reports.
 type Report struct {
 	// Object is the base model of Report
 	Object

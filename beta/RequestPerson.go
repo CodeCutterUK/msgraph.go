@@ -70,6 +70,105 @@ func (r *PersonAnniversaryRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
+// PersonAnnotationRequestBuilder is request builder for PersonAnnotation
+type PersonAnnotationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns PersonAnnotationRequest
+func (b *PersonAnnotationRequestBuilder) Request() *PersonAnnotationRequest {
+	return &PersonAnnotationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// PersonAnnotationRequest is request for PersonAnnotation
+type PersonAnnotationRequest struct{ BaseRequest }
+
+// Get performs GET request for PersonAnnotation
+func (r *PersonAnnotationRequest) Get(ctx context.Context) (resObj *PersonAnnotation, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for PersonAnnotation
+func (r *PersonAnnotationRequest) Update(ctx context.Context, reqObj *PersonAnnotation) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for PersonAnnotation
+func (r *PersonAnnotationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// PersonAwardRequestBuilder is request builder for PersonAward
+type PersonAwardRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns PersonAwardRequest
+func (b *PersonAwardRequestBuilder) Request() *PersonAwardRequest {
+	return &PersonAwardRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// PersonAwardRequest is request for PersonAward
+type PersonAwardRequest struct{ BaseRequest }
+
+// Get performs GET request for PersonAward
+func (r *PersonAwardRequest) Get(ctx context.Context) (resObj *PersonAward, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for PersonAward
+func (r *PersonAwardRequest) Update(ctx context.Context, reqObj *PersonAward) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for PersonAward
+func (r *PersonAwardRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// PersonCertificationRequestBuilder is request builder for PersonCertification
+type PersonCertificationRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns PersonCertificationRequest
+func (b *PersonCertificationRequestBuilder) Request() *PersonCertificationRequest {
+	return &PersonCertificationRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// PersonCertificationRequest is request for PersonCertification
+type PersonCertificationRequest struct{ BaseRequest }
+
+// Get performs GET request for PersonCertification
+func (r *PersonCertificationRequest) Get(ctx context.Context) (resObj *PersonCertification, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for PersonCertification
+func (r *PersonCertificationRequest) Update(ctx context.Context, reqObj *PersonCertification) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for PersonCertification
+func (r *PersonCertificationRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // PersonInterestRequestBuilder is request builder for PersonInterest
 type PersonInterestRequestBuilder struct{ BaseRequestBuilder }
 

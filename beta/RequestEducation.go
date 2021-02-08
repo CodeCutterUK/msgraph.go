@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // EducationAssignmentRequestBuilder is request builder for EducationAssignment
@@ -74,6 +74,39 @@ func (r *EducationAssignmentResourceRequest) Update(ctx context.Context, reqObj 
 
 // Delete performs DELETE request for EducationAssignmentResource
 func (r *EducationAssignmentResourceRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+// EducationAssignmentSettingsRequestBuilder is request builder for EducationAssignmentSettings
+type EducationAssignmentSettingsRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns EducationAssignmentSettingsRequest
+func (b *EducationAssignmentSettingsRequestBuilder) Request() *EducationAssignmentSettingsRequest {
+	return &EducationAssignmentSettingsRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// EducationAssignmentSettingsRequest is request for EducationAssignmentSettings
+type EducationAssignmentSettingsRequest struct{ BaseRequest }
+
+// Get performs GET request for EducationAssignmentSettings
+func (r *EducationAssignmentSettingsRequest) Get(ctx context.Context) (resObj *EducationAssignmentSettings, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for EducationAssignmentSettings
+func (r *EducationAssignmentSettingsRequest) Update(ctx context.Context, reqObj *EducationAssignmentSettings) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for EducationAssignmentSettings
+func (r *EducationAssignmentSettingsRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
 }
 
@@ -582,32 +615,6 @@ func (r *EducationSubmissionUnsubmitRequest) Post(ctx context.Context) (resObj *
 }
 
 //
-type EducationSynchronizationProfileResumeRequestBuilder struct{ BaseRequestBuilder }
-
-// Resume action undocumented
-func (b *EducationSynchronizationProfileRequestBuilder) Resume(reqObj *EducationSynchronizationProfileResumeRequestParameter) *EducationSynchronizationProfileResumeRequestBuilder {
-	bb := &EducationSynchronizationProfileResumeRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/resume"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type EducationSynchronizationProfileResumeRequest struct{ BaseRequest }
-
-//
-func (b *EducationSynchronizationProfileResumeRequestBuilder) Request() *EducationSynchronizationProfileResumeRequest {
-	return &EducationSynchronizationProfileResumeRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *EducationSynchronizationProfileResumeRequest) Post(ctx context.Context) error {
-	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
-}
-
-//
 type EducationSynchronizationProfilePauseRequestBuilder struct{ BaseRequestBuilder }
 
 // Pause action undocumented
@@ -656,6 +663,32 @@ func (b *EducationSynchronizationProfileResetRequestBuilder) Request() *Educatio
 
 //
 func (r *EducationSynchronizationProfileResetRequest) Post(ctx context.Context) error {
+	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
+}
+
+//
+type EducationSynchronizationProfileResumeRequestBuilder struct{ BaseRequestBuilder }
+
+// Resume action undocumented
+func (b *EducationSynchronizationProfileRequestBuilder) Resume(reqObj *EducationSynchronizationProfileResumeRequestParameter) *EducationSynchronizationProfileResumeRequestBuilder {
+	bb := &EducationSynchronizationProfileResumeRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/resume"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type EducationSynchronizationProfileResumeRequest struct{ BaseRequest }
+
+//
+func (b *EducationSynchronizationProfileResumeRequestBuilder) Request() *EducationSynchronizationProfileResumeRequest {
+	return &EducationSynchronizationProfileResumeRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *EducationSynchronizationProfileResumeRequest) Post(ctx context.Context) error {
 	return r.JSONRequest(ctx, "POST", "", r.requestObject, nil)
 }
 

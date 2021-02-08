@@ -2,20 +2,30 @@
 
 package msgraph
 
+// TenantApprovals undocumented
+type TenantApprovals struct {
+	// Object is the base model of TenantApprovals
+	Object
+	// State undocumented
+	State *string `json:"state,omitempty"`
+	// TenantID undocumented
+	TenantID *UUID `json:"tenantId,omitempty"`
+}
+
 // TenantSetupInfo undocumented
 type TenantSetupInfo struct {
 	// Entity is the base model of TenantSetupInfo
 	Entity
-	// UserRolesActions undocumented
-	UserRolesActions *string `json:"userRolesActions,omitempty"`
 	// FirstTimeSetup undocumented
 	FirstTimeSetup *bool `json:"firstTimeSetup,omitempty"`
 	// RelevantRolesSettings undocumented
 	RelevantRolesSettings []string `json:"relevantRolesSettings,omitempty"`
-	// SkipSetup undocumented
-	SkipSetup *bool `json:"skipSetup,omitempty"`
 	// SetupStatus undocumented
 	SetupStatus *SetupStatus `json:"setupStatus,omitempty"`
+	// SkipSetup undocumented
+	SkipSetup *bool `json:"skipSetup,omitempty"`
+	// UserRolesActions undocumented
+	UserRolesActions *string `json:"userRolesActions,omitempty"`
 	// DefaultRolesSettings undocumented
 	DefaultRolesSettings *PrivilegedRoleSettings `json:"defaultRolesSettings,omitempty"`
 }

@@ -100,8 +100,6 @@ type DriveItem struct {
 	Thumbnails []ThumbnailSet `json:"thumbnails,omitempty"`
 	// Versions undocumented
 	Versions []DriveItemVersion `json:"versions,omitempty"`
-	// Document undocumented
-	Document *Document `json:"document,omitempty"`
 }
 
 // DriveItemUploadableProperties undocumented
@@ -110,12 +108,12 @@ type DriveItemUploadableProperties struct {
 	Object
 	// Description undocumented
 	Description *string `json:"description,omitempty"`
+	// FileSize undocumented
+	FileSize *int `json:"fileSize,omitempty"`
 	// FileSystemInfo undocumented
 	FileSystemInfo *FileSystemInfo `json:"fileSystemInfo,omitempty"`
 	// Name undocumented
 	Name *string `json:"name,omitempty"`
-	// FileSize undocumented
-	FileSize *int `json:"fileSize,omitempty"`
 }
 
 // DriveItemVersion undocumented

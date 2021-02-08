@@ -12,20 +12,20 @@ type VisualInfo struct {
 	Attribution *ImageInfo `json:"attribution,omitempty"`
 	// BackgroundColor undocumented
 	BackgroundColor *string `json:"backgroundColor,omitempty"`
+	// Content undocumented
+	Content json.RawMessage `json:"content,omitempty"`
 	// Description undocumented
 	Description *string `json:"description,omitempty"`
 	// DisplayText undocumented
 	DisplayText *string `json:"displayText,omitempty"`
-	// Content undocumented
-	Content json.RawMessage `json:"content,omitempty"`
 }
 
 // VisualProperties undocumented
 type VisualProperties struct {
 	// Object is the base model of VisualProperties
 	Object
-	// Title undocumented
-	Title *string `json:"title,omitempty"`
 	// Body undocumented
 	Body *string `json:"body,omitempty"`
+	// Title undocumented
+	Title *string `json:"title,omitempty"`
 }

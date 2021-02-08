@@ -2,18 +2,94 @@
 
 package msgraph
 
+// UnifiedRbacResourceAction undocumented
+type UnifiedRbacResourceAction struct {
+	// Entity is the base model of UnifiedRbacResourceAction
+	Entity
+	// ActionVerb undocumented
+	ActionVerb *string `json:"actionVerb,omitempty"`
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// Name undocumented
+	Name *string `json:"name,omitempty"`
+	// ResourceScopeID undocumented
+	ResourceScopeID *string `json:"resourceScopeId,omitempty"`
+	// ResourceScope undocumented
+	ResourceScope *UnifiedRbacResourceScope `json:"resourceScope,omitempty"`
+}
+
+// UnifiedRbacResourceNamespace undocumented
+type UnifiedRbacResourceNamespace struct {
+	// Entity is the base model of UnifiedRbacResourceNamespace
+	Entity
+	// Name undocumented
+	Name *string `json:"name,omitempty"`
+	// ResourceActions undocumented
+	ResourceActions []UnifiedRbacResourceAction `json:"resourceActions,omitempty"`
+}
+
+// UnifiedRbacResourceScope undocumented
+type UnifiedRbacResourceScope struct {
+	// Entity is the base model of UnifiedRbacResourceScope
+	Entity
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// Scope undocumented
+	Scope *string `json:"scope,omitempty"`
+	// Type undocumented
+	Type *string `json:"type,omitempty"`
+}
+
 // UnifiedRoleAssignment undocumented
 type UnifiedRoleAssignment struct {
 	// Entity is the base model of UnifiedRoleAssignment
 	Entity
+	// AppScopeID undocumented
+	AppScopeID *string `json:"appScopeId,omitempty"`
+	// Condition undocumented
+	Condition *string `json:"condition,omitempty"`
+	// DirectoryScopeID undocumented
+	DirectoryScopeID *string `json:"directoryScopeId,omitempty"`
 	// PrincipalID undocumented
 	PrincipalID *string `json:"principalId,omitempty"`
 	// ResourceScope undocumented
 	ResourceScope *string `json:"resourceScope,omitempty"`
 	// RoleDefinitionID undocumented
 	RoleDefinitionID *string `json:"roleDefinitionId,omitempty"`
+	// AppScope undocumented
+	AppScope *AppScope `json:"appScope,omitempty"`
+	// DirectoryScope undocumented
+	DirectoryScope *DirectoryObject `json:"directoryScope,omitempty"`
 	// Principal undocumented
 	Principal *DirectoryObject `json:"principal,omitempty"`
+	// RoleDefinition undocumented
+	RoleDefinition *UnifiedRoleDefinition `json:"roleDefinition,omitempty"`
+}
+
+// UnifiedRoleAssignmentMultiple undocumented
+type UnifiedRoleAssignmentMultiple struct {
+	// Entity is the base model of UnifiedRoleAssignmentMultiple
+	Entity
+	// AppScopeIDs undocumented
+	AppScopeIDs []string `json:"appScopeIds,omitempty"`
+	// Condition undocumented
+	Condition *string `json:"condition,omitempty"`
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// DirectoryScopeIDs undocumented
+	DirectoryScopeIDs []string `json:"directoryScopeIds,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// PrincipalIDs undocumented
+	PrincipalIDs []string `json:"principalIds,omitempty"`
+	// RoleDefinitionID undocumented
+	RoleDefinitionID *string `json:"roleDefinitionId,omitempty"`
+	// AppScopes undocumented
+	AppScopes []AppScope `json:"appScopes,omitempty"`
+	// DirectoryScopes undocumented
+	DirectoryScopes []DirectoryObject `json:"directoryScopes,omitempty"`
+	// Principals undocumented
+	Principals []DirectoryObject `json:"principals,omitempty"`
 	// RoleDefinition undocumented
 	RoleDefinition *UnifiedRoleDefinition `json:"roleDefinition,omitempty"`
 }
@@ -38,6 +114,8 @@ type UnifiedRoleDefinition struct {
 	TemplateID *string `json:"templateId,omitempty"`
 	// Version undocumented
 	Version *string `json:"version,omitempty"`
+	// InheritsPermissionsFrom undocumented
+	InheritsPermissionsFrom []UnifiedRoleDefinition `json:"inheritsPermissionsFrom,omitempty"`
 }
 
 // UnifiedRolePermission undocumented
@@ -48,4 +126,6 @@ type UnifiedRolePermission struct {
 	AllowedResourceActions []string `json:"allowedResourceActions,omitempty"`
 	// Condition undocumented
 	Condition *string `json:"condition,omitempty"`
+	// ExcludedResourceActions undocumented
+	ExcludedResourceActions []string `json:"excludedResourceActions,omitempty"`
 }

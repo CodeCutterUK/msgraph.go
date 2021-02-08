@@ -131,33 +131,6 @@ func (r *TrustFrameworkKeySetGenerateKeyRequest) Post(ctx context.Context) (resO
 }
 
 //
-type TrustFrameworkKeySetUploadSecretRequestBuilder struct{ BaseRequestBuilder }
-
-// UploadSecret action undocumented
-func (b *TrustFrameworkKeySetRequestBuilder) UploadSecret(reqObj *TrustFrameworkKeySetUploadSecretRequestParameter) *TrustFrameworkKeySetUploadSecretRequestBuilder {
-	bb := &TrustFrameworkKeySetUploadSecretRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
-	bb.BaseRequestBuilder.baseURL += "/uploadSecret"
-	bb.BaseRequestBuilder.requestObject = reqObj
-	return bb
-}
-
-//
-type TrustFrameworkKeySetUploadSecretRequest struct{ BaseRequest }
-
-//
-func (b *TrustFrameworkKeySetUploadSecretRequestBuilder) Request() *TrustFrameworkKeySetUploadSecretRequest {
-	return &TrustFrameworkKeySetUploadSecretRequest{
-		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
-	}
-}
-
-//
-func (r *TrustFrameworkKeySetUploadSecretRequest) Post(ctx context.Context) (resObj *TrustFrameworkKey, err error) {
-	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
-	return
-}
-
-//
 type TrustFrameworkKeySetUploadCertificateRequestBuilder struct{ BaseRequestBuilder }
 
 // UploadCertificate action undocumented
@@ -207,6 +180,33 @@ func (b *TrustFrameworkKeySetUploadPkcs12RequestBuilder) Request() *TrustFramewo
 
 //
 func (r *TrustFrameworkKeySetUploadPkcs12Request) Post(ctx context.Context) (resObj *TrustFrameworkKey, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type TrustFrameworkKeySetUploadSecretRequestBuilder struct{ BaseRequestBuilder }
+
+// UploadSecret action undocumented
+func (b *TrustFrameworkKeySetRequestBuilder) UploadSecret(reqObj *TrustFrameworkKeySetUploadSecretRequestParameter) *TrustFrameworkKeySetUploadSecretRequestBuilder {
+	bb := &TrustFrameworkKeySetUploadSecretRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/uploadSecret"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TrustFrameworkKeySetUploadSecretRequest struct{ BaseRequest }
+
+//
+func (b *TrustFrameworkKeySetUploadSecretRequestBuilder) Request() *TrustFrameworkKeySetUploadSecretRequest {
+	return &TrustFrameworkKeySetUploadSecretRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TrustFrameworkKeySetUploadSecretRequest) Post(ctx context.Context) (resObj *TrustFrameworkKey, err error) {
 	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
 	return
 }

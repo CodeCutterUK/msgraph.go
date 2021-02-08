@@ -12,18 +12,34 @@ type Identity struct {
 	ID *string `json:"id,omitempty"`
 }
 
+// IdentityContainer undocumented
+type IdentityContainer struct {
+	// Entity is the base model of IdentityContainer
+	Entity
+	// ConditionalAccess undocumented
+	ConditionalAccess *ConditionalAccessRoot `json:"conditionalAccess,omitempty"`
+}
+
 // IdentityProvider undocumented
 type IdentityProvider struct {
 	// Entity is the base model of IdentityProvider
 	Entity
-	// Type undocumented
-	Type *string `json:"type,omitempty"`
-	// Name undocumented
-	Name *string `json:"name,omitempty"`
 	// ClientID undocumented
 	ClientID *string `json:"clientId,omitempty"`
 	// ClientSecret undocumented
 	ClientSecret *string `json:"clientSecret,omitempty"`
+	// Name undocumented
+	Name *string `json:"name,omitempty"`
+	// Type undocumented
+	Type *string `json:"type,omitempty"`
+}
+
+// IdentitySecurityDefaultsEnforcementPolicy undocumented
+type IdentitySecurityDefaultsEnforcementPolicy struct {
+	// PolicyBase is the base model of IdentitySecurityDefaultsEnforcementPolicy
+	PolicyBase
+	// IsEnabled undocumented
+	IsEnabled *bool `json:"isEnabled,omitempty"`
 }
 
 // IdentitySet undocumented

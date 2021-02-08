@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 // EducationAssignmentPublishRequestParameter undocumented
@@ -27,16 +27,16 @@ type EducationSubmissionSubmitRequestParameter struct {
 type EducationSubmissionUnsubmitRequestParameter struct {
 }
 
-// EducationSynchronizationProfileResumeRequestParameter undocumented
-type EducationSynchronizationProfileResumeRequestParameter struct {
-}
-
 // EducationSynchronizationProfilePauseRequestParameter undocumented
 type EducationSynchronizationProfilePauseRequestParameter struct {
 }
 
 // EducationSynchronizationProfileResetRequestParameter undocumented
 type EducationSynchronizationProfileResetRequestParameter struct {
+}
+
+// EducationSynchronizationProfileResumeRequestParameter undocumented
+type EducationSynchronizationProfileResumeRequestParameter struct {
 }
 
 // EducationSynchronizationProfileStartRequestParameter undocumented
@@ -460,6 +460,13 @@ func (r *EducationClassAssignmentCategoriesCollectionRequest) Get(ctx context.Co
 func (r *EducationClassAssignmentCategoriesCollectionRequest) Add(ctx context.Context, reqObj *EducationCategory) (resObj *EducationCategory, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
+}
+
+// AssignmentSettings is navigation property
+func (b *EducationClassRequestBuilder) AssignmentSettings() *EducationAssignmentSettingsRequestBuilder {
+	bb := &EducationAssignmentSettingsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/assignmentSettings"
+	return bb
 }
 
 // Assignments returns request builder for EducationAssignment collection

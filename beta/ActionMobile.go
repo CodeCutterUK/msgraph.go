@@ -8,8 +8,14 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// MobileAppCollectionValidateXMLRequestParameter undocumented
+type MobileAppCollectionValidateXMLRequestParameter struct {
+	// OfficeConfigurationXML undocumented
+	OfficeConfigurationXML *Binary `json:"officeConfigurationXml,omitempty"`
+}
 
 // MobileAppCollectionHasPayloadLinksRequestParameter undocumented
 type MobileAppCollectionHasPayloadLinksRequestParameter struct {

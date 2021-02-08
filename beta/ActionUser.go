@@ -8,8 +8,16 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// UserActivateServicePlanRequestParameter undocumented
+type UserActivateServicePlanRequestParameter struct {
+	// ServicePlanID undocumented
+	ServicePlanID *UUID `json:"servicePlanId,omitempty"`
+	// SKUID undocumented
+	SKUID *UUID `json:"skuId,omitempty"`
+}
 
 // UserAssignLicenseRequestParameter undocumented
 type UserAssignLicenseRequestParameter struct {
@@ -31,12 +39,12 @@ type UserChangePasswordRequestParameter struct {
 type UserInvalidateAllRefreshTokensRequestParameter struct {
 }
 
-// UserRevokeSignInSessionsRequestParameter undocumented
-type UserRevokeSignInSessionsRequestParameter struct {
-}
-
 // UserReprocessLicenseAssignmentRequestParameter undocumented
 type UserReprocessLicenseAssignmentRequestParameter struct {
+}
+
+// UserRevokeSignInSessionsRequestParameter undocumented
+type UserRevokeSignInSessionsRequestParameter struct {
 }
 
 // UserFindMeetingTimesRequestParameter undocumented
@@ -59,20 +67,20 @@ type UserFindMeetingTimesRequestParameter struct {
 	MinimumAttendeePercentage *float64 `json:"minimumAttendeePercentage,omitempty"`
 }
 
-// UserSendMailRequestParameter undocumented
-type UserSendMailRequestParameter struct {
-	// Message undocumented
-	Message *Message `json:"Message,omitempty"`
-	// SaveToSentItems undocumented
-	SaveToSentItems *bool `json:"SaveToSentItems,omitempty"`
-}
-
 // UserGetMailTipsRequestParameter undocumented
 type UserGetMailTipsRequestParameter struct {
 	// EmailAddresses undocumented
 	EmailAddresses []string `json:"EmailAddresses,omitempty"`
 	// MailTipsOptions undocumented
 	MailTipsOptions *MailTipsType `json:"MailTipsOptions,omitempty"`
+}
+
+// UserSendMailRequestParameter undocumented
+type UserSendMailRequestParameter struct {
+	// Message undocumented
+	Message *Message `json:"Message,omitempty"`
+	// SaveToSentItems undocumented
+	SaveToSentItems *bool `json:"SaveToSentItems,omitempty"`
 }
 
 // UserTranslateExchangeIDsRequestParameter undocumented
@@ -87,6 +95,14 @@ type UserTranslateExchangeIDsRequestParameter struct {
 
 // UserRemoveAllDevicesFromManagementRequestParameter undocumented
 type UserRemoveAllDevicesFromManagementRequestParameter struct {
+}
+
+// UserUnblockManagedAppsRequestParameter undocumented
+type UserUnblockManagedAppsRequestParameter struct {
+}
+
+// UserWipeAndBlockManagedAppsRequestParameter undocumented
+type UserWipeAndBlockManagedAppsRequestParameter struct {
 }
 
 // UserWipeManagedAppRegistrationByDeviceTagRequestParameter undocumented
@@ -105,6 +121,20 @@ type UserWipeManagedAppRegistrationsByDeviceTagRequestParameter struct {
 type UserExportPersonalDataRequestParameter struct {
 	// StorageLocation undocumented
 	StorageLocation *string `json:"storageLocation,omitempty"`
+}
+
+// UserTeamworkSendActivityNotificationRequestParameter undocumented
+type UserTeamworkSendActivityNotificationRequestParameter struct {
+	// Topic undocumented
+	Topic *TeamworkActivityTopic `json:"topic,omitempty"`
+	// ActivityType undocumented
+	ActivityType *string `json:"activityType,omitempty"`
+	// ChainID undocumented
+	ChainID *int `json:"chainId,omitempty"`
+	// PreviewText undocumented
+	PreviewText *ItemBody `json:"previewText,omitempty"`
+	// TemplateParameters undocumented
+	TemplateParameters []KeyValuePair `json:"templateParameters,omitempty"`
 }
 
 // Activities returns request builder for UserActivity collection
@@ -320,6 +350,109 @@ func (b *UserRequestBuilder) Analytics() *UserAnalyticsRequestBuilder {
 	return bb
 }
 
+// AppConsentRequestsForApproval returns request builder for AppConsentRequestObject collection
+func (b *UserRequestBuilder) AppConsentRequestsForApproval() *UserAppConsentRequestsForApprovalCollectionRequestBuilder {
+	bb := &UserAppConsentRequestsForApprovalCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/appConsentRequestsForApproval"
+	return bb
+}
+
+// UserAppConsentRequestsForApprovalCollectionRequestBuilder is request builder for AppConsentRequestObject collection
+type UserAppConsentRequestsForApprovalCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for AppConsentRequestObject collection
+func (b *UserAppConsentRequestsForApprovalCollectionRequestBuilder) Request() *UserAppConsentRequestsForApprovalCollectionRequest {
+	return &UserAppConsentRequestsForApprovalCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for AppConsentRequestObject item
+func (b *UserAppConsentRequestsForApprovalCollectionRequestBuilder) ID(id string) *AppConsentRequestObjectRequestBuilder {
+	bb := &AppConsentRequestObjectRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserAppConsentRequestsForApprovalCollectionRequest is request for AppConsentRequestObject collection
+type UserAppConsentRequestsForApprovalCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for AppConsentRequestObject collection
+func (r *UserAppConsentRequestsForApprovalCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]AppConsentRequestObject, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []AppConsentRequestObject
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []AppConsentRequestObject
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for AppConsentRequestObject collection, max N pages
+func (r *UserAppConsentRequestsForApprovalCollectionRequest) GetN(ctx context.Context, n int) ([]AppConsentRequestObject, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for AppConsentRequestObject collection
+func (r *UserAppConsentRequestsForApprovalCollectionRequest) Get(ctx context.Context) ([]AppConsentRequestObject, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for AppConsentRequestObject collection
+func (r *UserAppConsentRequestsForApprovalCollectionRequest) Add(ctx context.Context, reqObj *AppConsentRequestObject) (resObj *AppConsentRequestObject, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
 // AppRoleAssignments returns request builder for AppRoleAssignment collection
 func (b *UserRequestBuilder) AppRoleAssignments() *UserAppRoleAssignmentsCollectionRequestBuilder {
 	bb := &UserAppRoleAssignmentsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -421,6 +554,116 @@ func (r *UserAppRoleAssignmentsCollectionRequest) Get(ctx context.Context) ([]Ap
 func (r *UserAppRoleAssignmentsCollectionRequest) Add(ctx context.Context, reqObj *AppRoleAssignment) (resObj *AppRoleAssignment, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
+}
+
+// Approvals returns request builder for Approval collection
+func (b *UserRequestBuilder) Approvals() *UserApprovalsCollectionRequestBuilder {
+	bb := &UserApprovalsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/approvals"
+	return bb
+}
+
+// UserApprovalsCollectionRequestBuilder is request builder for Approval collection
+type UserApprovalsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for Approval collection
+func (b *UserApprovalsCollectionRequestBuilder) Request() *UserApprovalsCollectionRequest {
+	return &UserApprovalsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for Approval item
+func (b *UserApprovalsCollectionRequestBuilder) ID(id string) *ApprovalRequestBuilder {
+	bb := &ApprovalRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserApprovalsCollectionRequest is request for Approval collection
+type UserApprovalsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for Approval collection
+func (r *UserApprovalsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]Approval, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []Approval
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []Approval
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for Approval collection, max N pages
+func (r *UserApprovalsCollectionRequest) GetN(ctx context.Context, n int) ([]Approval, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for Approval collection
+func (r *UserApprovalsCollectionRequest) Get(ctx context.Context) ([]Approval, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for Approval collection
+func (r *UserApprovalsCollectionRequest) Add(ctx context.Context, reqObj *Approval) (resObj *Approval, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// Authentication is navigation property
+func (b *UserRequestBuilder) Authentication() *AuthenticationRequestBuilder {
+	bb := &AuthenticationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/authentication"
+	return bb
 }
 
 // Calendar is navigation property
@@ -1997,8 +2240,8 @@ func (b *UserRequestBuilder) InformationProtection() *InformationProtectionReque
 }
 
 // Insights is navigation property
-func (b *UserRequestBuilder) Insights() *OfficeGraphInsightsRequestBuilder {
-	bb := &OfficeGraphInsightsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+func (b *UserRequestBuilder) Insights() *ItemInsightsRequestBuilder {
+	bb := &ItemInsightsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/insights"
 	return bb
 }
@@ -3466,6 +3709,109 @@ func (r *UserOwnedObjectsCollectionRequest) Add(ctx context.Context, reqObj *Dir
 	return
 }
 
+// PendingAccessReviewInstances returns request builder for AccessReviewInstance collection
+func (b *UserRequestBuilder) PendingAccessReviewInstances() *UserPendingAccessReviewInstancesCollectionRequestBuilder {
+	bb := &UserPendingAccessReviewInstancesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/pendingAccessReviewInstances"
+	return bb
+}
+
+// UserPendingAccessReviewInstancesCollectionRequestBuilder is request builder for AccessReviewInstance collection
+type UserPendingAccessReviewInstancesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for AccessReviewInstance collection
+func (b *UserPendingAccessReviewInstancesCollectionRequestBuilder) Request() *UserPendingAccessReviewInstancesCollectionRequest {
+	return &UserPendingAccessReviewInstancesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for AccessReviewInstance item
+func (b *UserPendingAccessReviewInstancesCollectionRequestBuilder) ID(id string) *AccessReviewInstanceRequestBuilder {
+	bb := &AccessReviewInstanceRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserPendingAccessReviewInstancesCollectionRequest is request for AccessReviewInstance collection
+type UserPendingAccessReviewInstancesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for AccessReviewInstance collection
+func (r *UserPendingAccessReviewInstancesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]AccessReviewInstance, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []AccessReviewInstance
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []AccessReviewInstance
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for AccessReviewInstance collection, max N pages
+func (r *UserPendingAccessReviewInstancesCollectionRequest) GetN(ctx context.Context, n int) ([]AccessReviewInstance, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for AccessReviewInstance collection
+func (r *UserPendingAccessReviewInstancesCollectionRequest) Get(ctx context.Context) ([]AccessReviewInstance, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for AccessReviewInstance collection
+func (r *UserPendingAccessReviewInstancesCollectionRequest) Add(ctx context.Context, reqObj *AccessReviewInstance) (resObj *AccessReviewInstance, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
 // People returns request builder for Person collection
 func (b *UserRequestBuilder) People() *UserPeopleCollectionRequestBuilder {
 	bb := &UserPeopleCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -3920,6 +4266,13 @@ func (b *UserRequestBuilder) Teamwork() *UserTeamworkRequestBuilder {
 	return bb
 }
 
+// Todo is navigation property
+func (b *UserRequestBuilder) Todo() *TodoRequestBuilder {
+	bb := &TodoRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/todo"
+	return bb
+}
+
 // TransitiveMemberOf returns request builder for DirectoryObject collection
 func (b *UserRequestBuilder) TransitiveMemberOf() *UserTransitiveMemberOfCollectionRequestBuilder {
 	bb := &UserTransitiveMemberOfCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -4019,6 +4372,109 @@ func (r *UserTransitiveMemberOfCollectionRequest) Get(ctx context.Context) ([]Di
 
 // Add performs POST request for DirectoryObject collection
 func (r *UserTransitiveMemberOfCollectionRequest) Add(ctx context.Context, reqObj *DirectoryObject) (resObj *DirectoryObject, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// UsageRights returns request builder for UsageRight collection
+func (b *UserRequestBuilder) UsageRights() *UserUsageRightsCollectionRequestBuilder {
+	bb := &UserUsageRightsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/usageRights"
+	return bb
+}
+
+// UserUsageRightsCollectionRequestBuilder is request builder for UsageRight collection
+type UserUsageRightsCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UsageRight collection
+func (b *UserUsageRightsCollectionRequestBuilder) Request() *UserUsageRightsCollectionRequest {
+	return &UserUsageRightsCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UsageRight item
+func (b *UserUsageRightsCollectionRequestBuilder) ID(id string) *UsageRightRequestBuilder {
+	bb := &UsageRightRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserUsageRightsCollectionRequest is request for UsageRight collection
+type UserUsageRightsCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UsageRight collection
+func (r *UserUsageRightsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UsageRight, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UsageRight
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UsageRight
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UsageRight collection, max N pages
+func (r *UserUsageRightsCollectionRequest) GetN(ctx context.Context, n int) ([]UsageRight, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UsageRight collection
+func (r *UserUsageRightsCollectionRequest) Get(ctx context.Context) ([]UsageRight, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UsageRight collection
+func (r *UserUsageRightsCollectionRequest) Add(ctx context.Context, reqObj *UsageRight) (resObj *UsageRight, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }
@@ -4442,6 +4898,13 @@ func (r *UserAppInstallStatusDeviceStatusesCollectionRequest) Add(ctx context.Co
 	return
 }
 
+// AppHealthMetrics is navigation property
+func (b *UserExperienceAnalyticsBaselineRequestBuilder) AppHealthMetrics() *UserExperienceAnalyticsCategoryRequestBuilder {
+	bb := &UserExperienceAnalyticsCategoryRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/appHealthMetrics"
+	return bb
+}
+
 // BestPracticesMetrics is navigation property
 func (b *UserExperienceAnalyticsBaselineRequestBuilder) BestPracticesMetrics() *UserExperienceAnalyticsCategoryRequestBuilder {
 	bb := &UserExperienceAnalyticsCategoryRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -4453,6 +4916,20 @@ func (b *UserExperienceAnalyticsBaselineRequestBuilder) BestPracticesMetrics() *
 func (b *UserExperienceAnalyticsBaselineRequestBuilder) DeviceBootPerformanceMetrics() *UserExperienceAnalyticsCategoryRequestBuilder {
 	bb := &UserExperienceAnalyticsCategoryRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/deviceBootPerformanceMetrics"
+	return bb
+}
+
+// RebootAnalyticsMetrics is navigation property
+func (b *UserExperienceAnalyticsBaselineRequestBuilder) RebootAnalyticsMetrics() *UserExperienceAnalyticsCategoryRequestBuilder {
+	bb := &UserExperienceAnalyticsCategoryRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/rebootAnalyticsMetrics"
+	return bb
+}
+
+// ResourcePerformanceMetrics is navigation property
+func (b *UserExperienceAnalyticsBaselineRequestBuilder) ResourcePerformanceMetrics() *UserExperienceAnalyticsCategoryRequestBuilder {
+	bb := &UserExperienceAnalyticsCategoryRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/resourcePerformanceMetrics"
 	return bb
 }
 
@@ -4557,6 +5034,13 @@ func (r *UserExperienceAnalyticsCategoryMetricValuesCollectionRequest) Get(ctx c
 func (r *UserExperienceAnalyticsCategoryMetricValuesCollectionRequest) Add(ctx context.Context, reqObj *UserExperienceAnalyticsMetric) (resObj *UserExperienceAnalyticsMetric, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
+}
+
+// UserExperienceAnalyticsMetric is navigation property
+func (b *UserExperienceAnalyticsMetricHistoryRequestBuilder) UserExperienceAnalyticsMetric() *UserExperienceAnalyticsMetricRequestBuilder {
+	bb := &UserExperienceAnalyticsMetricRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/userExperienceAnalyticsMetric"
+	return bb
 }
 
 // ManufacturerRegression returns request builder for UserExperienceAnalyticsMetric collection
@@ -4868,6 +5352,226 @@ func (r *UserExperienceAnalyticsRegressionSummaryOperatingSystemRegressionCollec
 	return
 }
 
+// PostAttributeCollection is navigation property
+func (b *UserFlowAPIConnectorConfigurationRequestBuilder) PostAttributeCollection() *IdentityAPIConnectorRequestBuilder {
+	bb := &IdentityAPIConnectorRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/postAttributeCollection"
+	return bb
+}
+
+// PostFederationSignup is navigation property
+func (b *UserFlowAPIConnectorConfigurationRequestBuilder) PostFederationSignup() *IdentityAPIConnectorRequestBuilder {
+	bb := &IdentityAPIConnectorRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/postFederationSignup"
+	return bb
+}
+
+// DefaultPages returns request builder for UserFlowLanguagePage collection
+func (b *UserFlowLanguageConfigurationRequestBuilder) DefaultPages() *UserFlowLanguageConfigurationDefaultPagesCollectionRequestBuilder {
+	bb := &UserFlowLanguageConfigurationDefaultPagesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/defaultPages"
+	return bb
+}
+
+// UserFlowLanguageConfigurationDefaultPagesCollectionRequestBuilder is request builder for UserFlowLanguagePage collection
+type UserFlowLanguageConfigurationDefaultPagesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UserFlowLanguagePage collection
+func (b *UserFlowLanguageConfigurationDefaultPagesCollectionRequestBuilder) Request() *UserFlowLanguageConfigurationDefaultPagesCollectionRequest {
+	return &UserFlowLanguageConfigurationDefaultPagesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UserFlowLanguagePage item
+func (b *UserFlowLanguageConfigurationDefaultPagesCollectionRequestBuilder) ID(id string) *UserFlowLanguagePageRequestBuilder {
+	bb := &UserFlowLanguagePageRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserFlowLanguageConfigurationDefaultPagesCollectionRequest is request for UserFlowLanguagePage collection
+type UserFlowLanguageConfigurationDefaultPagesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UserFlowLanguagePage collection
+func (r *UserFlowLanguageConfigurationDefaultPagesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UserFlowLanguagePage, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UserFlowLanguagePage
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UserFlowLanguagePage
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UserFlowLanguagePage collection, max N pages
+func (r *UserFlowLanguageConfigurationDefaultPagesCollectionRequest) GetN(ctx context.Context, n int) ([]UserFlowLanguagePage, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UserFlowLanguagePage collection
+func (r *UserFlowLanguageConfigurationDefaultPagesCollectionRequest) Get(ctx context.Context) ([]UserFlowLanguagePage, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UserFlowLanguagePage collection
+func (r *UserFlowLanguageConfigurationDefaultPagesCollectionRequest) Add(ctx context.Context, reqObj *UserFlowLanguagePage) (resObj *UserFlowLanguagePage, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
+// OverridesPages returns request builder for UserFlowLanguagePage collection
+func (b *UserFlowLanguageConfigurationRequestBuilder) OverridesPages() *UserFlowLanguageConfigurationOverridesPagesCollectionRequestBuilder {
+	bb := &UserFlowLanguageConfigurationOverridesPagesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/overridesPages"
+	return bb
+}
+
+// UserFlowLanguageConfigurationOverridesPagesCollectionRequestBuilder is request builder for UserFlowLanguagePage collection
+type UserFlowLanguageConfigurationOverridesPagesCollectionRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns request for UserFlowLanguagePage collection
+func (b *UserFlowLanguageConfigurationOverridesPagesCollectionRequestBuilder) Request() *UserFlowLanguageConfigurationOverridesPagesCollectionRequest {
+	return &UserFlowLanguageConfigurationOverridesPagesCollectionRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// ID returns request builder for UserFlowLanguagePage item
+func (b *UserFlowLanguageConfigurationOverridesPagesCollectionRequestBuilder) ID(id string) *UserFlowLanguagePageRequestBuilder {
+	bb := &UserFlowLanguagePageRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/" + id
+	return bb
+}
+
+// UserFlowLanguageConfigurationOverridesPagesCollectionRequest is request for UserFlowLanguagePage collection
+type UserFlowLanguageConfigurationOverridesPagesCollectionRequest struct{ BaseRequest }
+
+// Paging perfoms paging operation for UserFlowLanguagePage collection
+func (r *UserFlowLanguageConfigurationOverridesPagesCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UserFlowLanguagePage, error) {
+	req, err := r.NewJSONRequest(method, path, obj)
+	if err != nil {
+		return nil, err
+	}
+	if ctx != nil {
+		req = req.WithContext(ctx)
+	}
+	res, err := r.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var values []UserFlowLanguagePage
+	for {
+		if res.StatusCode != http.StatusOK {
+			b, _ := ioutil.ReadAll(res.Body)
+			res.Body.Close()
+			errRes := &ErrorResponse{Response: res}
+			err := jsonx.Unmarshal(b, errRes)
+			if err != nil {
+				return nil, fmt.Errorf("%s: %s", res.Status, string(b))
+			}
+			return nil, errRes
+		}
+		var (
+			paging Paging
+			value  []UserFlowLanguagePage
+		)
+		err := jsonx.NewDecoder(res.Body).Decode(&paging)
+		res.Body.Close()
+		if err != nil {
+			return nil, err
+		}
+		err = jsonx.Unmarshal(paging.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		values = append(values, value...)
+		if n >= 0 {
+			n--
+		}
+		if n == 0 || len(paging.NextLink) == 0 {
+			return values, nil
+		}
+		req, err = http.NewRequest("GET", paging.NextLink, nil)
+		if ctx != nil {
+			req = req.WithContext(ctx)
+		}
+		res, err = r.client.Do(req)
+		if err != nil {
+			return nil, err
+		}
+	}
+}
+
+// GetN performs GET request for UserFlowLanguagePage collection, max N pages
+func (r *UserFlowLanguageConfigurationOverridesPagesCollectionRequest) GetN(ctx context.Context, n int) ([]UserFlowLanguagePage, error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	return r.Paging(ctx, "GET", query, nil, n)
+}
+
+// Get performs GET request for UserFlowLanguagePage collection
+func (r *UserFlowLanguageConfigurationOverridesPagesCollectionRequest) Get(ctx context.Context) ([]UserFlowLanguagePage, error) {
+	return r.GetN(ctx, 0)
+}
+
+// Add performs POST request for UserFlowLanguagePage collection
+func (r *UserFlowLanguageConfigurationOverridesPagesCollectionRequest) Add(ctx context.Context, reqObj *UserFlowLanguagePage) (resObj *UserFlowLanguagePage, err error) {
+	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
+	return
+}
+
 // DeviceStates returns request builder for DeviceInstallState collection
 func (b *UserInstallStateSummaryRequestBuilder) DeviceStates() *UserInstallStateSummaryDeviceStatesCollectionRequestBuilder {
 	bb := &UserInstallStateSummaryDeviceStatesCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
@@ -4971,35 +5675,56 @@ func (r *UserInstallStateSummaryDeviceStatesCollectionRequest) Add(ctx context.C
 	return
 }
 
-// InstalledApps returns request builder for TeamsAppInstallation collection
+// Chat is navigation property
+func (b *UserScopeTeamsAppInstallationRequestBuilder) Chat() *ChatRequestBuilder {
+	bb := &ChatRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/chat"
+	return bb
+}
+
+// RegionalAndLanguageSettings is navigation property
+func (b *UserSettingsRequestBuilder) RegionalAndLanguageSettings() *RegionalAndLanguageSettingsRequestBuilder {
+	bb := &RegionalAndLanguageSettingsRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/regionalAndLanguageSettings"
+	return bb
+}
+
+// ShiftPreferences is navigation property
+func (b *UserSettingsRequestBuilder) ShiftPreferences() *ShiftPreferencesRequestBuilder {
+	bb := &ShiftPreferencesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/shiftPreferences"
+	return bb
+}
+
+// InstalledApps returns request builder for UserScopeTeamsAppInstallation collection
 func (b *UserTeamworkRequestBuilder) InstalledApps() *UserTeamworkInstalledAppsCollectionRequestBuilder {
 	bb := &UserTeamworkInstalledAppsCollectionRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/installedApps"
 	return bb
 }
 
-// UserTeamworkInstalledAppsCollectionRequestBuilder is request builder for TeamsAppInstallation collection
+// UserTeamworkInstalledAppsCollectionRequestBuilder is request builder for UserScopeTeamsAppInstallation collection
 type UserTeamworkInstalledAppsCollectionRequestBuilder struct{ BaseRequestBuilder }
 
-// Request returns request for TeamsAppInstallation collection
+// Request returns request for UserScopeTeamsAppInstallation collection
 func (b *UserTeamworkInstalledAppsCollectionRequestBuilder) Request() *UserTeamworkInstalledAppsCollectionRequest {
 	return &UserTeamworkInstalledAppsCollectionRequest{
 		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
 	}
 }
 
-// ID returns request builder for TeamsAppInstallation item
-func (b *UserTeamworkInstalledAppsCollectionRequestBuilder) ID(id string) *TeamsAppInstallationRequestBuilder {
-	bb := &TeamsAppInstallationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+// ID returns request builder for UserScopeTeamsAppInstallation item
+func (b *UserTeamworkInstalledAppsCollectionRequestBuilder) ID(id string) *UserScopeTeamsAppInstallationRequestBuilder {
+	bb := &UserScopeTeamsAppInstallationRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
 	bb.baseURL += "/" + id
 	return bb
 }
 
-// UserTeamworkInstalledAppsCollectionRequest is request for TeamsAppInstallation collection
+// UserTeamworkInstalledAppsCollectionRequest is request for UserScopeTeamsAppInstallation collection
 type UserTeamworkInstalledAppsCollectionRequest struct{ BaseRequest }
 
-// Paging perfoms paging operation for TeamsAppInstallation collection
-func (r *UserTeamworkInstalledAppsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]TeamsAppInstallation, error) {
+// Paging perfoms paging operation for UserScopeTeamsAppInstallation collection
+func (r *UserTeamworkInstalledAppsCollectionRequest) Paging(ctx context.Context, method, path string, obj interface{}, n int) ([]UserScopeTeamsAppInstallation, error) {
 	req, err := r.NewJSONRequest(method, path, obj)
 	if err != nil {
 		return nil, err
@@ -5011,7 +5736,7 @@ func (r *UserTeamworkInstalledAppsCollectionRequest) Paging(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	var values []TeamsAppInstallation
+	var values []UserScopeTeamsAppInstallation
 	for {
 		if res.StatusCode != http.StatusOK {
 			b, _ := ioutil.ReadAll(res.Body)
@@ -5025,7 +5750,7 @@ func (r *UserTeamworkInstalledAppsCollectionRequest) Paging(ctx context.Context,
 		}
 		var (
 			paging Paging
-			value  []TeamsAppInstallation
+			value  []UserScopeTeamsAppInstallation
 		)
 		err := jsonx.NewDecoder(res.Body).Decode(&paging)
 		res.Body.Close()
@@ -5054,8 +5779,8 @@ func (r *UserTeamworkInstalledAppsCollectionRequest) Paging(ctx context.Context,
 	}
 }
 
-// GetN performs GET request for TeamsAppInstallation collection, max N pages
-func (r *UserTeamworkInstalledAppsCollectionRequest) GetN(ctx context.Context, n int) ([]TeamsAppInstallation, error) {
+// GetN performs GET request for UserScopeTeamsAppInstallation collection, max N pages
+func (r *UserTeamworkInstalledAppsCollectionRequest) GetN(ctx context.Context, n int) ([]UserScopeTeamsAppInstallation, error) {
 	var query string
 	if r.query != nil {
 		query = "?" + r.query.Encode()
@@ -5063,13 +5788,13 @@ func (r *UserTeamworkInstalledAppsCollectionRequest) GetN(ctx context.Context, n
 	return r.Paging(ctx, "GET", query, nil, n)
 }
 
-// Get performs GET request for TeamsAppInstallation collection
-func (r *UserTeamworkInstalledAppsCollectionRequest) Get(ctx context.Context) ([]TeamsAppInstallation, error) {
+// Get performs GET request for UserScopeTeamsAppInstallation collection
+func (r *UserTeamworkInstalledAppsCollectionRequest) Get(ctx context.Context) ([]UserScopeTeamsAppInstallation, error) {
 	return r.GetN(ctx, 0)
 }
 
-// Add performs POST request for TeamsAppInstallation collection
-func (r *UserTeamworkInstalledAppsCollectionRequest) Add(ctx context.Context, reqObj *TeamsAppInstallation) (resObj *TeamsAppInstallation, err error) {
+// Add performs POST request for UserScopeTeamsAppInstallation collection
+func (r *UserTeamworkInstalledAppsCollectionRequest) Add(ctx context.Context, reqObj *UserScopeTeamsAppInstallation) (resObj *UserScopeTeamsAppInstallation, err error) {
 	err = r.JSONRequest(ctx, "POST", "", reqObj, &resObj)
 	return
 }

@@ -8,14 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
-
-// InformationProtectionLabelCollectionExtractLabelRequestParameter undocumented
-type InformationProtectionLabelCollectionExtractLabelRequestParameter struct {
-	// ContentInfo undocumented
-	ContentInfo *ContentInfo `json:"contentInfo,omitempty"`
-}
 
 // InformationProtectionLabelCollectionEvaluateApplicationRequestParameter undocumented
 type InformationProtectionLabelCollectionEvaluateApplicationRequestParameter struct {
@@ -23,14 +17,6 @@ type InformationProtectionLabelCollectionEvaluateApplicationRequestParameter str
 	ContentInfo *ContentInfo `json:"contentInfo,omitempty"`
 	// LabelingOptions undocumented
 	LabelingOptions *LabelingOptions `json:"labelingOptions,omitempty"`
-}
-
-// InformationProtectionLabelCollectionEvaluateRemovalRequestParameter undocumented
-type InformationProtectionLabelCollectionEvaluateRemovalRequestParameter struct {
-	// ContentInfo undocumented
-	ContentInfo *ContentInfo `json:"contentInfo,omitempty"`
-	// DowngradeJustification undocumented
-	DowngradeJustification *DowngradeJustification `json:"downgradeJustification,omitempty"`
 }
 
 // InformationProtectionLabelCollectionEvaluateClassificationResultsRequestParameter undocumented
@@ -41,14 +27,25 @@ type InformationProtectionLabelCollectionEvaluateClassificationResultsRequestPar
 	ClassificationResults []ClassificationResult `json:"classificationResults,omitempty"`
 }
 
-// InformationProtectionEvaluateLabelsAndPoliciesRequestParameter undocumented
-type InformationProtectionEvaluateLabelsAndPoliciesRequestParameter struct {
-	// EvaluateSensitivityLabels undocumented
-	EvaluateSensitivityLabels *EvaluateSensitivityLabelsRequestObject `json:"evaluateSensitivityLabels,omitempty"`
-	// EvaluateDataLossPreventionPolicies undocumented
-	EvaluateDataLossPreventionPolicies *DlpEvaluatePoliciesRequestObject `json:"evaluateDataLossPreventionPolicies,omitempty"`
-	// ClassifyText undocumented
-	ClassifyText *TextClassificationRequestObject `json:"classifyText,omitempty"`
+// InformationProtectionLabelCollectionEvaluateRemovalRequestParameter undocumented
+type InformationProtectionLabelCollectionEvaluateRemovalRequestParameter struct {
+	// ContentInfo undocumented
+	ContentInfo *ContentInfo `json:"contentInfo,omitempty"`
+	// DowngradeJustification undocumented
+	DowngradeJustification *DowngradeJustification `json:"downgradeJustification,omitempty"`
+}
+
+// InformationProtectionLabelCollectionExtractLabelRequestParameter undocumented
+type InformationProtectionLabelCollectionExtractLabelRequestParameter struct {
+	// ContentInfo undocumented
+	ContentInfo *ContentInfo `json:"contentInfo,omitempty"`
+}
+
+// Bitlocker is navigation property
+func (b *InformationProtectionRequestBuilder) Bitlocker() *BitlockerRequestBuilder {
+	bb := &BitlockerRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.baseURL += "/bitlocker"
+	return bb
 }
 
 // DataLossPreventionPolicies returns request builder for DataLossPreventionPolicy collection

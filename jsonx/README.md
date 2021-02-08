@@ -7,6 +7,7 @@ which enables extra map field (with `jsonx:"true"` tag) to catch all other field
 and not related to [JSONx](https://tools.ietf.org/html/draft-rsalz-jsonx-00).
 
 Example ([Run on playgroud](https://play.golang.org/p/TZi0JeHYG69))
+
 ```go
 package main
 
@@ -14,7 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
 
 type Extra struct {
@@ -52,4 +53,3 @@ Marshal input: main.Extra{X:"456", Y:456, Extra:map[string]interface {}{"A":"456
  json.Marshal: {"X":"456","Y":456}
 jsonx.Marshal: {"X":"456","Y":456,"A":"456","B":456}
 ```
-

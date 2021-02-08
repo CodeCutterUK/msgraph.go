@@ -164,6 +164,33 @@ func (r *DataLossPreventionPolicyCollectionEvaluateRequest) Post(ctx context.Con
 }
 
 //
+type DataClassificationServiceClassifyExactMatchesRequestBuilder struct{ BaseRequestBuilder }
+
+// ClassifyExactMatches action undocumented
+func (b *DataClassificationServiceRequestBuilder) ClassifyExactMatches(reqObj *DataClassificationServiceClassifyExactMatchesRequestParameter) *DataClassificationServiceClassifyExactMatchesRequestBuilder {
+	bb := &DataClassificationServiceClassifyExactMatchesRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/classifyExactMatches"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type DataClassificationServiceClassifyExactMatchesRequest struct{ BaseRequest }
+
+//
+func (b *DataClassificationServiceClassifyExactMatchesRequestBuilder) Request() *DataClassificationServiceClassifyExactMatchesRequest {
+	return &DataClassificationServiceClassifyExactMatchesRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *DataClassificationServiceClassifyExactMatchesRequest) Post(ctx context.Context) (resObj *ExactMatchClassificationResult, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
 type DataSharingConsentConsentToDataSharingRequestBuilder struct{ BaseRequestBuilder }
 
 // ConsentToDataSharing action undocumented

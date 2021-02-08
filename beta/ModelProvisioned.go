@@ -6,14 +6,14 @@ package msgraph
 type ProvisionedIdentity struct {
 	// Object is the base model of ProvisionedIdentity
 	Object
-	// ID undocumented
-	ID *string `json:"id,omitempty"`
-	// DisplayName undocumented
-	DisplayName *string `json:"displayName,omitempty"`
-	// IdentityType undocumented
-	IdentityType *string `json:"identityType,omitempty"`
 	// Details undocumented
 	Details *DetailsInfo `json:"details,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// ID undocumented
+	ID *string `json:"id,omitempty"`
+	// IdentityType undocumented
+	IdentityType *string `json:"identityType,omitempty"`
 }
 
 // ProvisionedPlan undocumented

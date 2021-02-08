@@ -8,8 +8,24 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// DepOnboardingSettingGenerateEncryptionPublicKeyRequestParameter undocumented
+type DepOnboardingSettingGenerateEncryptionPublicKeyRequestParameter struct {
+}
+
+// DepOnboardingSettingShareForSchoolDataSyncServiceRequestParameter undocumented
+type DepOnboardingSettingShareForSchoolDataSyncServiceRequestParameter struct {
+}
+
+// DepOnboardingSettingSyncWithAppleDeviceEnrollmentProgramRequestParameter undocumented
+type DepOnboardingSettingSyncWithAppleDeviceEnrollmentProgramRequestParameter struct {
+}
+
+// DepOnboardingSettingUnshareForSchoolDataSyncServiceRequestParameter undocumented
+type DepOnboardingSettingUnshareForSchoolDataSyncServiceRequestParameter struct {
+}
 
 // DepOnboardingSettingUploadDepTokenRequestParameter undocumented
 type DepOnboardingSettingUploadDepTokenRequestParameter struct {
@@ -17,18 +33,6 @@ type DepOnboardingSettingUploadDepTokenRequestParameter struct {
 	AppleID *string `json:"appleId,omitempty"`
 	// DepToken undocumented
 	DepToken *string `json:"depToken,omitempty"`
-}
-
-// DepOnboardingSettingSyncWithAppleDeviceEnrollmentProgramRequestParameter undocumented
-type DepOnboardingSettingSyncWithAppleDeviceEnrollmentProgramRequestParameter struct {
-}
-
-// DepOnboardingSettingShareForSchoolDataSyncServiceRequestParameter undocumented
-type DepOnboardingSettingShareForSchoolDataSyncServiceRequestParameter struct {
-}
-
-// DepOnboardingSettingUnshareForSchoolDataSyncServiceRequestParameter undocumented
-type DepOnboardingSettingUnshareForSchoolDataSyncServiceRequestParameter struct {
 }
 
 // DefaultIOSEnrollmentProfile is navigation property

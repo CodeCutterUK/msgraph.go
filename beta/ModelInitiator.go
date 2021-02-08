@@ -6,10 +6,10 @@ package msgraph
 type Initiator struct {
 	// Object is the base model of Initiator
 	Object
-	// ID undocumented
-	ID *string `json:"id,omitempty"`
 	// DisplayName undocumented
 	DisplayName *string `json:"displayName,omitempty"`
+	// ID undocumented
+	ID *string `json:"id,omitempty"`
 	// InitiatorType undocumented
 	InitiatorType *InitiatorType `json:"initiatorType,omitempty"`
 }

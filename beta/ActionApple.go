@@ -8,8 +8,12 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/yaegashi/msgraph.go/jsonx"
+	"github.com/codecutteruk/msgraph.go/jsonx"
 )
+
+// ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestParameter undocumented
+type ApplePushNotificationCertificateGenerateApplePushNotificationCertificateSigningRequestActionRequestParameter struct {
+}
 
 // AppleUserInitiatedEnrollmentProfileSetPriorityRequestParameter undocumented
 type AppleUserInitiatedEnrollmentProfileSetPriorityRequestParameter struct {

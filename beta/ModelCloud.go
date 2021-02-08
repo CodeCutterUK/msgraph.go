@@ -72,4 +72,184 @@ type CloudCommunications struct {
 	Calls []Call `json:"calls,omitempty"`
 	// OnlineMeetings undocumented
 	OnlineMeetings []OnlineMeeting `json:"onlineMeetings,omitempty"`
+	// Presences undocumented
+	Presences []Presence `json:"presences,omitempty"`
+}
+
+// CloudPC undocumented
+type CloudPC struct {
+	// Entity is the base model of CloudPC
+	Entity
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// ImageDisplayName undocumented
+	ImageDisplayName *string `json:"imageDisplayName,omitempty"`
+	// LastModifiedDateTime undocumented
+	LastModifiedDateTime *time.Time `json:"lastModifiedDateTime,omitempty"`
+	// ManagedDeviceID undocumented
+	ManagedDeviceID *string `json:"managedDeviceId,omitempty"`
+	// ManagedDeviceName undocumented
+	ManagedDeviceName *string `json:"managedDeviceName,omitempty"`
+	// ProvisioningPolicyID undocumented
+	ProvisioningPolicyID *string `json:"provisioningPolicyId,omitempty"`
+	// ServicePlanID undocumented
+	ServicePlanID *string `json:"servicePlanId,omitempty"`
+	// ServicePlanName undocumented
+	ServicePlanName *string `json:"servicePlanName,omitempty"`
+	// Status undocumented
+	Status *CloudPcStatus `json:"status,omitempty"`
+	// StatusDetails undocumented
+	StatusDetails *CloudPcStatusDetails `json:"statusDetails,omitempty"`
+	// UserPrincipalName undocumented
+	UserPrincipalName *string `json:"userPrincipalName,omitempty"`
+}
+
+// CloudPcDeviceImage undocumented
+type CloudPcDeviceImage struct {
+	// Entity is the base model of CloudPcDeviceImage
+	Entity
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// LastModifiedDateTime undocumented
+	LastModifiedDateTime *time.Time `json:"lastModifiedDateTime,omitempty"`
+	// OperatingSystem undocumented
+	OperatingSystem *string `json:"operatingSystem,omitempty"`
+	// OsBuildNumber undocumented
+	OsBuildNumber *string `json:"osBuildNumber,omitempty"`
+	// SourceImageResourceID undocumented
+	SourceImageResourceID *string `json:"sourceImageResourceId,omitempty"`
+	// Status undocumented
+	Status *CloudPcDeviceImageStatus `json:"status,omitempty"`
+	// StatusDetails undocumented
+	StatusDetails *CloudPcDeviceImageStatusDetails `json:"statusDetails,omitempty"`
+	// Version undocumented
+	Version *string `json:"version,omitempty"`
+}
+
+// CloudPcManagementAssignmentTarget undocumented
+type CloudPcManagementAssignmentTarget struct {
+	// Object is the base model of CloudPcManagementAssignmentTarget
+	Object
+}
+
+// CloudPcManagementGroupAssignmentTarget undocumented
+type CloudPcManagementGroupAssignmentTarget struct {
+	// CloudPcManagementAssignmentTarget is the base model of CloudPcManagementGroupAssignmentTarget
+	CloudPcManagementAssignmentTarget
+	// GroupID undocumented
+	GroupID *string `json:"groupId,omitempty"`
+}
+
+// CloudPcOnPremisesConnection undocumented
+type CloudPcOnPremisesConnection struct {
+	// Entity is the base model of CloudPcOnPremisesConnection
+	Entity
+	// AdDomainName undocumented
+	AdDomainName *string `json:"adDomainName,omitempty"`
+	// AdDomainPassword undocumented
+	AdDomainPassword *string `json:"adDomainPassword,omitempty"`
+	// AdDomainUsername undocumented
+	AdDomainUsername *string `json:"adDomainUsername,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// HealthCheckStatus undocumented
+	HealthCheckStatus *CloudPcOnPremisesConnectionStatus `json:"healthCheckStatus,omitempty"`
+	// HealthCheckStatusDetails undocumented
+	HealthCheckStatusDetails *CloudPcOnPremisesConnectionStatusDetails `json:"healthCheckStatusDetails,omitempty"`
+	// InUse undocumented
+	InUse *bool `json:"inUse,omitempty"`
+	// OrganizationalUnit undocumented
+	OrganizationalUnit *string `json:"organizationalUnit,omitempty"`
+	// ResourceGroupID undocumented
+	ResourceGroupID *string `json:"resourceGroupId,omitempty"`
+	// SubnetID undocumented
+	SubnetID *string `json:"subnetId,omitempty"`
+	// SubscriptionID undocumented
+	SubscriptionID *string `json:"subscriptionId,omitempty"`
+	// SubscriptionName undocumented
+	SubscriptionName *string `json:"subscriptionName,omitempty"`
+	// VirtualNetworkID undocumented
+	VirtualNetworkID *string `json:"virtualNetworkId,omitempty"`
+}
+
+// CloudPcOnPremisesConnectionHealthCheck undocumented
+type CloudPcOnPremisesConnectionHealthCheck struct {
+	// Object is the base model of CloudPcOnPremisesConnectionHealthCheck
+	Object
+	// AdditionalDetails undocumented
+	AdditionalDetails *string `json:"additionalDetails,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// EndDateTime undocumented
+	EndDateTime *time.Time `json:"endDateTime,omitempty"`
+	// ErrorType undocumented
+	ErrorType *CloudPcOnPremisesConnectionHealthCheckErrorType `json:"errorType,omitempty"`
+	// RecommendedAction undocumented
+	RecommendedAction *string `json:"recommendedAction,omitempty"`
+	// StartDateTime undocumented
+	StartDateTime *time.Time `json:"startDateTime,omitempty"`
+	// Status undocumented
+	Status *CloudPcOnPremisesConnectionStatus `json:"status,omitempty"`
+}
+
+// CloudPcOnPremisesConnectionStatusDetails undocumented
+type CloudPcOnPremisesConnectionStatusDetails struct {
+	// Object is the base model of CloudPcOnPremisesConnectionStatusDetails
+	Object
+	// EndDateTime undocumented
+	EndDateTime *time.Time `json:"endDateTime,omitempty"`
+	// HealthChecks undocumented
+	HealthChecks []CloudPcOnPremisesConnectionHealthCheck `json:"healthChecks,omitempty"`
+	// StartDateTime undocumented
+	StartDateTime *time.Time `json:"startDateTime,omitempty"`
+}
+
+// CloudPcProvisioningPolicy undocumented
+type CloudPcProvisioningPolicy struct {
+	// Entity is the base model of CloudPcProvisioningPolicy
+	Entity
+	// Description undocumented
+	Description *string `json:"description,omitempty"`
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// ImageDisplayName undocumented
+	ImageDisplayName *string `json:"imageDisplayName,omitempty"`
+	// ImageID undocumented
+	ImageID *string `json:"imageId,omitempty"`
+	// ImageType undocumented
+	ImageType *CloudPcProvisioningPolicyImageType `json:"imageType,omitempty"`
+	// OnPremisesConnectionID undocumented
+	OnPremisesConnectionID *string `json:"onPremisesConnectionId,omitempty"`
+	// Assignments undocumented
+	Assignments []CloudPcProvisioningPolicyAssignment `json:"assignments,omitempty"`
+}
+
+// CloudPcProvisioningPolicyAssignment undocumented
+type CloudPcProvisioningPolicyAssignment struct {
+	// Entity is the base model of CloudPcProvisioningPolicyAssignment
+	Entity
+	// Target undocumented
+	Target *CloudPcManagementAssignmentTarget `json:"target,omitempty"`
+}
+
+// CloudPcSourceDeviceImage undocumented
+type CloudPcSourceDeviceImage struct {
+	// Object is the base model of CloudPcSourceDeviceImage
+	Object
+	// DisplayName undocumented
+	DisplayName *string `json:"displayName,omitempty"`
+	// ID undocumented
+	ID *string `json:"id,omitempty"`
+}
+
+// CloudPcStatusDetails undocumented
+type CloudPcStatusDetails struct {
+	// Object is the base model of CloudPcStatusDetails
+	Object
+	// AdditionalInformation undocumented
+	AdditionalInformation []KeyValuePair `json:"additionalInformation,omitempty"`
+	// Code undocumented
+	Code *string `json:"code,omitempty"`
+	// Message undocumented
+	Message *string `json:"message,omitempty"`
 }

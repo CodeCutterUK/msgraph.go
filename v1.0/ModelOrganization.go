@@ -46,6 +46,8 @@ type Organization struct {
 	Street *string `json:"street,omitempty"`
 	// TechnicalNotificationMails undocumented
 	TechnicalNotificationMails []string `json:"technicalNotificationMails,omitempty"`
+	// TenantType undocumented
+	TenantType *string `json:"tenantType,omitempty"`
 	// VerifiedDomains undocumented
 	VerifiedDomains []VerifiedDomain `json:"verifiedDomains,omitempty"`
 	// MobileDeviceManagementAuthority Mobile device management authority.

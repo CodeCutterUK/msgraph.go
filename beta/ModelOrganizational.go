@@ -4,7 +4,21 @@ package msgraph
 
 // OrganizationalBranding undocumented
 type OrganizationalBranding struct {
-	// Entity is the base model of OrganizationalBranding
+	// OrganizationalBrandingProperties is the base model of OrganizationalBranding
+	OrganizationalBrandingProperties
+	// Localizations undocumented
+	Localizations []OrganizationalBrandingLocalization `json:"localizations,omitempty"`
+}
+
+// OrganizationalBrandingLocalization undocumented
+type OrganizationalBrandingLocalization struct {
+	// OrganizationalBrandingProperties is the base model of OrganizationalBrandingLocalization
+	OrganizationalBrandingProperties
+}
+
+// OrganizationalBrandingProperties undocumented
+type OrganizationalBrandingProperties struct {
+	// Entity is the base model of OrganizationalBrandingProperties
 	Entity
 	// BackgroundColor undocumented
 	BackgroundColor *string `json:"backgroundColor,omitempty"`
@@ -12,8 +26,6 @@ type OrganizationalBranding struct {
 	BackgroundImage *Stream `json:"backgroundImage,omitempty"`
 	// BannerLogo undocumented
 	BannerLogo *Stream `json:"bannerLogo,omitempty"`
-	// Locale undocumented
-	Locale *string `json:"locale,omitempty"`
 	// SignInPageText undocumented
 	SignInPageText *string `json:"signInPageText,omitempty"`
 	// SquareLogo undocumented

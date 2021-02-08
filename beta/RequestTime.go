@@ -4,6 +4,39 @@ package msgraph
 
 import "context"
 
+// TimeCardRequestBuilder is request builder for TimeCard
+type TimeCardRequestBuilder struct{ BaseRequestBuilder }
+
+// Request returns TimeCardRequest
+func (b *TimeCardRequestBuilder) Request() *TimeCardRequest {
+	return &TimeCardRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client},
+	}
+}
+
+// TimeCardRequest is request for TimeCard
+type TimeCardRequest struct{ BaseRequest }
+
+// Get performs GET request for TimeCard
+func (r *TimeCardRequest) Get(ctx context.Context) (resObj *TimeCard, err error) {
+	var query string
+	if r.query != nil {
+		query = "?" + r.query.Encode()
+	}
+	err = r.JSONRequest(ctx, "GET", query, nil, &resObj)
+	return
+}
+
+// Update performs PATCH request for TimeCard
+func (r *TimeCardRequest) Update(ctx context.Context, reqObj *TimeCard) error {
+	return r.JSONRequest(ctx, "PATCH", "", reqObj, nil)
+}
+
+// Delete performs DELETE request for TimeCard
+func (r *TimeCardRequest) Delete(ctx context.Context) error {
+	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
 // TimeOffRequestBuilder is request builder for TimeOff
 type TimeOffRequestBuilder struct{ BaseRequestBuilder }
 
@@ -101,4 +134,139 @@ func (r *TimeOffRequestObjectRequest) Update(ctx context.Context, reqObj *TimeOf
 // Delete performs DELETE request for TimeOffRequestObject
 func (r *TimeOffRequestObjectRequest) Delete(ctx context.Context) error {
 	return r.JSONRequest(ctx, "DELETE", "", nil, nil)
+}
+
+//
+type TimeCardCollectionClockInRequestBuilder struct{ BaseRequestBuilder }
+
+// ClockIn action undocumented
+func (b *ScheduleTimeCardsCollectionRequestBuilder) ClockIn(reqObj *TimeCardCollectionClockInRequestParameter) *TimeCardCollectionClockInRequestBuilder {
+	bb := &TimeCardCollectionClockInRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/clockIn"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TimeCardCollectionClockInRequest struct{ BaseRequest }
+
+//
+func (b *TimeCardCollectionClockInRequestBuilder) Request() *TimeCardCollectionClockInRequest {
+	return &TimeCardCollectionClockInRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TimeCardCollectionClockInRequest) Post(ctx context.Context) (resObj *TimeCard, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type TimeCardClockOutRequestBuilder struct{ BaseRequestBuilder }
+
+// ClockOut action undocumented
+func (b *TimeCardRequestBuilder) ClockOut(reqObj *TimeCardClockOutRequestParameter) *TimeCardClockOutRequestBuilder {
+	bb := &TimeCardClockOutRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/clockOut"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TimeCardClockOutRequest struct{ BaseRequest }
+
+//
+func (b *TimeCardClockOutRequestBuilder) Request() *TimeCardClockOutRequest {
+	return &TimeCardClockOutRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TimeCardClockOutRequest) Post(ctx context.Context) (resObj *TimeCard, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type TimeCardConfirmRequestBuilder struct{ BaseRequestBuilder }
+
+// Confirm action undocumented
+func (b *TimeCardRequestBuilder) Confirm(reqObj *TimeCardConfirmRequestParameter) *TimeCardConfirmRequestBuilder {
+	bb := &TimeCardConfirmRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/confirm"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TimeCardConfirmRequest struct{ BaseRequest }
+
+//
+func (b *TimeCardConfirmRequestBuilder) Request() *TimeCardConfirmRequest {
+	return &TimeCardConfirmRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TimeCardConfirmRequest) Post(ctx context.Context) (resObj *TimeCard, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type TimeCardEndBreakRequestBuilder struct{ BaseRequestBuilder }
+
+// EndBreak action undocumented
+func (b *TimeCardRequestBuilder) EndBreak(reqObj *TimeCardEndBreakRequestParameter) *TimeCardEndBreakRequestBuilder {
+	bb := &TimeCardEndBreakRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/endBreak"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TimeCardEndBreakRequest struct{ BaseRequest }
+
+//
+func (b *TimeCardEndBreakRequestBuilder) Request() *TimeCardEndBreakRequest {
+	return &TimeCardEndBreakRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TimeCardEndBreakRequest) Post(ctx context.Context) (resObj *TimeCard, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
+}
+
+//
+type TimeCardStartBreakRequestBuilder struct{ BaseRequestBuilder }
+
+// StartBreak action undocumented
+func (b *TimeCardRequestBuilder) StartBreak(reqObj *TimeCardStartBreakRequestParameter) *TimeCardStartBreakRequestBuilder {
+	bb := &TimeCardStartBreakRequestBuilder{BaseRequestBuilder: b.BaseRequestBuilder}
+	bb.BaseRequestBuilder.baseURL += "/startBreak"
+	bb.BaseRequestBuilder.requestObject = reqObj
+	return bb
+}
+
+//
+type TimeCardStartBreakRequest struct{ BaseRequest }
+
+//
+func (b *TimeCardStartBreakRequestBuilder) Request() *TimeCardStartBreakRequest {
+	return &TimeCardStartBreakRequest{
+		BaseRequest: BaseRequest{baseURL: b.baseURL, client: b.client, requestObject: b.requestObject},
+	}
+}
+
+//
+func (r *TimeCardStartBreakRequest) Post(ctx context.Context) (resObj *TimeCard, err error) {
+	err = r.JSONRequest(ctx, "POST", "", r.requestObject, &resObj)
+	return
 }
